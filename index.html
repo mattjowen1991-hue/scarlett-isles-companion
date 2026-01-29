@@ -38,6 +38,7 @@
             <div class="shop-subtitle">Fine Arms & Adventuring Goods</div>
         </div>
         <div class="header-right">
+            <button class="help-btn" id="helpBtn" title="Shopkeeper's Guide">?</button>
             <div class="week-badge">
             <span class="week-label">Week</span>
             <span class="week-number" id="weekNumber">1</span>
@@ -84,6 +85,63 @@
             </div>
             <div class="modal-body" id="modalBody">
                 <!-- Content populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Help Modal -->
+    <div class="modal-overlay" id="helpOverlay">
+        <div class="modal help-modal">
+            <div class="modal-header help-header">
+                <div class="help-title-section">
+                    <h2 class="modal-name">📜 Shopkeeper's Guide</h2>
+                    <p class="modal-type">A Merchant's Notice to Esteemed Adventurers</p>
+                </div>
+                <button class="modal-close" id="helpClose">&times;</button>
+            </div>
+            <div class="modal-body help-body">
+                <div class="help-section">
+                    <h3 class="help-heading">⚔️ Welcome to Knightly Treasures</h3>
+                    <p>Greetings, brave adventurer! This enchanted catalogue displays the finest arms and goods available in The Scarlett Isles. Browse our wares and prepare for your next quest!</p>
+                </div>
+                
+                <div class="help-section">
+                    <h3 class="help-heading">🔄 Weekly Stock Rotation</h3>
+                    <p>Our merchant caravans arrive each <strong>Monday at dawn</strong>, bringing fresh inventory. The current week number is displayed in the corner of your scroll.</p>
+                    <ul class="help-list">
+                        <li><span class="help-rarity common">Common</span> and <span class="help-rarity uncommon">Uncommon</span> items rotate freely each week</li>
+                        <li><span class="help-rarity rare">Rare</span> and <span class="help-rarity legendary">Legendary</span> items, once purchased, are gone forever — claimed by their new owner</li>
+                    </ul>
+                </div>
+                
+                <div class="help-section">
+                    <h3 class="help-heading">💰 Making a Purchase</h3>
+                    <ol class="help-list numbered">
+                        <li>Tap any item to view its details and properties</li>
+                        <li>Use the <strong>"Copy for D&D Beyond"</strong> button to copy the item's full description</li>
+                        <li>Add the item to your D&D Beyond character inventory</li>
+                        <li>For Rare/Legendary items, tap <strong>"Mark as Purchased"</strong> to remove it from the shop</li>
+                    </ol>
+                </div>
+                
+                <div class="help-section">
+                    <h3 class="help-heading">⭐ Favourites</h3>
+                    <p>Tap the star beside any item to mark it as a favourite. Your favourites are saved locally and will persist between visits.</p>
+                </div>
+                
+                <div class="help-section">
+                    <h3 class="help-heading">📱 Install the App</h3>
+                    <p>Add this shop to your home screen for quick access!</p>
+                    <ul class="help-list">
+                        <li><strong>iPhone:</strong> Tap Share → "Add to Home Screen"</li>
+                        <li><strong>Android:</strong> Tap Menu → "Add to Home Screen"</li>
+                    </ul>
+                </div>
+                
+                <div class="help-footer">
+                    <p><em>"May your blade stay sharp and your purse stay full!"</em></p>
+                    <p class="help-signature">— The Knightly Treasures Guild</p>
+                </div>
             </div>
         </div>
     </div>

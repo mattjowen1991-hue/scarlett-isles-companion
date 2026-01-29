@@ -399,10 +399,42 @@ function setupEventListeners() {
         modalClose.addEventListener('click', closeModal);
     }
     
+    // Help modal
+    const helpBtn = document.getElementById('helpBtn');
+    const helpOverlay = document.getElementById('helpOverlay');
+    const helpClose = document.getElementById('helpClose');
+    
+    if (helpBtn) {
+        helpBtn.addEventListener('click', () => {
+            helpOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+    
+    if (helpOverlay) {
+        helpOverlay.addEventListener('click', (e) => {
+            if (e.target === helpOverlay) {
+                helpOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
+    if (helpClose) {
+        helpClose.addEventListener('click', () => {
+            helpOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+    
     // Close modal on escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeModal();
+            if (helpOverlay) {
+                helpOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         }
     });
 }
