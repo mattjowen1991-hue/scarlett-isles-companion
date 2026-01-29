@@ -202,9 +202,10 @@
         { "name": "Scimitar", "attack": 6, "damage": "1d6+3", "type": "Slashing", "properties": "Martial, Finesse, Light, Nick" },
         { "name": "Shortbow", "attack": 7, "damage": "1d6+2", "type": "Piercing", "properties": "Simple, Ammunition, Range, Two-Handed, Vex, Range (80/320)" },
         { "name": "Shortsword", "attack": 6, "damage": "1d6+3", "type": "Piercing", "properties": "Martial, Finesse, Light, Vex" },
-        { "name": "Sun Blade", "attack": 6, "damage": "1d8+3", "type": "Radiant", "properties": "+1d8 Radiant, Martial, Versatile, Sap, Finesse" },
+        { "name": "Sun Blade", "attack": 6, "damage": "1d8+3", "type": "Radiant", "properties": "+1d8 Radiant, Martial, Versatile, Sap, Finesse", "magicItemId": "sun-blade" },
         { "name": "Unarmed Strike", "attack": 6, "damage": "4", "type": "Bludgeoning", "properties": "" }
       ],
+      "equippedMagicItems": ["sun-blade", "efreeti-chain-shirt"],
       "currency": {
         "cp": 0,
         "sp": 0,
@@ -320,12 +321,14 @@
         "languages": ["Celestial", "Common", "Common Sign Language", "Elvish", "Giant"]
       },
       "weapons": [
+        { "name": "Blackwood Composite Bow", "attack": 9, "damage": "1d10+6", "type": "Piercing", "properties": "Ammunition (150/600), Heavy, Two-Handed", "magicItemId": "blackwood-composite-bow" },
         { "name": "Longbow", "attack": 9, "damage": "1d8+4", "type": "Piercing", "properties": "Martial, Ammunition, Heavy, Range, Two-Handed, Slow, Range (150/600)" },
         { "name": "Scimitar", "attack": 7, "damage": "1d6+4", "type": "Slashing", "properties": "Martial, Finesse, Light, Nick" },
         { "name": "Shortbow", "attack": 9, "damage": "1d6+4", "type": "Piercing", "properties": "Simple, Ammunition, Range, Two-Handed, Vex, Range (80/320)" },
         { "name": "Shortsword", "attack": 7, "damage": "1d6+4", "type": "Piercing", "properties": "Martial, Finesse, Light, Vex" },
         { "name": "Unarmed Strike", "attack": 4, "damage": "2", "type": "Bludgeoning", "properties": "" }
       ],
+      "equippedMagicItems": ["blackwood-composite-bow", "sun-blade", "pendant-house-of-sun"],
       "currency": {
         "cp": 0,
         "sp": 0,
@@ -334,8 +337,9 @@
         "pp": 0
       },
       "inventory": [
-        { "name": "Sun Blade", "qty": 1, "weight": 3 },
-        { "name": "Pendant of The House of The Sun", "qty": 1, "weight": 5 },
+        { "name": "Blackwood Composite Bow", "qty": 1, "weight": 2, "magicItemId": "blackwood-composite-bow" },
+        { "name": "Sun Blade", "qty": 1, "weight": 3, "magicItemId": "sun-blade" },
+        { "name": "Pendant of The House of The Sun", "qty": 1, "weight": 5, "magicItemId": "pendant-house-of-sun" },
         { "name": "Studded Leather", "qty": 1, "weight": 13 },
         { "name": "Chain Shirt", "qty": 1, "weight": 20 },
         { "name": "Salve", "qty": 1, "weight": 0 },
@@ -463,9 +467,10 @@
         "languages": ["Common", "Dwarvish", "Giant"]
       },
       "weapons": [
-        { "name": "Sun Blade", "attack": 7, "damage": "1d8+4", "type": "Radiant", "properties": "+1d8 Radiant, Martial, Versatile, Sap, Finesse" },
+        { "name": "Sun Blade", "attack": 7, "damage": "1d8+4", "type": "Radiant", "properties": "+1d8 Radiant, Martial, Versatile, Sap, Finesse", "magicItemId": "sun-blade" },
         { "name": "Unarmed Strike", "attack": 7, "damage": "5", "type": "Bludgeoning", "properties": "" }
       ],
+      "equippedMagicItems": ["sun-blade", "shield-of-cavalier", "blackstone-greatsword"],
       "currency": {
         "cp": 0,
         "sp": 0,
@@ -596,11 +601,13 @@
         "languages": ["Celestial", "Common", "Draconic", "Dwarvish", "Elvish", "Halfling", "Orc"]
       },
       "weapons": [
+        { "name": "Earthdraw Greatbow", "attack": 6, "damage": "2d10+3", "type": "Piercing", "properties": "+2 attack/damage, Ammunition (200/800), Heavy, Two-Handed, Uses STR", "magicItemId": "earthdraw-greatbow" },
         { "name": "Scimitar", "attack": 6, "damage": "1d6+3", "type": "Slashing", "properties": "Martial, Finesse, Light, Nick" },
         { "name": "Shortsword", "attack": 6, "damage": "1d6+3", "type": "Piercing", "properties": "Martial, Finesse, Light, Vex" },
         { "name": "Poison Spray", "attack": 5, "damage": "2d12", "type": "Poison", "properties": "V/S" },
         { "name": "Unarmed Strike", "attack": 4, "damage": "2", "type": "Bludgeoning", "properties": "" }
       ],
+      "equippedMagicItems": ["earthdraw-greatbow"],
       "currency": {
         "cp": 0,
         "sp": 0,
@@ -609,8 +616,8 @@
         "pp": 0
       },
       "inventory": [
+        { "name": "Earthdraw Greatbow", "qty": 1, "weight": 4, "magicItemId": "earthdraw-greatbow" },
         { "name": "Studded Leather", "qty": 1, "weight": 13 },
-        { "name": "Earthdraw Greatbow", "qty": 1, "weight": 0 },
         { "name": "Scimitar", "qty": 1, "weight": 3 },
         { "name": "Shortsword", "qty": 1, "weight": 2 },
         { "name": "Ink (1 ounce bottle)", "qty": 2, "weight": 0 },

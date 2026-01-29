@@ -1,0 +1,172 @@
+{
+  "magicItems": [
+    {
+      "id": "blackwood-composite-bow",
+      "name": "Blackwood Composite Bow",
+      "type": "Weapon (longbow)",
+      "rarity": "Rare",
+      "cost": 650,
+      "attunement": false,
+      "damage": "1d10 +2 piercing",
+      "properties": ["Ammunition (range 150/600)", "Heavy", "Two-Handed"],
+      "description": "Layered blackwood, horn, and sinew are bound under pressure and resin, creating a bow that stores violence like a coiled root. When fully drawn, the limbs strain with barely contained force, eager to release.",
+      "features": [
+        {
+          "name": "Long-Range Supremacy",
+          "description": "You have advantage on attack rolls made at long range with this bow. Long-range attacks with this bow do not impose disadvantage. Light obscurement from natural terrain (foliage, roots, rain, mist) does not impose disadvantage at long range."
+        },
+        {
+          "name": "Composite Force",
+          "description": "The bow's construction transfers exceptional kinetic force: Once per turn, when you hit a target at long range, you may add your proficiency bonus to the damage roll. This bonus represents stored tension and release, not precision."
+        },
+        {
+          "name": "Punch-Through Shot",
+          "description": "When you score a critical hit, the arrow drives with brutal force: The attack deals an additional damage die (for a total of 3d10 + modifiers)."
+        },
+        {
+          "name": "Forest-Hardened Craft",
+          "description": "This weapon is exceptionally crafted, though not magical. It ignores resistance that specifies crude, mundane, or poorly made weapons (DM adjudication). It does not bypass resistance or immunity to nonmagical weapons."
+        }
+      ],
+      "icon": "bow-arrow"
+    },
+    {
+      "id": "earthdraw-greatbow",
+      "name": "Earthdraw Greatbow",
+      "type": "Weapon (greatbow)",
+      "rarity": "Very Rare",
+      "cost": 1500,
+      "attunement": "Strength 13 or higher",
+      "damage": "2d10 piercing",
+      "bonus": "+2 to attack and damage rolls",
+      "properties": ["Ammunition (range 200/800)", "Heavy", "Two-Handed", "Brutal", "Special"],
+      "description": "This colossal bow is grown from fused heartwood and stone-veined yew, its limbs as thick as a warrior's forearm. The grip is wrapped in cured root-leather, rough and unforgiving. When drawn, the bow does not creak or sing. It grinds, like tectonic plates shifting. The ground beneath the wielder subtly tightens.",
+      "features": [
+        {
+          "name": "Ability Score",
+          "description": "This weapon uses Strength, not Dexterity, for attack and damage rolls."
+        },
+        {
+          "name": "Brutal Draw",
+          "description": "When rolling damage for this weapon, reroll any result of 1 or 2 on the damage dice once. You must use the new result. This applies to all damage dice rolled as part of the attack."
+        },
+        {
+          "name": "Earthbound Momentum",
+          "description": "Once per turn, when you hit a creature with this bow, you may apply one of the following effects:\n• Crushing Impact: Add your Strength modifier again to the damage roll.\n• Grounding Shot: The target's speed is reduced to 0 until the start of your next turn.\n• Staggering Force: The target must succeed on a Strength saving throw (DC = 8 + your proficiency bonus + your Strength modifier) or be knocked prone.\nYou choose after the hit is confirmed."
+        },
+        {
+          "name": "Siege-Grade Penetration",
+          "description": "Attacks made with this bow ignore half and three-quarters cover. Treat objects, structures, and constructs as vulnerable to its damage. When damaging objects, this weapon deals double damage."
+        },
+        {
+          "name": "Earthdraw (Special)",
+          "description": "Drawing the bow fully requires force, not finesse. You cannot make more than two attacks per turn with this weapon, regardless of features such as Extra Attack. You cannot make opportunity attacks with this weapon. If your Strength is reduced below 13, you cannot draw the bow at all. This is intentional. Every shot matters."
+        },
+        {
+          "name": "Resonant Impact",
+          "description": "On a critical hit, the arrow hits like a falling boulder: The target takes an additional 2d10 bludgeoning damage. Creatures of your choice within 10 feet of the target must succeed on a Strength save or be knocked prone. The earth remembers the blow."
+        }
+      ],
+      "icon": "crossbow"
+    },
+    {
+      "id": "sun-blade",
+      "name": "Sun Blade",
+      "type": "Weapon (longsword)",
+      "rarity": "Rare",
+      "cost": 12000,
+      "attunement": true,
+      "damage": "1d8 radiant (versatile 1d10)",
+      "bonus": "+2 to attack and damage rolls",
+      "properties": ["Versatile", "Finesse"],
+      "description": "This item appears to be a longsword hilt. While grasping the hilt, you can use a bonus action to cause a blade of pure radiance to spring into existence, or make the blade disappear.",
+      "features": [
+        {
+          "name": "Radiant Blade",
+          "description": "While the blade exists, this magic longsword has the finesse property. If you are proficient with shortswords or longswords, you are proficient with the sun blade."
+        },
+        {
+          "name": "Radiant Damage",
+          "description": "The blade deals radiant damage instead of slashing damage. When you hit an undead with it, that target takes an extra 1d8 radiant damage."
+        },
+        {
+          "name": "Sunlight",
+          "description": "The sword's luminous blade emits bright light in a 15-foot radius and dim light for an additional 15 feet. The light is sunlight. While the blade persists, you can use an action to expand or reduce its radius of bright and dim light by 5 feet each, to a maximum of 30 feet each or a minimum of 10 feet each."
+        }
+      ],
+      "icon": "sword-brandish"
+    },
+    {
+      "id": "pendant-house-of-sun",
+      "name": "Pendant of The House of The Sun",
+      "type": "Wondrous Item",
+      "rarity": "Uncommon",
+      "cost": 500,
+      "attunement": true,
+      "description": "A golden pendant bearing the symbol of the House of the Sun, warm to the touch even in the coldest conditions.",
+      "features": [
+        {
+          "name": "Solar Blessing",
+          "description": "While wearing this pendant, you have advantage on saving throws against being frightened."
+        }
+      ],
+      "icon": "sun"
+    },
+    {
+      "id": "shield-of-cavalier",
+      "name": "Shield of the Cavalier",
+      "type": "Armor (shield)",
+      "rarity": "Rare",
+      "cost": 2000,
+      "attunement": true,
+      "description": "A sturdy shield emblazoned with a charging horse, favored by those who protect others.",
+      "features": [
+        {
+          "name": "Guardian",
+          "description": "While holding this shield, you can use your reaction to impose disadvantage on an attack roll made against a creature within 5 feet of you."
+        }
+      ],
+      "icon": "shield"
+    },
+    {
+      "id": "blackstone-greatsword",
+      "name": "Blackstone Greatsword",
+      "type": "Weapon (greatsword)",
+      "rarity": "Uncommon",
+      "cost": 800,
+      "attunement": false,
+      "damage": "2d6 slashing",
+      "bonus": "+1 to attack and damage rolls",
+      "properties": ["Heavy", "Two-Handed"],
+      "description": "Forged from ore mined deep within the Blackstone mountains, this greatsword carries the weight of the earth itself.",
+      "features": [
+        {
+          "name": "Earthen Weight",
+          "description": "When you hit a creature with this weapon, you can choose to knock them back 5 feet if they are Large or smaller."
+        }
+      ],
+      "icon": "broadsword"
+    },
+    {
+      "id": "efreeti-chain-shirt",
+      "name": "Efreeti Chain Shirt",
+      "type": "Armor (chain shirt)",
+      "rarity": "Rare",
+      "cost": 3000,
+      "attunement": true,
+      "ac": "13 + Dex modifier (max 2)",
+      "description": "This chain shirt is forged from links of bronze and brass, perpetually warm to the touch. It was crafted by efreeti smiths in the City of Brass.",
+      "features": [
+        {
+          "name": "Fire Resistance",
+          "description": "While wearing this armor, you have resistance to fire damage."
+        },
+        {
+          "name": "Warm Presence",
+          "description": "You are comfortable in temperatures as low as -50 degrees Fahrenheit."
+        }
+      ],
+      "icon": "chain-mail"
+    }
+  ]
+}

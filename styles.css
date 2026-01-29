@@ -668,6 +668,267 @@ body {
 }
 
 /* ============================================
+   MAGIC ITEMS TAB
+   ============================================ */
+
+.magic-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.no-items {
+    text-align: center;
+    color: var(--text-muted);
+    padding: var(--spacing-xl);
+    font-size: 1rem;
+}
+
+.magic-item-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.magic-item-card:active {
+    background: var(--bg-card-hover);
+    transform: scale(0.98);
+}
+
+.magic-item-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.magic-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.magic-item-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 2px;
+}
+
+.magic-item-type {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.magic-item-damage {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    margin-top: 4px;
+}
+
+.magic-item-arrow {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+}
+
+/* Rarity Colors */
+.rarity-common { color: var(--text-secondary); }
+.rarity-uncommon { color: #1eff00; }
+.rarity-rare { color: #0070dd; }
+.rarity-very-rare { color: #a335ee; }
+.rarity-legendary { color: #ff8000; }
+.rarity-artifact { color: #e6cc80; }
+
+/* ============================================
+   ITEM DETAIL MODAL
+   ============================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    padding: var(--spacing-md);
+    overflow-y: auto;
+}
+
+.modal.active {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: calc(var(--spacing-xl) + var(--safe-top));
+}
+
+.modal-content {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 500px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    position: relative;
+}
+
+.item-modal-content {
+    padding: var(--spacing-lg);
+    padding-top: var(--spacing-xl);
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.modal-close:active {
+    background: var(--bg-card-hover);
+}
+
+/* Item Detail Content */
+.item-detail-header {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.item-detail-icon {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+}
+
+.item-detail-name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin-bottom: 4px;
+}
+
+.item-detail-type {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.item-detail-rarity {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.item-attunement {
+    background: rgba(196, 35, 47, 0.2);
+    border: 1px solid var(--scarlet);
+    border-radius: 8px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.85rem;
+    color: var(--scarlet);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.item-stats {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: 8px;
+}
+
+.item-stat {
+    text-align: center;
+}
+
+.item-stat-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.item-stat-value {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.item-properties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+.item-property {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.item-description {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+    font-style: italic;
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: 8px;
+    border-left: 3px solid var(--gold-dim);
+}
+
+.item-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.item-feature {
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.item-feature-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--gold);
+    margin-bottom: var(--spacing-xs);
+}
+
+.item-feature-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ============================================
    UTILITIES & SCROLLBAR
    ============================================ */
 

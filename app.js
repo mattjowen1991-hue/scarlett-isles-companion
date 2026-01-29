@@ -4,6 +4,7 @@
 
 // State
 let characters = [];
+let magicItems = [];
 let currentCharacter = null;
 
 // DOM Elements
@@ -11,12 +12,13 @@ const characterSelect = document.getElementById('characterSelect');
 const characterSheet = document.getElementById('characterSheet');
 const characterGrid = document.getElementById('characterGrid');
 const backBtn = document.getElementById('backBtn');
+const itemModal = document.getElementById('itemModal');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', init);
 
 async function init() {
-    await loadCharacters();
+    await loadData();
     renderCharacterSelect();
     setupEventListeners();
 }
@@ -25,15 +27,27 @@ async function init() {
 // DATA LOADING
 // ============================================
 
-async function loadCharacters() {
+async function loadData() {
     try {
-        const response = await fetch('data/characters.json');
-        const data = await response.json();
-        characters = data.characters;
+        const [charResponse, itemsResponse] = await Promise.all([
+            fetch('data/characters.json'),
+            fetch('data/magic-items.json')
+        ]);
+        
+        const charData = await charResponse.json();
+        const itemsData = await itemsResponse.json();
+        
+        characters = charData.characters;
+        magicItems = itemsData.magicItems;
     } catch (error) {
-        console.error('Failed to load characters:', error);
+        console.error('Failed to load data:', error);
         characters = [];
+        magicItems = [];
     }
+}
+
+function getMagicItem(id) {
+    return magicItems.find(item => item.id === id);
 }
 
 // ============================================
@@ -89,6 +103,9 @@ function renderCharacterSheet() {
     
     // Features
     renderFeatures();
+    
+    // Magic Items
+    renderMagicItems();
     
     // Inventory
     renderInventory();
@@ -182,6 +199,117 @@ function renderFeatures() {
     ).join('');
 }
 
+// ============================================
+// MAGIC ITEMS TAB
+// ============================================
+
+function renderMagicItems() {
+    const char = currentCharacter;
+    const itemIds = char.equippedMagicItems || [];
+    
+    if (itemIds.length === 0) {
+        document.getElementById('magicItemsList').innerHTML = `
+            <div class="no-items">No magic items equipped</div>
+        `;
+        return;
+    }
+    
+    const ICON_BASE = 'https://api.iconify.design/game-icons';
+    const ICON_COLOR = '%23f2d38a';
+    
+    document.getElementById('magicItemsList').innerHTML = itemIds.map(id => {
+        const item = getMagicItem(id);
+        if (!item) return '';
+        
+        const icon = item.icon || 'swap-bag';
+        
+        return `
+            <div class="magic-item-card" data-item-id="${item.id}">
+                <img src="${ICON_BASE}/${icon}.svg?color=${ICON_COLOR}" alt="" class="magic-item-icon">
+                <div class="magic-item-info">
+                    <div class="magic-item-name">${item.name}</div>
+                    <div class="magic-item-type">${item.type} • <span class="rarity-${item.rarity.toLowerCase().replace(' ', '-')}">${item.rarity}</span></div>
+                    ${item.damage ? `<div class="magic-item-damage">${item.damage}${item.bonus ? ` (${item.bonus})` : ''}</div>` : ''}
+                </div>
+                <div class="magic-item-arrow">›</div>
+            </div>
+        `;
+    }).join('');
+}
+
+function showItemDetail(itemId) {
+    const item = getMagicItem(itemId);
+    if (!item) return;
+    
+    const ICON_BASE = 'https://api.iconify.design/game-icons';
+    const ICON_COLOR = '%23f2d38a';
+    const icon = item.icon || 'swap-bag';
+    
+    let attunementText = '';
+    if (item.attunement === true) {
+        attunementText = '<div class="item-attunement">Requires Attunement</div>';
+    } else if (item.attunement && item.attunement !== false) {
+        attunementText = `<div class="item-attunement">Requires Attunement: ${item.attunement}</div>`;
+    }
+    
+    document.getElementById('itemModalBody').innerHTML = `
+        <div class="item-detail-header">
+            <img src="${ICON_BASE}/${icon}.svg?color=${ICON_COLOR}" alt="" class="item-detail-icon">
+            <div>
+                <h2 class="item-detail-name">${item.name}</h2>
+                <div class="item-detail-type">${item.type}</div>
+                <div class="item-detail-rarity rarity-${item.rarity.toLowerCase().replace(' ', '-')}">${item.rarity}</div>
+            </div>
+        </div>
+        
+        ${attunementText}
+        
+        ${item.damage ? `
+        <div class="item-stats">
+            <div class="item-stat">
+                <span class="item-stat-label">Damage</span>
+                <span class="item-stat-value">${item.damage}</span>
+            </div>
+            ${item.bonus ? `
+            <div class="item-stat">
+                <span class="item-stat-label">Bonus</span>
+                <span class="item-stat-value">${item.bonus}</span>
+            </div>
+            ` : ''}
+        </div>
+        ` : ''}
+        
+        ${item.properties ? `
+        <div class="item-properties">
+            ${item.properties.map(p => `<span class="item-property">${p}</span>`).join('')}
+        </div>
+        ` : ''}
+        
+        <div class="item-description">${item.description}</div>
+        
+        ${item.features && item.features.length > 0 ? `
+        <div class="item-features">
+            ${item.features.map(f => `
+                <div class="item-feature">
+                    <div class="item-feature-name">${f.name}</div>
+                    <div class="item-feature-desc">${f.description.replace(/\n/g, '<br>')}</div>
+                </div>
+            `).join('')}
+        </div>
+        ` : ''}
+    `;
+    
+    itemModal.classList.add('active');
+}
+
+function closeItemModal() {
+    itemModal.classList.remove('active');
+}
+
+// ============================================
+// INVENTORY TAB
+// ============================================
+
 function renderInventory() {
     const char = currentCharacter;
     
@@ -192,8 +320,11 @@ function renderInventory() {
     const totalWeight = char.inventory.reduce((sum, item) => sum + (item.weight * item.qty), 0);
     document.getElementById('invWeight').textContent = `${totalWeight} lb`;
     
+    // Filter out magic items (they're shown in Items tab)
+    const regularItems = char.inventory.filter(item => !item.magicItemId);
+    
     // Items
-    document.getElementById('inventoryList').innerHTML = char.inventory.map(item => `
+    document.getElementById('inventoryList').innerHTML = regularItems.map(item => `
         <div class="inventory-item">
             <span class="item-name">${item.name}</span>
             <span class="item-qty">×${item.qty}</span>
@@ -201,6 +332,10 @@ function renderInventory() {
         </div>
     `).join('');
 }
+
+// ============================================
+// SPELLS TAB
+// ============================================
 
 function renderSpells() {
     const char = currentCharacter;
@@ -321,6 +456,22 @@ function setupEventListeners() {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.getElementById(`${tabId}Tab`).classList.add('active');
         });
+    });
+    
+    // Magic item clicks
+    document.getElementById('magicItemsList').addEventListener('click', (e) => {
+        const card = e.target.closest('.magic-item-card');
+        if (card) {
+            showItemDetail(card.dataset.itemId);
+        }
+    });
+    
+    // Close modal
+    document.getElementById('closeItemModal').addEventListener('click', closeItemModal);
+    itemModal.addEventListener('click', (e) => {
+        if (e.target === itemModal) {
+            closeItemModal();
+        }
     });
 }
 

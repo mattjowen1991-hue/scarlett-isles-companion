@@ -40,9 +40,9 @@
             <!-- Tab Navigation -->
             <nav class="tab-nav">
                 <button class="tab-btn active" data-tab="stats">Stats</button>
-                <button class="tab-btn" data-tab="inventory">Inventory</button>
+                <button class="tab-btn" data-tab="items">Items</button>
+                <button class="tab-btn" data-tab="inventory">Gear</button>
                 <button class="tab-btn" data-tab="spells">Spells</button>
-                <button class="tab-btn" data-tab="shop">Shop</button>
             </nav>
 
             <!-- Stats Tab -->
@@ -98,7 +98,14 @@
                 </div>
             </div>
 
-            <!-- Inventory Tab -->
+            <!-- Items Tab (Magic Items with details) -->
+            <div id="itemsTab" class="tab-content">
+                <div id="magicItemsList" class="magic-items-list">
+                    <!-- Magic items loaded via JS -->
+                </div>
+            </div>
+
+            <!-- Inventory Tab (Gear) -->
             <div id="inventoryTab" class="tab-content">
                 <div class="inventory-header">
                     <div class="currency-display">
@@ -119,12 +126,14 @@
                     <!-- Spells loaded via JS -->
                 </div>
             </div>
+        </div>
 
-            <!-- Shop Tab -->
-            <div id="shopTab" class="tab-content">
-                <div class="shop-header">
-                    <p>Visit the <a href="https://yourusername.github.io/scarlett-isles-shop" target="_blank" id="shopLink">Scarlett Isles Shop</a> to browse items.</p>
-                    <p class="shop-note">Coming soon: Direct shop integration!</p>
+        <!-- Magic Item Detail Modal -->
+        <div id="itemModal" class="modal">
+            <div class="modal-content item-modal-content">
+                <button id="closeItemModal" class="modal-close">×</button>
+                <div id="itemModalBody">
+                    <!-- Item details loaded via JS -->
                 </div>
             </div>
         </div>
