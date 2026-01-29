@@ -1,5 +1,47 @@
 [
   {
+    "id": "vorpal-sword",
+    "name": "Vorpal Sword",
+    "type": "Weapon (Greatsword)",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 50000,
+    "description": "When you attack a creature with this magic sword and roll a 20 on the attack roll, the target is decapitated if it has a head and can be killed by such means.",
+    "suitableFor": ["Fighter"],
+    "stats": {
+      "Damage": "2d6+3 slashing",
+      "Critical": "Decapitate"
+    }
+  },
+  {
+    "id": "holy-avenger",
+    "name": "Holy Avenger",
+    "type": "Weapon (Longsword)",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 45000,
+    "description": "This radiant blade deals extra damage to fiends and undead. While you hold the drawn sword, it creates an aura of protection.",
+    "suitableFor": ["Fighter", "Paladin"],
+    "stats": {
+      "Damage": "1d8+3 radiant",
+      "Aura": "10 ft protection"
+    }
+  },
+  {
+    "id": "staff-power",
+    "name": "Staff of Power",
+    "type": "Staff",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 40000,
+    "description": "This staff can be wielded as a magic quarterstaff and grants a +2 bonus to AC, saving throws, and spell attack rolls.",
+    "suitableFor": ["Ranger"],
+    "stats": {
+      "Charges": "20",
+      "Bonus": "+2 AC/Saves"
+    }
+  },
+  {
     "id": "cloak-invisibility",
     "name": "Cloak of Invisibility",
     "type": "Wondrous Item",

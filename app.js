@@ -9,7 +9,7 @@
 
 const CONFIG = {
     weekSeed: getWeekNumber(),
-    itemsPerWeek: 12
+    itemsPerWeek: 30  // Show all items
 };
 
 function getWeekNumber() {
@@ -59,37 +59,52 @@ const ICON_MAP = {
     'shortbow': 'high-shot',
     'crossbow': 'crossbow',
     'bow': 'pocket-bow',
+    'flame': 'flaming-sword',
+    'fire': 'flaming-sword',
     
     // Armor
     'shield': 'shield',
     'helmet': 'visored-helm',
+    'helm': 'visored-helm',
     'armor': 'breastplate',
     'chainmail': 'chain-mail',
+    'chain shirt': 'chain-mail',
     'leather': 'leather-armor',
+    'studded': 'leather-armor',
     'plate': 'breastplate',
     'bracers': 'bracer',
     'gauntlets': 'gauntlet',
+    'gauntlet': 'gauntlet',
     'boots': 'boots',
     'cloak': 'cloak',
+    'goggles': 'steampunk-goggles',
     
-    // Gear
-    'potion': 'potion-ball',
+    // Jewelry & Accessories  
     'ring': 'ring',
     'amulet': 'gem-pendant',
+    'ioun': 'crystal-ball',
+    'necklace': 'gem-pendant',
+    
+    // Magic Items
     'wand': 'crystal-wand',
     'staff': 'wizard-staff',
     'scroll': 'scroll-unfurled',
     'book': 'book-cover',
+    'orb': 'orb',
+    'ball': 'crystal-ball',
+    'decanter': 'potion-ball',
+    'lantern': 'lantern-flame',
+    
+    // Gear & Equipment
+    'potion': 'potion-ball',
     'bag': 'swap-bag',
     'rope': 'rope-coil',
-    'lantern': 'lantern-flame',
     'torch': 'torch',
     'tent': 'camping-tent',
     'rations': 'meat',
     'tools': 'swiss-army-knife',
     'instrument': 'lyre',
-    'ball': 'crystal-ball',
-    'orb': 'orb',
+    'bearings': 'gears',
     
     // Default
     'default': 'chest'
