@@ -20,8 +20,18 @@ const firebaseConfig = {
     databaseURL: "https://scarlett-isles-companion-default-rtdb.firebaseio.com"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+let app, db;
+let firebaseEnabled = false;
+
+try {
+    app = initializeApp(firebaseConfig);
+    db = getDatabase(app);
+    firebaseEnabled = true;
+    console.log('Firebase initialized successfully');
+} catch (error) {
+    console.warn('Firebase initialization failed, running in offline mode:', error);
+    firebaseEnabled = false;
+}
 
 // ===================================
 // CONFIGURATION
@@ -103,6 +113,11 @@ let currentWeek = getWeekNumber();
 // ===================================
 
 function setupFirebaseListeners() {
+    if (!firebaseEnabled) {
+        console.log('Firebase disabled, skipping listeners');
+        return;
+    }
+    
     const purchasedRef = ref(db, 'purchased');
     
     onValue(purchasedRef, (snapshot) => {
@@ -113,10 +128,17 @@ function setupFirebaseListeners() {
             weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
             renderItems();
         }
+    }, (error) => {
+        console.warn('Firebase listener error:', error);
     });
 }
 
 async function markAsPurchased(itemId, playerName) {
+    if (!firebaseEnabled) {
+        alert('Purchase tracking is offline. Please check Firebase connection.');
+        return;
+    }
+    
     const item = weeklyItems.find(i => i.id === itemId);
     if (!item) return;
     
@@ -211,20 +233,29 @@ async function init() {
         weekEl.textContent = currentWeek;
     }
     
-    // Setup Firebase listeners first
-    setupFirebaseListeners();
-    
-    // Load items
+    // Load items first
     try {
         const response = await fetch('items.json');
         allItems = await response.json();
+        console.log('Loaded', allItems.length, 'items');
         
-        // Get purchased items from Firebase, then generate inventory
-        const purchasedSnapshot = await get(ref(db, 'purchased'));
-        purchasedItems = purchasedSnapshot.val() || {};
+        // Try to get purchased items from Firebase
+        if (firebaseEnabled) {
+            try {
+                const purchasedSnapshot = await get(ref(db, 'purchased'));
+                purchasedItems = purchasedSnapshot.val() || {};
+                console.log('Loaded purchased items from Firebase');
+                // Setup real-time listeners
+                setupFirebaseListeners();
+            } catch (fbError) {
+                console.warn('Firebase read failed, using empty purchased list:', fbError);
+                purchasedItems = {};
+            }
+        }
         
         // Generate this week's selection
         weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
+        console.log('Generated', weeklyItems.length, 'items for week', currentWeek);
         
         renderItems();
         setupEventListeners();
@@ -236,6 +267,7 @@ async function init() {
                 <div class="empty-state">
                     <div class="empty-state-icon">⚠️</div>
                     <p class="empty-state-text">Failed to load shop inventory</p>
+                    <p class="empty-state-text" style="font-size: 0.8rem; margin-top: 0.5rem;">${error.message}</p>
                 </div>
             `;
         }
