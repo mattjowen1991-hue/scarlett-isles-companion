@@ -54,7 +54,7 @@
     "category": "weapons",
     "rarity": "Rare",
     "price": 5000,
-    "icon": "https://api.iconify.design/game-icons/fire-sword.svg?color=%23ffffff",
+    "icon": "https://api.iconify.design/game-icons/flaming-trident.svg?color=%23ffffff",
     "description": "Flames erupt from the blade, shedding bright light in a 40-foot radius.",
     "suitableFor": ["Fighter", "Paladin"],
     "stats": { "Damage": "1d8 + 2d6 fire", "Properties": "Versatile" }
