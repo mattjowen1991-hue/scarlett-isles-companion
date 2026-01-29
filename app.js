@@ -109,6 +109,23 @@ let favorites = JSON.parse(localStorage.getItem('tsi-favorites') || '[]');
 let currentWeek = getWeekNumber();
 
 // ===================================
+// FAVORITES CLEANUP
+// ===================================
+
+function cleanupOrphanedFavorites(purchased) {
+    // Remove any favourites that have been purchased
+    const purchasedIds = Object.keys(purchased);
+    const originalLength = favorites.length;
+    
+    favorites = favorites.filter(favId => !purchasedIds.includes(favId));
+    
+    if (favorites.length !== originalLength) {
+        localStorage.setItem('tsi-favorites', JSON.stringify(favorites));
+        console.log(`Cleaned up ${originalLength - favorites.length} orphaned favourite(s)`);
+    }
+}
+
+// ===================================
 // FIREBASE SYNC
 // ===================================
 
@@ -123,6 +140,10 @@ function setupFirebaseListeners() {
     onValue(purchasedRef, (snapshot) => {
         purchasedItems = snapshot.val() || {};
         console.log('Purchased items updated:', purchasedItems);
+        
+        // Clean up any favourites for items that have been purchased
+        cleanupOrphanedFavorites(purchasedItems);
+        
         // Re-generate weekly items with updated purchased list
         if (allItems.length > 0) {
             weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
@@ -245,6 +266,10 @@ async function init() {
                 const purchasedSnapshot = await get(ref(db, 'purchased'));
                 purchasedItems = purchasedSnapshot.val() || {};
                 console.log('Loaded purchased items from Firebase');
+                
+                // Clean up any orphaned favourites
+                cleanupOrphanedFavorites(purchasedItems);
+                
                 // Setup real-time listeners
                 setupFirebaseListeners();
             } catch (fbError) {
