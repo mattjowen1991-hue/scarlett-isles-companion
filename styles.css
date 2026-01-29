@@ -408,6 +408,13 @@ header {
     border-bottom: none;
     overflow-y: auto;
     animation: slideUp 0.25s ease-out;
+    padding-bottom: 2rem;
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .modal {
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+    }
 }
 
 @keyframes slideUp {
@@ -659,12 +666,5 @@ header {
     
     .week-number {
         font-size: 1.5rem;
-    }
-}
-
-/* Safe area for notched phones */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .modal {
-        padding-bottom: env(safe-area-inset-bottom);
     }
 }
