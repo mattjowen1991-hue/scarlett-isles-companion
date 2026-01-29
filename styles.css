@@ -626,6 +626,44 @@ header {
     font-size: 1.1rem;
 }
 
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.purchase-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(196, 90, 42, 0.2) 0%, rgba(139, 42, 42, 0.2) 100%);
+    border: 1px solid var(--legendary);
+    border-radius: 6px;
+    color: var(--flame);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.purchase-btn:hover {
+    background: linear-gradient(135deg, rgba(196, 90, 42, 0.3) 0%, rgba(139, 42, 42, 0.3) 100%);
+    border-color: var(--flame);
+    transform: translateY(-1px);
+}
+
+.purchase-btn:active {
+    transform: scale(0.98);
+}
+
+.purchase-btn-icon {
+    font-size: 1.1rem;
+}
+
 .modal-section-title {
     font-family: var(--font-display);
     font-size: 0.75rem;

@@ -4,24 +4,44 @@
    =================================== */
 
 // ===================================
+// FIREBASE CONFIGURATION
+// ===================================
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, onValue, set, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCAtLDqghTbYhyhwcoTsefTiMecC30RMuQ",
+    authDomain: "scarlett-isles-companion.firebaseapp.com",
+    projectId: "scarlett-isles-companion",
+    storageBucket: "scarlett-isles-companion.firebasestorage.app",
+    messagingSenderId: "269614761446",
+    appId: "1:269614761446:web:d420e1198e62b68a474227",
+    databaseURL: "https://scarlett-isles-companion-default-rtdb.firebaseio.com"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// ===================================
 // CONFIGURATION
 // ===================================
 
 const CONFIG = {
-    weekSeed: getWeekNumber(),
-    itemsPerWeek: 30  // Show all items
+    campaignStart: new Date('2026-02-03'),
+    // Shop rotation rules
+    commonCount: 10,
+    uncommonCount: 8,
+    rareCount: 5,        // At least 1 per class
+    legendaryPerClass: 1, // 1 per class (Fighter, Rogue, Ranger, Paladin)
+    classes: ['Fighter', 'Rogue', 'Ranger', 'Paladin']
 };
 
 function getWeekNumber() {
-    // Campaign starts week of February 3, 2026
-    const campaignStart = new Date('2026-02-03');
     const now = new Date();
-    const diff = now - campaignStart;
-    const oneWeek = 604800000; // milliseconds in a week
-    
-    // If before campaign start, return 0 or 1
+    const diff = now - CONFIG.campaignStart;
+    const oneWeek = 604800000;
     if (diff < 0) return 1;
-    
     return Math.floor(diff / oneWeek) + 1;
 }
 
@@ -44,7 +64,7 @@ function shuffleWithSeed(array, seed) {
 }
 
 // ===================================
-// ICON - Use URL from item data
+// ICON HELPER
 // ===================================
 
 function getItemIcon(item) {
@@ -72,9 +92,113 @@ function formatPriceFull(price) {
 
 let allItems = [];
 let weeklyItems = [];
+let purchasedItems = {}; // { itemId: { purchasedBy: 'PlayerName', purchasedAt: timestamp, week: number } }
 let currentCategory = 'all';
 let currentRarity = 'all';
 let favorites = JSON.parse(localStorage.getItem('tsi-favorites') || '[]');
+let currentWeek = getWeekNumber();
+
+// ===================================
+// FIREBASE SYNC
+// ===================================
+
+function setupFirebaseListeners() {
+    const purchasedRef = ref(db, 'purchased');
+    
+    onValue(purchasedRef, (snapshot) => {
+        purchasedItems = snapshot.val() || {};
+        console.log('Purchased items updated:', purchasedItems);
+        // Re-generate weekly items with updated purchased list
+        if (allItems.length > 0) {
+            weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
+            renderItems();
+        }
+    });
+}
+
+async function markAsPurchased(itemId, playerName) {
+    const item = weeklyItems.find(i => i.id === itemId);
+    if (!item) return;
+    
+    const purchaseData = {
+        purchasedBy: playerName,
+        purchasedAt: Date.now(),
+        week: currentWeek,
+        itemName: item.name,
+        rarity: item.rarity
+    };
+    
+    try {
+        await set(ref(db, `purchased/${itemId}`), purchaseData);
+        console.log('Item marked as purchased:', itemId);
+    } catch (error) {
+        console.error('Failed to mark item as purchased:', error);
+        alert('Failed to record purchase. Please try again.');
+    }
+}
+
+// ===================================
+// WEEKLY INVENTORY GENERATION
+// ===================================
+
+function generateWeeklyInventory(items, week, purchased) {
+    const seed = week * 1000;
+    
+    // Filter out purchased rare/legendary items
+    const availableItems = items.filter(item => {
+        const rarity = item.rarity.toLowerCase();
+        if (rarity === 'rare' || rarity === 'legendary') {
+            return !purchased[item.id];
+        }
+        return true;
+    });
+    
+    // Separate by rarity
+    const common = availableItems.filter(i => i.rarity.toLowerCase() === 'common');
+    const uncommon = availableItems.filter(i => i.rarity.toLowerCase() === 'uncommon');
+    const rare = availableItems.filter(i => i.rarity.toLowerCase() === 'rare');
+    const legendary = availableItems.filter(i => i.rarity.toLowerCase() === 'legendary');
+    
+    const selected = [];
+    
+    // 1. Select LEGENDARY items (1 per class)
+    CONFIG.classes.forEach((cls, idx) => {
+        const classLegendary = legendary.filter(i => i.suitableFor.includes(cls));
+        if (classLegendary.length > 0) {
+            const shuffled = shuffleWithSeed(classLegendary, seed + idx + 1000);
+            // Only add if not already selected
+            const toAdd = shuffled.find(i => !selected.includes(i));
+            if (toAdd) selected.push(toAdd);
+        }
+    });
+    
+    // 2. Select RARE items (5 total, at least 1 per class)
+    const selectedRare = [];
+    CONFIG.classes.forEach((cls, idx) => {
+        const classRare = rare.filter(i => i.suitableFor.includes(cls) && !selectedRare.includes(i));
+        if (classRare.length > 0) {
+            const shuffled = shuffleWithSeed(classRare, seed + idx + 2000);
+            selectedRare.push(shuffled[0]);
+        }
+    });
+    
+    // Fill remaining rare slots
+    const remainingRare = rare.filter(i => !selectedRare.includes(i));
+    const shuffledRemainingRare = shuffleWithSeed(remainingRare, seed + 2500);
+    const rareNeeded = CONFIG.rareCount - selectedRare.length;
+    selectedRare.push(...shuffledRemainingRare.slice(0, rareNeeded));
+    selected.push(...selectedRare);
+    
+    // 3. Select UNCOMMON items (8 total)
+    const shuffledUncommon = shuffleWithSeed(uncommon, seed + 3000);
+    selected.push(...shuffledUncommon.slice(0, CONFIG.uncommonCount));
+    
+    // 4. Select COMMON items (10 total)
+    const shuffledCommon = shuffleWithSeed(common, seed + 4000);
+    selected.push(...shuffledCommon.slice(0, CONFIG.commonCount));
+    
+    return selected;
+}
 
 // ===================================
 // INITIALIZATION
@@ -84,16 +208,23 @@ async function init() {
     // Set week number
     const weekEl = document.getElementById('weekNumber');
     if (weekEl) {
-        weekEl.textContent = CONFIG.weekSeed;
+        weekEl.textContent = currentWeek;
     }
+    
+    // Setup Firebase listeners first
+    setupFirebaseListeners();
     
     // Load items
     try {
         const response = await fetch('items.json');
         allItems = await response.json();
         
-        // Get this week's selection
-        weeklyItems = shuffleWithSeed(allItems, CONFIG.weekSeed).slice(0, CONFIG.itemsPerWeek);
+        // Get purchased items from Firebase, then generate inventory
+        const purchasedSnapshot = await get(ref(db, 'purchased'));
+        purchasedItems = purchasedSnapshot.val() || {};
+        
+        // Generate this week's selection
+        weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
         
         renderItems();
         setupEventListeners();
@@ -354,15 +485,26 @@ function openItemModal(itemId) {
         </div>
     `;
     
-    // Copy button
+    // Action buttons
     bodyHTML += `
-        <div class="modal-section">
+        <div class="modal-section modal-actions">
             <button class="copy-btn" onclick="copyItemToClipboard()">
                 <span class="copy-btn-icon">📋</span>
                 Copy for D&D Beyond
             </button>
-        </div>
     `;
+    
+    // Purchase button for rare/legendary only
+    if (isRareOrBetter) {
+        bodyHTML += `
+            <button class="purchase-btn" onclick="showPurchaseDialog()">
+                <span class="purchase-btn-icon">💰</span>
+                Mark as Purchased
+            </button>
+        `;
+    }
+    
+    bodyHTML += `</div>`;
     
     document.getElementById('modalBody').innerHTML = bodyHTML;
     
@@ -372,7 +514,6 @@ function openItemModal(itemId) {
 }
 
 function formatDescription(desc) {
-    // Convert markdown-style bold to HTML
     return desc
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n\n/g, '</p><p>')
@@ -408,7 +549,6 @@ function copyItemToClipboard() {
     text += item.description || '';
     
     navigator.clipboard.writeText(text).then(() => {
-        // Show feedback
         const btn = document.querySelector('.copy-btn');
         const originalText = btn.innerHTML;
         btn.innerHTML = '<span class="copy-btn-icon">✓</span> Copied!';
@@ -423,11 +563,30 @@ function copyItemToClipboard() {
     });
 }
 
+function showPurchaseDialog() {
+    if (!currentModalItem) return;
+    
+    const playerName = prompt(`Who is purchasing the ${currentModalItem.name}?\n\nEnter player/character name:`);
+    
+    if (playerName && playerName.trim()) {
+        const confirmPurchase = confirm(`Confirm purchase:\n\n${currentModalItem.name}\nPurchased by: ${playerName.trim()}\nPrice: ${formatPriceFull(currentModalItem.price)} GP\n\nThis item will be removed from the shop permanently.`);
+        
+        if (confirmPurchase) {
+            markAsPurchased(currentModalItem.id, playerName.trim());
+            closeModal();
+        }
+    }
+}
+
 function closeModal() {
     document.getElementById('modalOverlay').classList.remove('active');
     document.body.style.overflow = '';
     currentModalItem = null;
 }
+
+// Make functions available globally for onclick handlers
+window.copyItemToClipboard = copyItemToClipboard;
+window.showPurchaseDialog = showPurchaseDialog;
 
 // ===================================
 // START
