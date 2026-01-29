@@ -75,38 +75,14 @@ header {
 .header-left {
     display: flex;
     align-items: center;
-    gap: 1rem;
     flex: 1;
 }
 
 .header-logo {
-    height: 70px;
+    height: 80px;
     width: auto;
     flex-shrink: 0;
-}
-
-.shop-title {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-}
-
-.shop-name {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.05em;
-    line-height: 1.1;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-.shop-subtitle {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-style: italic;
-    letter-spacing: 0.02em;
+    object-fit: contain;
 }
 
 .week-badge {
@@ -635,16 +611,8 @@ header {
    =================================== */
 
 @media (max-width: 400px) {
-    .shop-name {
-        font-size: 1.2rem;
-    }
-    
-    .shop-subtitle {
-        font-size: 0.75rem;
-    }
-    
     .header-logo {
-        height: 55px;
+        height: 60px;
     }
     
     .week-badge {
