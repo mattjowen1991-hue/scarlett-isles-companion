@@ -313,9 +313,9 @@ header {
     overflow: hidden;
 }
 
-.item-emoji {
-    font-size: 1.75rem;
-    line-height: 1;
+.item-icon img {
+    width: 32px;
+    height: 32px;
 }
 
 .item-details {
@@ -444,9 +444,9 @@ header {
     flex-shrink: 0;
 }
 
-.modal-emoji {
-    font-size: 2.5rem;
-    line-height: 1;
+.modal-icon img {
+    width: 48px;
+    height: 48px;
 }
 
 .modal-title-section {

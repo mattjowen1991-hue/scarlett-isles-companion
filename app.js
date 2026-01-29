@@ -39,11 +39,11 @@ function shuffleWithSeed(array, seed) {
 }
 
 // ===================================
-// ICON - Use emoji from item data
+// ICON - Use URL from item data
 // ===================================
 
 function getItemIcon(item) {
-    return item.icon || '📦';
+    return item.icon || 'https://api.iconify.design/game-icons/swap-bag.svg?color=%23ffffff';
 }
 
 // ===================================
@@ -145,7 +145,7 @@ function renderItems() {
     itemList.innerHTML = filtered.map(item => {
         const rarity = item.rarity.toLowerCase();
         const isFavorite = favorites.includes(item.id);
-        const icon = getItemIcon(item);
+        const iconUrl = getItemIcon(item);
         
         return `
             <div class="item-row ${rarity}" data-item-id="${item.id}">
@@ -153,7 +153,7 @@ function renderItems() {
                     ${isFavorite ? '★' : '☆'}
                 </span>
                 <div class="item-icon">
-                    <span class="item-emoji">${icon}</span>
+                    <img src="${iconUrl}" alt="${item.name}">
                 </div>
                 <div class="item-details">
                     <h3 class="item-name">${item.name}</h3>
@@ -263,10 +263,10 @@ function openItemModal(itemId) {
     if (!item) return;
     
     const rarity = item.rarity.toLowerCase();
-    const icon = getItemIcon(item);
+    const iconUrl = getItemIcon(item);
     
     // Populate modal
-    document.getElementById('modalIcon').innerHTML = `<span class="modal-emoji">${icon}</span>`;
+    document.getElementById('modalIcon').innerHTML = `<img src="${iconUrl}" alt="${item.name}">`;
     document.getElementById('modalName').textContent = item.name;
     document.getElementById('modalType').textContent = item.type;
     
