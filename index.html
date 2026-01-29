@@ -2,376 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#1a0a0a">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Scarlett Isles Companion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scarlett Isles Shop</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏪</text></svg>">
 </head>
 <body>
-    <div id="app">
-        <!-- Loading Screen -->
-        <div id="loadingScreen" class="screen active">
-            <div class="loading-content">
-                <h1>Scarlett Isles</h1>
-                <p class="subtitle">Companion</p>
-                <div class="loading-spinner"></div>
-                <p id="loadingStatus">Connecting...</p>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <h1>🏝️ Scarlett Isles</h1>
+            <div class="week-info">
+                <span class="week-label">Week</span>
+                <span id="weekNumber" class="week-number">1</span>
             </div>
+        </header>
+        
+        <!-- Subtitle -->
+        <div class="shop-subtitle">
+            <p>Browse this week's wares. Add items you purchase to D&D Beyond manually.</p>
+            <p class="refresh-note">🔄 Shop refreshes every Monday</p>
         </div>
 
-        <!-- Player Selection Screen -->
-        <div id="playerSelect" class="screen">
-            <header class="header">
-                <h1>Scarlett Isles</h1>
-                <p class="subtitle">Companion</p>
-            </header>
-            <div class="player-select-content">
-                <h2>Who's Playing?</h2>
-                <div id="playerGrid" class="player-grid">
-                    <!-- Players loaded via JS -->
-                </div>
-            </div>
+        <!-- Category Tabs -->
+        <nav class="category-tabs">
+            <button class="category-tab active" data-category="all">All</button>
+            <button class="category-tab" data-category="weapon">Weapons</button>
+            <button class="category-tab" data-category="armor">Armor</button>
+            <button class="category-tab" data-category="gear">Gear</button>
+        </nav>
+
+        <!-- Rarity Filter -->
+        <div class="rarity-filter">
+            <button class="rarity-btn active" data-rarity="all">All</button>
+            <button class="rarity-btn common" data-rarity="common">Common</button>
+            <button class="rarity-btn uncommon" data-rarity="uncommon">Uncommon</button>
+            <button class="rarity-btn rare" data-rarity="rare">Rare</button>
+            <button class="rarity-btn legendary" data-rarity="legendary">Legendary</button>
         </div>
 
-        <!-- Character Selection Screen -->
-        <div id="characterSelect" class="screen">
-            <header class="header">
-                <div class="header-with-back">
-                    <button id="playerBackBtn" class="back-btn">← Players</button>
-                    <div>
-                        <h1>Scarlett Isles</h1>
-                        <p class="subtitle" id="playerNameDisplay">Player</p>
-                    </div>
-                    <div class="header-spacer"></div>
-                </div>
-            </header>
-            <div id="characterGrid" class="character-grid">
-                <!-- Characters loaded via JS -->
+        <!-- Items Grid -->
+        <main class="items-container">
+            <div id="itemsGrid" class="items-grid">
+                <!-- Items will be populated here -->
             </div>
-        </div>
+        </main>
 
-        <!-- Character Sheet Screen -->
-        <div id="characterSheet" class="screen">
-            <header class="sheet-header">
-                <button id="backBtn" class="back-btn">← Party</button>
-                <div class="header-info">
-                    <h2 id="charName">Character Name</h2>
-                    <p id="charClassLevel">Class Level</p>
-                </div>
-                <button id="coinPurse" class="coin-purse-btn">
-                    <span class="coin-purse-icon">💰</span>
-                </button>
-            </header>
-            
-            <!-- Coin Purse Modal (slides up from bottom) -->
-            <div id="coinPurseModal" class="coin-purse-modal">
-                <div class="coin-purse-content">
-                    <div class="coin-purse-header">
-                        <h3>💰 Coin Purse</h3>
-                        <button id="closeCoinPurse" class="coin-purse-close">✕</button>
-                    </div>
-                    
-                    <!-- View Mode -->
-                    <div id="coinPurseView" class="coin-purse-view">
-                        <div class="coin-grid">
-                            <div class="coin-row pp">
-                                <span class="coin-icon">⬜</span>
-                                <span class="coin-label">Platinum</span>
-                                <span id="currencyPP" class="coin-value">0</span>
-                            </div>
-                            <div class="coin-row gp">
-                                <span class="coin-icon">🟡</span>
-                                <span class="coin-label">Gold</span>
-                                <span id="currencyGP" class="coin-value">0</span>
-                            </div>
-                            <div class="coin-row ep">
-                                <span class="coin-icon">⚪</span>
-                                <span class="coin-label">Electrum</span>
-                                <span id="currencyEP" class="coin-value">0</span>
-                            </div>
-                            <div class="coin-row sp">
-                                <span class="coin-icon">⚪</span>
-                                <span class="coin-label">Silver</span>
-                                <span id="currencySP" class="coin-value">0</span>
-                            </div>
-                            <div class="coin-row cp">
-                                <span class="coin-icon">🟤</span>
-                                <span class="coin-label">Copper</span>
-                                <span id="currencyCP" class="coin-value">0</span>
-                            </div>
-                        </div>
-                        <div class="coin-total-row">
-                            <span class="coin-total-label">Total Value:</span>
-                            <span id="currencyTotal" class="coin-total-value">0 gp</span>
-                        </div>
-                        <button id="dmEditCurrencyBtn" class="dm-edit-currency-btn" style="display: none;">
-                            ✏️ Edit Currency (DM)
-                        </button>
-                    </div>
-                    
-                    <!-- Edit Mode (DM Only) -->
-                    <div id="coinPurseEdit" class="coin-purse-edit" style="display: none;">
-                        <div class="coin-edit-grid">
-                            <div class="coin-edit-row pp">
-                                <span class="coin-icon">⬜</span>
-                                <span class="coin-label">Platinum</span>
-                                <div class="coin-edit-controls">
-                                    <button class="coin-btn minus" data-currency="pp">−</button>
-                                    <input type="number" id="editPP" class="coin-input" value="0" min="0">
-                                    <button class="coin-btn plus" data-currency="pp">+</button>
-                                </div>
-                            </div>
-                            <div class="coin-edit-row gp">
-                                <span class="coin-icon">🟡</span>
-                                <span class="coin-label">Gold</span>
-                                <div class="coin-edit-controls">
-                                    <button class="coin-btn minus" data-currency="gp">−</button>
-                                    <input type="number" id="editGP" class="coin-input" value="0" min="0">
-                                    <button class="coin-btn plus" data-currency="gp">+</button>
-                                </div>
-                            </div>
-                            <div class="coin-edit-row ep">
-                                <span class="coin-icon">⚪</span>
-                                <span class="coin-label">Electrum</span>
-                                <div class="coin-edit-controls">
-                                    <button class="coin-btn minus" data-currency="ep">−</button>
-                                    <input type="number" id="editEP" class="coin-input" value="0" min="0">
-                                    <button class="coin-btn plus" data-currency="ep">+</button>
-                                </div>
-                            </div>
-                            <div class="coin-edit-row sp">
-                                <span class="coin-icon">⚪</span>
-                                <span class="coin-label">Silver</span>
-                                <div class="coin-edit-controls">
-                                    <button class="coin-btn minus" data-currency="sp">−</button>
-                                    <input type="number" id="editSP" class="coin-input" value="0" min="0">
-                                    <button class="coin-btn plus" data-currency="sp">+</button>
-                                </div>
-                            </div>
-                            <div class="coin-edit-row cp">
-                                <span class="coin-icon">🟤</span>
-                                <span class="coin-label">Copper</span>
-                                <div class="coin-edit-controls">
-                                    <button class="coin-btn minus" data-currency="cp">−</button>
-                                    <input type="number" id="editCP" class="coin-input" value="0" min="0">
-                                    <button class="coin-btn plus" data-currency="cp">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="coin-edit-actions">
-                            <button id="cancelCurrencyEdit" class="coin-edit-btn cancel">Cancel</button>
-                            <button id="saveCurrencyEdit" class="coin-edit-btn save">💾 Save</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab Navigation -->
-            <nav class="tab-nav">
-                <button class="tab-btn active" data-tab="stats">Stats</button>
-                <button class="tab-btn" data-tab="weapons">Weapons</button>
-                <button class="tab-btn" data-tab="items">Magic</button>
-                <button class="tab-btn" data-tab="inventory">Gear</button>
-                <button class="tab-btn" data-tab="spells">Spells</button>
-                <button class="tab-btn" data-tab="shop">Shop</button>
-            </nav>
-
-            <!-- Stats Tab -->
-            <div id="statsTab" class="tab-content active">
-                <div class="portrait-section">
-                    <img id="charPortrait" src="" alt="Character Portrait" class="portrait">
-                    <div class="combat-stats">
-                        <div class="stat-box hp tappable" id="hpBox">
-                            <span class="stat-label">HP</span>
-                            <span id="charHp" class="stat-value">0/0</span>
-                            <span class="tap-hint">tap</span>
-                        </div>
-                        <div class="stat-box ac">
-                            <span class="stat-label">AC</span>
-                            <span id="charAc" class="stat-value">0</span>
-                        </div>
-                        <div class="stat-box init">
-                            <span class="stat-label">Init</span>
-                            <span id="charInit" class="stat-value">+0</span>
-                        </div>
-                        <div class="stat-box speed">
-                            <span class="stat-label">Speed</span>
-                            <span id="charSpeed" class="stat-value">30</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Party HP Overview -->
-                <div class="party-hp-section">
-                    <h3>Party Status</h3>
-                    <div id="partyHpList" class="party-hp-list"></div>
-                </div>
-
-                <div class="abilities-section">
-                    <h3>Abilities</h3>
-                    <div id="abilitiesGrid" class="abilities-grid"></div>
-                </div>
-
-                <div class="saves-section">
-                    <h3>Saving Throws</h3>
-                    <div id="savesGrid" class="saves-grid"></div>
-                </div>
-
-                <div class="skills-section">
-                    <h3>Skills</h3>
-                    <div id="skillsList" class="skills-list"></div>
-                </div>
-
-                <div class="features-section">
-                    <h3>Features & Traits</h3>
-                    <div id="featuresList" class="features-list"></div>
-                </div>
-            </div>
-
-            <!-- Weapons Tab -->
-            <div id="weaponsTab" class="tab-content">
-                <div id="weaponsList" class="weapons-list"></div>
-            </div>
-
-            <!-- Items Tab (Magic Items) -->
-            <div id="itemsTab" class="tab-content">
-                <div id="magicItemsList" class="magic-items-list"></div>
-            </div>
-
-            <!-- Inventory Tab (Gear) -->
-            <div id="inventoryTab" class="tab-content">
-                <div class="inventory-header">
-                    <div class="currency-display">
-                        <span id="invGold" class="currency gold">0 gp</span>
-                    </div>
-                    <div class="weight-display">
-                        <span id="invWeight">0 lb</span> carried
-                    </div>
-                </div>
-                <div id="inventoryList" class="inventory-list"></div>
-            </div>
-
-            <!-- Spells Tab -->
-            <div id="spellsTab" class="tab-content">
-                <div id="spellsContent"></div>
-            </div>
-
-            <!-- Shop Tab -->
-            <div id="shopTab" class="tab-content">
-                <!-- Buy/Sell Toggle -->
-                <div class="shop-mode-toggle">
-                    <button id="shopModeBuy" class="shop-mode-btn active" data-mode="buy">🛒 Buy</button>
-                    <button id="shopModeSell" class="shop-mode-btn" data-mode="sell">💰 Sell</button>
-                </div>
-                
-                <div class="shop-controls">
-                    <button class="shop-coin-purse" onclick="openCoinPurse()">
-                        <span class="shop-purse-icon">💰</span>
-                        <span id="shopGold" class="shop-gold-value">0 gp</span>
-                    </button>
-                    <select id="shopProvince" class="shop-filter">
-                        <option value="all">🌍 All Settlements</option>
-                    </select>
-                </div>
-                
-                <!-- Buy Mode Filters -->
-                <div id="buyFilters" class="shop-filters-row">
-                    <select id="shopCategory" class="shop-filter">
-                        <option value="all">All Categories</option>
-                        <option value="weapon">⚔️ Weapons</option>
-                        <option value="armor">🛡️ Armor & Shields</option>
-                        <option value="potion">🧪 Potions</option>
-                        <option value="scroll">📜 Scrolls</option>
-                        <option value="wondrous">✨ Wondrous Items</option>
-                        <option value="gear">🎒 Adventuring Gear</option>
-                        <option value="contraband">🗝️ Contraband</option>
-                    </select>
-                    <button id="wishlistToggle" class="wishlist-toggle">
-                        <span class="wishlist-icon">★</span>
-                        <span id="wishlistCount">0</span>
-                    </button>
-                </div>
-                
-                <!-- Sell Mode Info -->
-                <div id="sellInfo" class="sell-mode-info" style="display: none;">
-                    <span class="sell-mode-hint">Select a settlement to see sell prices</span>
-                </div>
-                
-                <!-- Shop/Sell List -->
-                <div id="shopList" class="shop-list"></div>
-            </div>
-        </div>
-
-        <!-- Magic Item Detail Modal -->
+        <!-- Item Detail Modal -->
         <div id="itemModal" class="modal">
-            <div class="modal-content item-modal-content">
-                <button class="modal-close" data-modal="itemModal">×</button>
-                <div id="itemModalBody"></div>
-            </div>
-        </div>
-
-        <!-- HP Tracker Modal -->
-        <div id="hpModal" class="modal">
-            <div class="modal-content hp-modal-content">
-                <button class="modal-close" data-modal="hpModal">×</button>
-                <div class="hp-modal-body">
-                    <h2>Hit Points</h2>
-                    <div class="hp-display">
-                        <span id="hpModalCurrent" class="hp-current">0</span>
-                        <span class="hp-separator">/</span>
-                        <span id="hpModalMax" class="hp-max">0</span>
-                    </div>
-                    <div class="hp-bar-container">
-                        <div id="hpBar" class="hp-bar"></div>
-                    </div>
-                    <div class="hp-temp">
-                        <span>Temp HP:</span>
-                        <span id="hpModalTemp">0</span>
-                    </div>
-                    <div class="hp-controls">
-                        <div class="hp-adjust-row">
-                            <button class="hp-btn damage" data-amount="-10">-10</button>
-                            <button class="hp-btn damage" data-amount="-5">-5</button>
-                            <button class="hp-btn damage" data-amount="-1">-1</button>
-                            <button class="hp-btn heal" data-amount="1">+1</button>
-                            <button class="hp-btn heal" data-amount="5">+5</button>
-                            <button class="hp-btn heal" data-amount="10">+10</button>
-                        </div>
-                        <div class="hp-custom-row">
-                            <input type="number" id="hpCustomAmount" class="hp-custom-input" placeholder="Amount" min="1">
-                            <button id="hpDamageBtn" class="hp-btn damage">Damage</button>
-                            <button id="hpHealBtn" class="hp-btn heal">Heal</button>
-                        </div>
-                        <div class="hp-actions-row">
-                            <button id="hpFullHeal" class="hp-btn full-heal">Full Heal</button>
-                            <button id="hpAddTemp" class="hp-btn temp">+ Temp HP</button>
-                        </div>
-                    </div>
+            <div class="modal-content">
+                <button class="modal-close" id="closeModal">×</button>
+                <div id="modalBody">
+                    <!-- Modal content populated by JS -->
                 </div>
-            </div>
-        </div>
-
-        <!-- Shop Item Modal -->
-        <div id="shopModal" class="modal">
-            <div class="modal-content shop-modal-content">
-                <button class="modal-close" data-modal="shopModal">×</button>
-                <div id="shopModalBody"></div>
             </div>
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    
-    <!-- App -->
     <script src="app.js"></script>
 </body>
 </html>

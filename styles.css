@@ -1,962 +1,328 @@
 /* ============================================
-   SCARLETT ISLES COMPANION - MOBILE FIRST
+   SCARLETT ISLES SHOP - CSS
+   Clean, focused item browser
    ============================================ */
 
 :root {
-    /* Colors - matching the shop app */
-    --bg-dark: #1a0a0a;
-    --bg-card: #2d1515;
-    --bg-card-hover: #3d2020;
+    /* Colors */
+    --bg-dark: #1a1a2e;
+    --bg-card: #252542;
+    --bg-card-hover: #2d2d4a;
+    --text-primary: #e8e6e3;
+    --text-secondary: #a8a5a0;
+    --text-muted: #6b6966;
     --scarlet: #c4232f;
-    --scarlet-dark: #8a171f;
+    --scarlet-dim: #8b1a22;
     --gold: #f2d38a;
-    --gold-dim: #b89d5a;
-    --text-primary: #e8e0d5;
-    --text-secondary: #a89d8a;
-    --text-muted: #6b6358;
-    --border-color: #4a3030;
-    --hp-green: #7ccc6c;
-    --ac-blue: #6cb8cc;
+    --gold-dim: #b8973d;
+    --border-color: #3a3a5c;
+    
+    /* Rarity Colors */
+    --common: #9d9d9d;
+    --uncommon: #1eff00;
+    --rare: #0070dd;
+    --legendary: #ff8000;
     
     /* Fonts */
     --font-display: 'Cinzel', serif;
-    --font-body: 'Inter', sans-serif;
+    --font-body: 'Crimson Text', Georgia, serif;
     
-    /* Mobile-first spacing */
-    --spacing-xs: 6px;
-    --spacing-sm: 12px;
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
     --spacing-md: 16px;
     --spacing-lg: 24px;
     --spacing-xl: 32px;
-    
-    /* Touch targets - minimum 44px */
-    --touch-min: 44px;
-    
-    /* Safe areas for notched phones */
-    --safe-top: env(safe-area-inset-top, 0px);
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html {
-    height: 100%;
-    /* Prevent pull-to-refresh */
-    overscroll-behavior: none;
 }
 
 body {
-    height: 100%;
     font-family: var(--font-body);
-    font-size: 16px; /* Prevent zoom on input focus */
     background: var(--bg-dark);
     color: var(--text-primary);
+    min-height: 100vh;
     line-height: 1.5;
-    overflow: hidden;
-    /* Smooth scrolling */
-    -webkit-overflow-scrolling: touch;
 }
 
-#app {
-    height: 100%;
-    padding-top: var(--safe-top);
-    padding-bottom: var(--safe-bottom);
-}
-
-/* ============================================
-   SCREENS
-   ============================================ */
-
-.screen {
-    display: none;
-    height: 100%;
-    flex-direction: column;
-}
-
-.screen.active {
-    display: flex;
-}
-
-/* ============================================
-   LOADING SCREEN
-   ============================================ */
-
-#loadingScreen {
-    justify-content: center;
-    align-items: center;
-}
-
-.loading-content {
-    text-align: center;
-}
-
-.loading-content h1 {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    color: var(--gold);
-    margin-bottom: var(--spacing-xs);
-}
-
-.loading-content .subtitle {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: var(--text-secondary);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: var(--spacing-xl);
-}
-
-.loading-spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid var(--border-color);
-    border-top-color: var(--gold);
-    border-radius: 50%;
-    margin: 0 auto var(--spacing-md);
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-#loadingStatus {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-/* ============================================
-   PLAYER SELECTION SCREEN
-   ============================================ */
-
-#playerSelect {
-    padding: var(--spacing-md);
-    overflow-y: auto;
-}
-
-.player-select-content {
-    max-width: 400px;
+.app {
+    max-width: 600px;
     margin: 0 auto;
-}
-
-.player-select-content h2 {
-    font-family: var(--font-display);
-    color: var(--gold);
-    text-align: center;
-    margin-bottom: var(--spacing-lg);
-}
-
-.player-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.player-card {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
     padding: var(--spacing-md);
-    background: var(--bg-card);
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
+    padding-bottom: 100px;
 }
 
-.player-card:active {
-    background: var(--bg-card-hover);
-    border-color: var(--gold-dim);
-    transform: scale(0.98);
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    border-bottom: 2px solid var(--scarlet);
+    margin-bottom: var(--spacing-md);
 }
 
-.player-card.dm {
-    border-color: var(--gold-dim);
-    background: rgba(242, 211, 138, 0.05);
-}
-
-.player-icon {
+.header h1 {
+    font-family: var(--font-display);
     font-size: 1.5rem;
-}
-
-.player-name {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    flex: 1;
-}
-
-.player-role {
-    font-size: 0.8rem;
     color: var(--gold);
+    font-weight: 600;
 }
 
-/* Header with back button */
-.header-with-back {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing-sm) var(--spacing-md);
-}
-
-.header-with-back > div {
-    flex: 1;
-    text-align: center;
-}
-
-.header-with-back h1 {
-    font-size: 1.5rem;
-}
-
-.header-spacer {
-    width: 70px;
-}
-
-/* Character HP preview on card */
-.char-hp-preview {
-    font-size: 0.75rem;
-    color: var(--hp-green);
-    margin-top: 4px;
-}
-
-/* ============================================
-   PARTY HP SECTION
-   ============================================ */
-
-.party-hp-section {
-    margin-bottom: var(--spacing-lg);
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-}
-
-.party-hp-section h3 {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    color: var(--gold);
-    margin-bottom: var(--spacing-sm);
-}
-
-.party-hp-list {
+.week-info {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
-}
-
-.party-hp-item {
-    display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-xs) 0;
-}
-
-.party-hp-item.current {
-    background: rgba(242, 211, 138, 0.1);
-    margin: 0 calc(-1 * var(--spacing-sm));
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: 6px;
-}
-
-.party-hp-name {
-    width: 70px;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.party-hp-bar-container {
-    flex: 1;
-    height: 8px;
-    background: var(--bg-dark);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.party-hp-bar {
-    height: 100%;
-    border-radius: 4px;
-    transition: width 0.3s ease;
-}
-
-.party-hp-text {
-    width: 55px;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-align: right;
-}
-
-/* ============================================
-   CHARACTER SELECT SCREEN
-   ============================================ */
-
-#characterSelect {
-    padding: var(--spacing-md);
-    padding-top: calc(var(--spacing-md) + var(--safe-top));
-    overflow-y: auto;
-}
-
-#characterSelect .header {
-    text-align: center;
-    padding: var(--spacing-lg) 0;
-}
-
-#characterSelect .header h1 {
-    font-family: var(--font-display);
-    font-size: 1.75rem;
-    color: var(--gold);
-    letter-spacing: 2px;
-}
-
-#characterSelect .subtitle {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-top: var(--spacing-xs);
-}
-
-/* Character Grid - 2 columns on mobile */
-.character-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
-    padding-bottom: calc(var(--spacing-xl) + var(--safe-bottom));
-}
-
-.character-card {
     background: var(--bg-card);
-    border: 2px solid var(--border-color);
-    border-radius: 16px;
-    padding: var(--spacing-sm);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    text-align: center;
-    /* Ensure tappable */
-    min-height: var(--touch-min);
-}
-
-.character-card:active {
-    background: var(--bg-card-hover);
-    border-color: var(--gold-dim);
-    transform: scale(0.98);
-}
-
-.character-card .portrait-thumb {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 2px solid var(--border-color);
-}
-
-.character-card .char-name {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: var(--gold);
-    margin-top: var(--spacing-sm);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.character-card .char-class {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-top: 4px;
-}
-
-/* ============================================
-   CHARACTER SHEET SCREEN
-   ============================================ */
-
-#characterSheet {
-    display: none;
-    flex-direction: column;
-    height: 100%;
-}
-
-#characterSheet.active {
-    display: flex;
-}
-
-/* Sheet Header */
-.sheet-header {
-    display: flex;
-    align-items: center;
     padding: var(--spacing-sm) var(--spacing-md);
-    padding-top: calc(var(--spacing-sm) + var(--safe-top));
-    background: var(--bg-card);
-    border-bottom: 1px solid var(--border-color);
-    gap: var(--spacing-sm);
-    min-height: 60px;
-}
-
-.back-btn {
-    background: none;
-    border: none;
-    color: var(--gold);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    cursor: pointer;
-    padding: var(--spacing-sm);
-    min-width: var(--touch-min);
-    min-height: var(--touch-min);
-    display: flex;
-    align-items: center;
-}
-
-.header-info {
-    flex: 1;
-    text-align: center;
-    min-width: 0;
-}
-
-.header-info h2 {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    color: var(--gold);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.header-info p {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-}
-
-.gold-display {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: var(--gold);
-    white-space: nowrap;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: rgba(242, 211, 138, 0.15);
     border-radius: 8px;
-    border: 1px solid var(--gold-dim);
-}
-
-/* ============================================
-   TAB NAVIGATION - Big touch targets
-   ============================================ */
-
-.tab-nav {
-    display: flex;
-    background: var(--bg-card);
-    border-bottom: 2px solid var(--border-color);
-}
-
-.tab-btn {
-    flex: 1;
-    padding: var(--spacing-md);
-    min-height: var(--touch-min);
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    color: var(--text-secondary);
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-}
-
-.tab-btn.active {
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-    background: rgba(242, 211, 138, 0.05);
-}
-
-/* ============================================
-   TAB CONTENT
-   ============================================ */
-
-.tab-content {
-    display: none;
-    flex: 1;
-    overflow-y: auto;
-    padding: var(--spacing-md);
-    padding-bottom: calc(var(--spacing-xl) + var(--safe-bottom));
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* ============================================
-   STATS TAB - Hero Card Layout
-   ============================================ */
-
-/* Hero Section - Portrait + Combat Stats */
-.portrait-section {
-    display: flex;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 16px;
     border: 1px solid var(--border-color);
 }
 
-.portrait {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 2px solid var(--gold-dim);
-    flex-shrink: 0;
-}
-
-.combat-stats {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-sm);
-}
-
-.stat-box {
-    background: var(--bg-dark);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: var(--spacing-sm);
-    text-align: center;
-}
-
-.stat-box .stat-label {
-    display: block;
+.week-label {
     font-size: 0.7rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 2px;
 }
 
-.stat-box .stat-value {
-    display: block;
+.week-number {
     font-family: var(--font-display);
-    font-size: 1.4rem;
-    color: var(--text-primary);
+    font-size: 1.5rem;
+    color: var(--scarlet);
+    font-weight: 700;
 }
 
-.stat-box.hp .stat-value { color: var(--hp-green); }
-.stat-box.ac .stat-value { color: var(--ac-blue); }
-.stat-box.init .stat-value { color: var(--gold); }
-
-/* Section Headers */
-.abilities-section h3,
-.saves-section h3,
-.skills-section h3,
-.features-section h3 {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: var(--gold);
-    margin-bottom: var(--spacing-sm);
-    padding: var(--spacing-sm) 0;
-    border-bottom: 1px solid var(--border-color);
+/* ============================================
+   SUBTITLE
+   ============================================ */
+.shop-subtitle {
+    text-align: center;
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-md);
 }
 
-.abilities-section,
-.saves-section,
-.skills-section,
-.features-section {
-    margin-bottom: var(--spacing-lg);
+.shop-subtitle p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 }
 
-/* Abilities Grid - 6 across, compact */
-.abilities-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+.refresh-note {
+    font-size: 0.8rem !important;
+    color: var(--text-muted) !important;
+    margin-top: var(--spacing-sm);
+}
+
+/* ============================================
+   CATEGORY TABS
+   ============================================ */
+.category-tabs {
+    display: flex;
     gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-.ability-box {
+.category-tab {
+    flex: 1;
+    min-width: 70px;
+    padding: var(--spacing-sm) var(--spacing-md);
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: var(--spacing-sm) var(--spacing-xs);
-    text-align: center;
-}
-
-.ability-box .ability-name {
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.ability-box .ability-mod {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    color: var(--text-primary);
-    line-height: 1.2;
-}
-
-.ability-box .ability-score {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-}
-
-/* Saves - 2 columns */
-.saves-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-xs);
-}
-
-.save-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm);
-    background: var(--bg-card);
     border-radius: 8px;
-    min-height: var(--touch-min);
-}
-
-.save-item .prof-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 2px solid var(--text-muted);
-    flex-shrink: 0;
-}
-
-.save-item .prof-dot.proficient {
-    background: var(--gold);
-    border-color: var(--gold);
-}
-
-.save-item .save-name {
-    flex: 1;
+    color: var(--text-secondary);
+    font-family: var(--font-display);
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
 }
 
-.save-item .save-mod {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    color: var(--text-primary);
+.category-tab:hover {
+    background: var(--bg-card-hover);
 }
 
-/* Skills - Single column for readability */
-.skills-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-}
-
-.skill-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 8px;
-    min-height: var(--touch-min);
-}
-
-.skill-item .prof-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 2px solid var(--text-muted);
-    flex-shrink: 0;
-}
-
-.skill-item .prof-dot.proficient {
-    background: var(--gold);
-    border-color: var(--gold);
-}
-
-.skill-item .prof-dot.expertise {
+.category-tab.active {
     background: var(--scarlet);
     border-color: var(--scarlet);
+    color: white;
 }
 
-.skill-item .skill-name {
-    flex: 1;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.skill-item .skill-mod {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    min-width: 35px;
-    text-align: right;
-}
-
-/* Features */
-.features-list {
+/* ============================================
+   RARITY FILTER
+   ============================================ */
+.rarity-filter {
     display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-lg);
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
 }
 
-.feature-tag {
-    padding: var(--spacing-sm) var(--spacing-md);
+.rarity-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    font-size: 0.85rem;
     color: var(--text-secondary);
-}
-
-/* ============================================
-   INVENTORY TAB
-   ============================================ */
-
-.inventory-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-}
-
-.currency-display .gold {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    color: var(--gold);
-}
-
-.weight-display {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-.inventory-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.inventory-item {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    min-height: var(--touch-min);
-}
-
-.inventory-item .item-name {
-    flex: 1;
-    color: var(--text-primary);
-    font-size: 0.95rem;
-}
-
-.inventory-item .item-qty {
-    color: var(--gold);
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-right: var(--spacing-md);
-    min-width: 40px;
-    text-align: center;
-}
-
-.inventory-item .item-weight {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    min-width: 50px;
-    text-align: right;
-}
-
-/* ============================================
-   SPELLS TAB
-   ============================================ */
-
-#spellsContent {
-    padding-bottom: var(--spacing-xl);
-}
-
-.no-spells {
-    text-align: center;
-    color: var(--text-muted);
-    padding: var(--spacing-xl);
-    font-size: 1rem;
-}
-
-.spell-stats {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: var(--spacing-lg);
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-}
-
-.spell-stat {
-    text-align: center;
-}
-
-.spell-stat .label {
     font-size: 0.75rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.spell-stat .value {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
+.rarity-btn:hover {
+    background: var(--bg-card-hover);
+}
+
+.rarity-btn.active {
+    border-width: 2px;
+}
+
+.rarity-btn.active[data-rarity="all"] {
+    border-color: var(--gold);
     color: var(--gold);
 }
 
-.spell-section {
-    margin-bottom: var(--spacing-lg);
+.rarity-btn.common.active {
+    border-color: var(--common);
+    color: var(--common);
 }
 
-.spell-section h4 {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: var(--gold);
-    margin-bottom: var(--spacing-sm);
-    padding: var(--spacing-sm) 0;
-    border-bottom: 1px solid var(--border-color);
+.rarity-btn.uncommon.active {
+    border-color: var(--uncommon);
+    color: var(--uncommon);
 }
 
-.spell-item {
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin-bottom: var(--spacing-sm);
-    min-height: var(--touch-min);
+.rarity-btn.rare.active {
+    border-color: var(--rare);
+    color: var(--rare);
 }
 
-.spell-item .spell-name {
-    color: var(--text-primary);
-    font-size: 1rem;
-}
-
-.spell-item .spell-source {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    margin-top: 4px;
+.rarity-btn.legendary.active {
+    border-color: var(--legendary);
+    color: var(--legendary);
 }
 
 /* ============================================
-   SHOP TAB
+   ITEMS GRID
    ============================================ */
-
-.shop-header {
-    text-align: center;
-    padding: var(--spacing-xl);
+.items-container {
+    min-height: 300px;
 }
 
-.shop-header p {
-    font-size: 1rem;
-    margin-bottom: var(--spacing-md);
-}
-
-.shop-header a {
-    color: var(--gold);
-    text-decoration: none;
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-}
-
-.shop-note {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-top: var(--spacing-md);
-}
-
-/* ============================================
-   MAGIC ITEMS TAB
-   ============================================ */
-
-.magic-items-list {
+.items-grid {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
 }
 
-.no-items {
-    text-align: center;
-    color: var(--text-muted);
-    padding: var(--spacing-xl);
-    font-size: 1rem;
-}
-
-.magic-item-card {
+.item-card {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
     padding: var(--spacing-md);
     background: var(--bg-card);
-    border: 1px solid var(--border-color);
     border-radius: 12px;
+    border-left: 4px solid var(--common);
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.2s;
 }
 
-.magic-item-card:active {
+.item-card:hover,
+.item-card:active {
     background: var(--bg-card-hover);
-    transform: scale(0.98);
+    transform: translateX(4px);
 }
 
-.magic-item-icon {
+.item-card.uncommon {
+    border-left-color: var(--uncommon);
+}
+
+.item-card.rare {
+    border-left-color: var(--rare);
+}
+
+.item-card.legendary {
+    border-left-color: var(--legendary);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 128, 0, 0.1) 100%);
+}
+
+.item-icon {
     width: 48px;
     height: 48px;
     flex-shrink: 0;
+    opacity: 0.9;
 }
 
-.magic-item-info {
+.item-info {
     flex: 1;
     min-width: 0;
 }
 
-.magic-item-name {
+.item-name {
     font-family: var(--font-display);
     font-size: 1rem;
-    color: var(--gold);
+    color: var(--text-primary);
     margin-bottom: 2px;
 }
 
-.magic-item-type {
+.item-card.uncommon .item-name {
+    color: var(--uncommon);
+}
+
+.item-card.rare .item-name {
+    color: var(--rare);
+}
+
+.item-card.legendary .item-name {
+    color: var(--legendary);
+}
+
+.item-meta {
+    display: flex;
+    gap: var(--spacing-sm);
     font-size: 0.8rem;
-    color: var(--text-secondary);
-}
-
-.magic-item-damage {
-    font-size: 0.85rem;
-    color: var(--text-primary);
-    margin-top: 4px;
-}
-
-.magic-item-arrow {
-    font-size: 1.5rem;
     color: var(--text-muted);
 }
 
-/* Rarity Colors */
-.rarity-common { color: var(--text-secondary); }
-.rarity-uncommon { color: #1eff00; }
-.rarity-rare { color: #0070dd; }
-.rarity-very-rare { color: #a335ee; }
-.rarity-legendary { color: #ff8000; }
-.rarity-artifact { color: #e6cc80; }
+.item-category {
+    color: var(--text-secondary);
+}
+
+.item-price {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--gold);
+    white-space: nowrap;
+}
+
+.item-good-for {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.class-tag {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(196, 35, 47, 0.2);
+    color: var(--scarlet);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
 /* ============================================
-   ITEM DETAIL MODAL
+   MODAL
    ============================================ */
-
 .modal {
     display: none;
     position: fixed;
@@ -970,1579 +336,267 @@ body {
     overflow-y: auto;
 }
 
-.modal.active {
+.modal.open {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding-top: calc(var(--spacing-xl) + var(--safe-top));
+    padding-top: 10vh;
 }
 
 .modal-content {
-    background: var(--bg-dark);
-    border: 1px solid var(--border-color);
+    background: var(--bg-card);
     border-radius: 16px;
-    width: 100%;
     max-width: 500px;
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
+    width: 100%;
     position: relative;
+    animation: modalSlideIn 0.3s ease;
 }
 
-.item-modal-content {
-    padding: var(--spacing-lg);
-    padding-top: var(--spacing-xl);
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modal-close {
     position: absolute;
-    top: var(--spacing-sm);
-    right: var(--spacing-sm);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
     width: 36px;
     height: 36px;
-    font-size: 1.5rem;
-    color: var(--text-secondary);
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 1;
+    border-radius: 50%;
+    transition: all 0.2s;
+    z-index: 10;
 }
 
-.modal-close:active {
-    background: var(--bg-card-hover);
+.modal-close:hover {
+    background: var(--bg-dark);
+    color: var(--text-primary);
 }
 
-/* Item Detail Content */
-.item-detail-header {
+/* Modal Body */
+.modal-header {
+    padding: var(--spacing-lg);
+    padding-right: 60px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header-content {
     display: flex;
+    align-items: flex-start;
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
 }
 
-.item-detail-icon {
+.modal-icon {
     width: 64px;
     height: 64px;
     flex-shrink: 0;
 }
 
-.item-detail-name {
+.modal-title-area {
+    flex: 1;
+}
+
+.modal-item-name {
     font-family: var(--font-display);
     font-size: 1.3rem;
-    color: var(--gold);
     margin-bottom: 4px;
 }
 
-.item-detail-type {
+.modal-item-name.common { color: var(--common); }
+.modal-item-name.uncommon { color: var(--uncommon); }
+.modal-item-name.rare { color: var(--rare); }
+.modal-item-name.legendary { color: var(--legendary); }
+
+.modal-item-category {
     font-size: 0.85rem;
     color: var(--text-secondary);
 }
 
-.item-detail-rarity {
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-top: 2px;
-}
-
-.item-attunement {
-    background: rgba(196, 35, 47, 0.2);
-    border: 1px solid var(--scarlet);
-    border-radius: 8px;
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: 0.85rem;
-    color: var(--scarlet);
-    margin-bottom: var(--spacing-md);
-    text-align: center;
-}
-
-.item-stats {
-    display: flex;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 8px;
-}
-
-.item-stat {
-    text-align: center;
-}
-
-.item-stat-label {
-    display: block;
+.modal-item-rarity {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
     font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.modal-item-rarity.common { background: rgba(157, 157, 157, 0.2); color: var(--common); }
+.modal-item-rarity.uncommon { background: rgba(30, 255, 0, 0.2); color: var(--uncommon); }
+.modal-item-rarity.rare { background: rgba(0, 112, 221, 0.2); color: var(--rare); }
+.modal-item-rarity.legendary { background: rgba(255, 128, 0, 0.2); color: var(--legendary); }
+
+.modal-body {
+    padding: var(--spacing-lg);
+}
+
+.modal-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.modal-section:last-child {
+    margin-bottom: 0;
+}
+
+.modal-section-title {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
     color: var(--text-muted);
     text-transform: uppercase;
-    margin-bottom: 2px;
+    letter-spacing: 1px;
+    margin-bottom: var(--spacing-sm);
 }
 
-.item-stat-value {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    color: var(--text-primary);
-}
-
-.item-properties {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-xs);
-    margin-bottom: var(--spacing-md);
-}
-
-.item-property {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-}
-
-.item-description {
+.modal-description {
     font-size: 0.95rem;
     color: var(--text-primary);
     line-height: 1.6;
-    margin-bottom: var(--spacing-lg);
-    font-style: italic;
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 8px;
-    border-left: 3px solid var(--gold-dim);
 }
 
-.item-features {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
-
-.item-feature {
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-}
-
-.item-feature-name {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    color: var(--gold);
-    margin-bottom: var(--spacing-xs);
-}
-
-.item-feature-desc {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-/* ============================================
-   WEAPONS TAB
-   ============================================ */
-
-.weapons-list {
-    display: flex;
-    flex-direction: column;
+.modal-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-sm);
 }
 
-.weapon-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: var(--spacing-md);
+.modal-stat {
+    background: var(--bg-dark);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 8px;
 }
 
-.weapon-card.magic {
-    border-color: var(--gold-dim);
-    cursor: pointer;
-}
-
-.weapon-card.magic:active {
-    background: var(--bg-card-hover);
-}
-
-.weapon-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--spacing-sm);
-}
-
-.weapon-name {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: var(--gold);
-}
-
-.weapon-magic-badge {
-    color: var(--gold);
-    font-size: 1.2rem;
-}
-
-.weapon-stats {
-    display: flex;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-sm);
-}
-
-.weapon-stat {
-    text-align: center;
-}
-
-.weapon-stat-label {
-    display: block;
+.modal-stat-label {
     font-size: 0.7rem;
     color: var(--text-muted);
     text-transform: uppercase;
 }
 
-.weapon-stat-value {
+.modal-stat-value {
     font-family: var(--font-display);
-    font-size: 1.1rem;
-    color: var(--text-primary);
-}
-
-.weapon-properties {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-}
-
-/* ============================================
-   HP TRACKER MODAL
-   ============================================ */
-
-.hp-modal-content {
-    padding: var(--spacing-lg);
-    padding-top: var(--spacing-xl);
-}
-
-.hp-modal-body h2 {
-    font-family: var(--font-display);
-    color: var(--gold);
-    text-align: center;
-    margin-bottom: var(--spacing-md);
-}
-
-.hp-display {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: var(--spacing-xs);
-    margin-bottom: var(--spacing-md);
-}
-
-.hp-current {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    color: var(--hp-green);
-}
-
-.hp-separator {
-    font-size: 2rem;
-    color: var(--text-muted);
-}
-
-.hp-max {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    color: var(--text-secondary);
-}
-
-.hp-bar-container {
-    height: 20px;
-    background: var(--bg-card);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: var(--spacing-md);
-    border: 1px solid var(--border-color);
-}
-
-.hp-bar {
-    height: 100%;
-    background: var(--hp-green);
-    transition: width 0.3s ease, background 0.3s ease;
-    border-radius: 10px;
-}
-
-.hp-temp {
-    text-align: center;
-    margin-bottom: var(--spacing-lg);
-    color: var(--text-secondary);
-}
-
-.hp-temp span:last-child {
-    color: var(--ac-blue);
-    font-weight: 600;
-}
-
-.hp-controls {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
-
-.hp-adjust-row {
-    display: flex;
-    gap: var(--spacing-xs);
-    justify-content: center;
-}
-
-.hp-btn {
-    min-width: var(--touch-min);
-    min-height: var(--touch-min);
-    border: none;
-    border-radius: 8px;
-    font-family: var(--font-body);
     font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-}
-
-.hp-btn.damage {
-    background: rgba(196, 35, 47, 0.2);
-    color: var(--scarlet);
-    border: 1px solid var(--scarlet);
-}
-
-.hp-btn.damage:active {
-    background: var(--scarlet);
-    color: white;
-}
-
-.hp-btn.heal {
-    background: rgba(124, 204, 108, 0.2);
-    color: var(--hp-green);
-    border: 1px solid var(--hp-green);
-}
-
-.hp-btn.heal:active {
-    background: var(--hp-green);
-    color: white;
-}
-
-.hp-btn.full-heal {
-    background: rgba(124, 204, 108, 0.3);
-    color: var(--hp-green);
-    border: 1px solid var(--hp-green);
-    flex: 1;
-}
-
-.hp-btn.temp {
-    background: rgba(108, 184, 204, 0.2);
-    color: var(--ac-blue);
-    border: 1px solid var(--ac-blue);
-    flex: 1;
-}
-
-.hp-custom-row {
-    display: flex;
-    gap: var(--spacing-xs);
-}
-
-.hp-custom-input {
-    flex: 1;
-    min-height: var(--touch-min);
-    padding: 0 var(--spacing-md);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
     color: var(--text-primary);
-    font-size: 1rem;
-    text-align: center;
 }
 
-.hp-custom-input::placeholder {
-    color: var(--text-muted);
-}
-
-.hp-actions-row {
-    display: flex;
-    gap: var(--spacing-sm);
-}
-
-/* Tappable HP box hint */
-.stat-box.tappable {
-    cursor: pointer;
-    position: relative;
-}
-
-.tap-hint {
-    display: block;
-    font-size: 0.6rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
-}
-
-/* ============================================
-   SHOP TAB
-   ============================================ */
-
-.shop-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-sm);
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 12px;
-    gap: var(--spacing-md);
-}
-
-.shop-filters-row {
-    display: flex;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
-}
-
-.shop-filters-row .shop-filter {
-    flex: 1;
-}
-
-.shop-gold {
-    display: flex;
-    flex-direction: column;
-}
-
-.shop-gold-label {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-}
-
-.shop-gold-value {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--gold);
-}
-
-.shop-filter {
-    min-height: var(--touch-min);
-    padding: 0 var(--spacing-md);
-    background: var(--bg-dark);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-primary);
-    font-size: 0.9rem;
-}
-
-.shop-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.shop-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-}
-
-.wishlist-toggle {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    min-height: var(--touch-min);
-    padding: 0 var(--spacing-md);
-    background: var(--bg-dark);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
-.wishlist-toggle.active {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: rgba(242, 211, 138, 0.1);
-}
-
-.wishlist-icon {
-    font-size: 1.1rem;
-}
-
-.wishlist-btn {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: var(--spacing-xs);
-    line-height: 1;
-}
-
-.wishlist-btn.active {
-    color: var(--gold);
-}
-
-.shop-btn.wishlist {
-    background: var(--bg-card);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-color);
-    margin-bottom: var(--spacing-sm);
-}
-
-.shop-btn.wishlist.active {
-    background: rgba(242, 211, 138, 0.1);
-    color: var(--gold);
-    border-color: var(--gold);
-}
-
-/* Item Tags and Effects */
-.item-tags {
+.modal-properties {
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-xs);
-    margin-top: var(--spacing-sm);
 }
 
-.item-tag {
-    padding: 2px 8px;
-    background: rgba(242, 211, 138, 0.1);
-    border: 1px solid var(--gold-dim);
-    border-radius: 4px;
+.property-tag {
     font-size: 0.75rem;
-    color: var(--gold);
-}
-
-.item-effect {
-    margin-top: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: rgba(124, 204, 108, 0.1);
-    border: 1px solid var(--hp-green);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-}
-
-.item-shops {
-    margin-top: var(--spacing-md);
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-.shops-label {
-    display: block;
-    margin-bottom: var(--spacing-xs);
-}
-
-.shop-type {
-    display: inline-block;
-    margin-right: var(--spacing-sm);
-}
-
-.shop-item:active {
-    background: var(--bg-card-hover);
-}
-
-.shop-item.owned {
-    opacity: 0.6;
-}
-
-.shop-item.cant-afford {
-    opacity: 0.5;
-}
-
-.shop-item-icon {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-}
-
-.shop-item-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.shop-item-name {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    color: var(--gold);
-}
-
-.shop-item-type {
-    font-size: 0.8rem;
-}
-
-.shop-item-price {
-    text-align: right;
-}
-
-.shop-item-price .price {
-    font-family: var(--font-display);
-    color: var(--gold);
-}
-
-.owned-badge {
-    font-size: 0.75rem;
-    color: var(--hp-green);
-    background: rgba(124, 204, 108, 0.2);
     padding: 4px 8px;
-    border-radius: 4px;
-}
-
-/* Shop Modal */
-.shop-modal-content {
-    padding: var(--spacing-lg);
-    padding-top: var(--spacing-xl);
-}
-
-.shop-item-cost {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 8px;
-    margin-bottom: var(--spacing-md);
-}
-
-.cost-label {
-    color: var(--text-secondary);
-}
-
-.cost-value {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--gold);
-}
-
-.shop-actions {
-    margin-top: var(--spacing-lg);
-}
-
-.shop-btn {
-    width: 100%;
-    min-height: 50px;
-    border: none;
-    border-radius: 10px;
-    font-family: var(--font-display);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.15s;
-}
-
-.shop-btn.buy {
-    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
-    color: var(--bg-dark);
-}
-
-.shop-btn.buy:active {
-    transform: scale(0.98);
-}
-
-.shop-btn.owned,
-.shop-btn.cant-afford {
-    background: var(--bg-card);
-    color: var(--text-muted);
-    cursor: not-allowed;
-}
-
-/* ============================================
-   TOAST NOTIFICATIONS
-   ============================================ */
-
-.toast {
-    position: fixed;
-    bottom: calc(20px + var(--safe-bottom));
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--hp-green);
-    color: var(--bg-dark);
-    padding: var(--spacing-md) var(--spacing-lg);
-    border-radius: 10px;
-    font-weight: 600;
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 2000;
-}
-
-.toast.show {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-
-/* ============================================
-   UTILITIES & SCROLLBAR
-   ============================================ */
-
-/* Hide scrollbar but keep functionality */
-.tab-content::-webkit-scrollbar,
-#characterSelect::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-}
-
-/* Smooth momentum scrolling */
-.tab-content,
-#characterSelect {
-    -webkit-overflow-scrolling: touch;
-}
-
-/* ============================================
-   INVENTORY/EQUIPMENT SYSTEM - D&D Beyond Style
-   ============================================ */
-
-.inv-section {
-    margin-bottom: var(--spacing-lg);
-}
-
-.inv-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--spacing-sm) 0;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: var(--spacing-sm);
-}
-
-.inv-section-header h4 {
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-}
-
-.inv-weight {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-.inv-items {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.inv-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.15s;
-    min-height: var(--touch-min);
-}
-
-.inv-item:active {
-    background: var(--bg-card-hover);
-}
-
-.inv-item.magical {
-    border-left: 3px solid var(--gold-dim);
-}
-
-.inv-item.needs-attunement {
-    opacity: 0.7;
-}
-
-.inv-item-checkbox {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--text-muted);
-    border-radius: 4px;
-    flex-shrink: 0;
-}
-
-.inv-item-checkbox.magic {
-    border-color: var(--gold-dim);
-    border-radius: 2px;
-}
-
-.inv-item-checkbox.checked {
-    background: var(--scarlet);
-    border-color: var(--scarlet);
-}
-
-.inv-item-checkbox.magic.checked {
-    background: transparent;
-    border-color: var(--gold);
-}
-
-.inv-item-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.inv-item-name {
-    font-size: 0.95rem;
-    color: var(--text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.inv-item.magical .inv-item-name {
-    color: var(--gold);
-}
-
-.inv-item-type {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-}
-
-.inv-item-meta {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    flex-shrink: 0;
-}
-
-.inv-qty {
     background: var(--bg-dark);
-    padding: 2px 8px;
     border-radius: 4px;
-    font-size: 0.8rem;
     color: var(--text-secondary);
 }
 
-.inv-weight-small {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    min-width: 40px;
-    text-align: right;
-}
-
-/* Attunement Section */
-.attunement-section {
-    background: var(--bg-card);
+.modal-effect {
+    background: rgba(242, 211, 138, 0.1);
+    border-left: 3px solid var(--gold);
     padding: var(--spacing-md);
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-}
-
-.attunement-section .inv-section-header {
-    border-bottom: none;
-    margin-bottom: var(--spacing-md);
-}
-
-.attune-count {
-    font-family: var(--font-display);
-    color: var(--gold);
-}
-
-.attunement-slots {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.attunement-slot {
-    padding: var(--spacing-md);
-    border: 2px dashed var(--border-color);
-    border-radius: 8px;
-    min-height: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.attunement-slot.filled {
-    border-style: solid;
-    border-color: var(--gold-dim);
-    background: rgba(242, 211, 138, 0.05);
-    cursor: pointer;
-}
-
-.attunement-slot.filled:active {
-    background: rgba(242, 211, 138, 0.1);
-}
-
-.attunement-slot.empty {
-    opacity: 0.5;
-}
-
-.attune-item-name {
-    font-family: var(--font-display);
-    color: var(--gold);
-    font-size: 0.95rem;
-}
-
-.attune-item-effect {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    margin-top: 2px;
-}
-
-.attune-empty {
-    color: var(--text-muted);
-    font-style: italic;
-    text-align: center;
-}
-
-/* Item Action Buttons */
-.item-actions {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-lg);
-}
-
-.item-action-btn {
-    width: 100%;
-    min-height: var(--touch-min);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--bg-card);
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.15s;
-}
-
-.item-action-btn:active {
-    background: var(--bg-card-hover);
-}
-
-.item-action-btn.equip {
-    background: rgba(124, 204, 108, 0.2);
-    border-color: var(--hp-green);
-    color: var(--hp-green);
-}
-
-.item-action-btn.unequip {
-    background: rgba(108, 184, 204, 0.2);
-    border-color: var(--ac-blue);
-    color: var(--ac-blue);
-}
-
-.item-action-btn.attune {
-    background: rgba(242, 211, 138, 0.2);
-    border-color: var(--gold);
-    color: var(--gold);
-}
-
-.item-action-btn.unattune {
-    background: rgba(242, 211, 138, 0.1);
-    border-color: var(--gold-dim);
-    color: var(--gold-dim);
-}
-
-.item-action-btn.drop {
-    background: rgba(196, 35, 47, 0.2);
-    border-color: var(--scarlet);
-    color: var(--scarlet);
-}
-
-.item-action-btn.disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.item-detail-icon-placeholder {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    background: var(--bg-card);
-    border-radius: 8px;
-}
-
-/* Weapon Effect Display */
-.weapon-effect {
-    font-size: 0.8rem;
-    color: var(--gold);
-    margin-top: var(--spacing-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: rgba(242, 211, 138, 0.1);
-    border-radius: 4px;
-}
-
-/* ============================================
-   PURCHASE CHOICE MODAL
-   ============================================ */
-
-.purchase-choice {
-    text-align: center;
-    padding: var(--spacing-md) 0;
-}
-
-.purchase-header {
-    margin-bottom: var(--spacing-lg);
-}
-
-.purchase-header h2 {
-    font-family: var(--font-display);
-    color: var(--hp-green);
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing-sm);
-}
-
-.purchase-item-name {
-    font-family: var(--font-display);
-    color: var(--gold);
-    font-size: 1.2rem;
-    margin-bottom: var(--spacing-xs);
-}
-
-.purchase-cost {
-    color: var(--scarlet);
-    font-size: 1rem;
-}
-
-.purchase-prompt {
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-lg);
-}
-
-.purchase-actions {
-    display: flex;
-    gap: var(--spacing-md);
-}
-
-.purchase-btn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-lg);
-    background: var(--bg-card);
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-}
-
-.purchase-btn:active {
-    transform: scale(0.98);
-}
-
-.purchase-btn.equip-btn {
-    border-color: var(--hp-green);
-}
-
-.purchase-btn.equip-btn:active {
-    background: rgba(124, 204, 108, 0.2);
-}
-
-.purchase-btn.backpack-btn {
-    border-color: var(--gold-dim);
-}
-
-.purchase-btn.backpack-btn:active {
-    background: rgba(242, 211, 138, 0.1);
-}
-
-.purchase-btn-icon {
-    font-size: 2rem;
-}
-
-.purchase-btn-text {
-    font-family: var(--font-display);
-    color: var(--text-primary);
+    border-radius: 0 8px 8px 0;
     font-size: 0.9rem;
+    color: var(--gold);
 }
 
-/* ============================================
-   CURRENCY DISPLAY
-   ============================================ */
-
-.currency-display {
+.modal-good-for {
     display: flex;
     flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.good-for-tag {
+    display: flex;
+    align-items: center;
     gap: var(--spacing-xs);
-}
-
-.currency-pp {
-    color: #a8d4e6;
-}
-
-.currency-gp {
-    color: var(--gold);
-}
-
-.currency-ep {
-    color: #b8b8b8;
-}
-
-.currency-sp {
-    color: #c0c0c0;
-}
-
-.currency-cp {
-    color: #cd7f32;
-}
-
-/* ============================================
-   COIN PURSE (Mobile-friendly expandable)
-   ============================================ */
-
-.coin-purse-btn {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(242, 211, 138, 0.15);
-    border: 2px solid var(--gold-dim);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-size: 1.5rem;
-}
-
-.coin-purse-btn:active {
-    background: rgba(242, 211, 138, 0.3);
-    transform: scale(0.95);
-}
-
-/* Coin Purse Modal - slides up from bottom */
-.coin-purse-modal {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 1500;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s, visibility 0.2s;
-}
-
-.coin-purse-modal.open {
-    opacity: 1;
-    visibility: visible;
-}
-
-.coin-purse-content {
-    background: var(--bg-card);
-    border-top: 2px solid var(--gold-dim);
-    border-radius: 20px 20px 0 0;
-    padding: var(--spacing-lg);
-    padding-bottom: calc(var(--spacing-lg) + var(--safe-bottom));
-    transform: translateY(100%);
-    transition: transform 0.3s ease-out;
-}
-
-.coin-purse-modal.open .coin-purse-content {
-    transform: translateY(0);
-}
-
-.coin-purse-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-lg);
-}
-
-.coin-purse-header h3 {
-    font-family: var(--font-display);
-    color: var(--gold);
-    font-size: 1.2rem;
-}
-
-.coin-purse-close {
-    width: 36px;
-    height: 36px;
-    border: none;
-    background: var(--bg-dark);
-    border-radius: 50%;
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.coin-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.coin-row {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing-md);
-    background: var(--bg-dark);
-    border-radius: 10px;
-    min-height: 50px;
-}
-
-.coin-icon {
-    font-size: 1.5rem;
-    width: 40px;
-    text-align: center;
-}
-
-.coin-label {
-    flex: 1;
-    font-size: 1rem;
-    color: var(--text-secondary);
-}
-
-.coin-value {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    min-width: 60px;
-    text-align: right;
-}
-
-/* Coin colors */
-.coin-row.pp .coin-value { color: #a8d4e6; }
-.coin-row.gp .coin-value { color: var(--gold); }
-.coin-row.ep .coin-value { color: #b8b8b8; }
-.coin-row.sp .coin-value { color: #c0c0c0; }
-.coin-row.cp .coin-value { color: #cd7f32; }
-
-.coin-total-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: var(--spacing-lg);
-    padding-top: var(--spacing-md);
-    border-top: 1px solid var(--border-color);
-}
-
-.coin-total-label {
-    color: var(--text-secondary);
-}
-
-.coin-total-value {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    color: var(--gold);
-}
-
-/* Shop Coin Purse Button */
-.shop-coin-purse {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: rgba(242, 211, 138, 0.1);
-    border: 1px solid var(--gold-dim);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.15s;
-}
-
-.shop-coin-purse:active {
-    background: rgba(242, 211, 138, 0.2);
-}
-
-.shop-purse-icon {
-    font-size: 1.2rem;
-}
-
-.shop-gold-value {
-    font-family: var(--font-display);
-    color: var(--gold);
-    font-size: 1rem;
-}
-
-/* ============================================
-   DM CURRENCY EDITING
-   ============================================ */
-
-.dm-edit-currency-btn {
-    width: 100%;
-    padding: var(--spacing-md);
-    margin-top: var(--spacing-lg);
-    background: rgba(196, 35, 47, 0.2);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: rgba(196, 35, 47, 0.15);
     border: 1px solid var(--scarlet);
-    border-radius: 8px;
+    border-radius: 20px;
+    font-size: 0.8rem;
     color: var(--scarlet);
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.15s;
 }
 
-.dm-edit-currency-btn:active {
-    background: rgba(196, 35, 47, 0.3);
-}
-
-.coin-purse-edit {
-    padding-top: var(--spacing-sm);
-}
-
-.coin-edit-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.coin-edit-row {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--bg-dark);
-    border-radius: 10px;
-    min-height: 56px;
-}
-
-.coin-edit-row .coin-icon {
-    font-size: 1.3rem;
-    width: 36px;
-    text-align: center;
-}
-
-.coin-edit-row .coin-label {
-    flex: 1;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-}
-
-.coin-edit-controls {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-}
-
-.coin-btn {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--bg-card);
+.good-for-tag .char-name {
     color: var(--text-primary);
-    font-size: 1.3rem;
-    cursor: pointer;
+}
+
+.modal-price {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: all 0.1s;
-}
-
-.coin-btn:active {
-    background: var(--bg-card-hover);
-    transform: scale(0.95);
-}
-
-.coin-btn.minus {
-    color: var(--scarlet);
-}
-
-.coin-btn.plus {
-    color: var(--hp-green);
-}
-
-.coin-input {
-    width: 70px;
-    height: 40px;
-    text-align: center;
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    color: var(--gold);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    -moz-appearance: textfield;
-}
-
-.coin-input::-webkit-outer-spin-button,
-.coin-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.coin-edit-actions {
-    display: flex;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-lg);
-}
-
-.coin-edit-btn {
-    flex: 1;
+    justify-content: space-between;
     padding: var(--spacing-md);
-    border-radius: 8px;
-    font-family: var(--font-display);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    min-height: var(--touch-min);
-}
-
-.coin-edit-btn.cancel {
     background: var(--bg-dark);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-}
-
-.coin-edit-btn.save {
-    background: var(--hp-green);
-    border: none;
-    color: var(--bg-dark);
-    font-weight: 600;
-}
-
-.coin-edit-btn:active {
-    transform: scale(0.98);
-}
-
-/* ============================================
-   SELL ITEM STYLES
-   ============================================ */
-
-.sell-info {
-    margin-top: var(--spacing-md);
-    padding: var(--spacing-md);
-    background: rgba(242, 211, 138, 0.1);
-    border: 1px solid var(--gold-dim);
     border-radius: 8px;
 }
 
-.sell-info-label {
+.modal-price-label {
     font-size: 0.85rem;
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-xs);
 }
 
-.sell-info-price {
+.modal-price-value {
     font-family: var(--font-display);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: var(--gold);
 }
 
-.sell-info-note {
-    font-size: 0.8rem;
+.modal-price-note {
+    font-size: 0.75rem;
     color: var(--text-muted);
-    margin-top: var(--spacing-xs);
-}
-
-.item-action-btn.sell {
-    background: rgba(242, 211, 138, 0.2);
-    border-color: var(--gold);
-    color: var(--gold);
-}
-
-.no-sell-reason {
-    color: var(--text-muted);
-    font-style: italic;
-    font-size: 0.9rem;
+    text-align: center;
     margin-top: var(--spacing-sm);
 }
 
 /* ============================================
-   SHOP BUY/SELL TOGGLE
+   EMPTY STATE
    ============================================ */
-
-.shop-mode-toggle {
-    display: flex;
-    gap: 2px;
-    background: var(--bg-dark);
-    padding: 4px;
-    border-radius: 12px;
-    margin-bottom: var(--spacing-md);
-}
-
-.shop-mode-btn {
-    flex: 1;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border: none;
-    border-radius: 10px;
-    background: transparent;
-    color: var(--text-secondary);
-    font-family: var(--font-display);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    min-height: var(--touch-min);
-}
-
-.shop-mode-btn.active {
-    background: var(--bg-card);
-    color: var(--gold);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.shop-mode-btn:not(.active):active {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.sell-mode-info {
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: rgba(242, 211, 138, 0.1);
-    border: 1px dashed var(--gold-dim);
-    border-radius: 8px;
-    margin-bottom: var(--spacing-md);
-}
-
-.sell-mode-hint {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-/* Sell item in shop list */
-.sell-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md);
-    background: var(--bg-card);
-    border-radius: 12px;
-    margin-bottom: var(--spacing-xs);
-    cursor: pointer;
-    transition: all 0.15s;
-}
-
-.sell-item:active {
-    background: var(--bg-card-hover);
-}
-
-.sell-item-icon {
-    font-size: 1.5rem;
-    width: 40px;
+.empty-state {
     text-align: center;
-}
-
-.sell-item-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.sell-item-name {
-    font-family: var(--font-display);
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.sell-item-name.magical {
-    color: var(--gold);
-}
-
-.sell-item-type {
-    font-size: 0.8rem;
+    padding: var(--spacing-xl);
     color: var(--text-muted);
-    text-transform: uppercase;
 }
 
-.sell-item-price {
-    text-align: right;
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
 }
 
-.sell-item-price .price {
-    font-family: var(--font-display);
-    color: var(--gold);
-    font-size: 1rem;
-}
-
-.sell-item-price .no-sell {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    font-style: italic;
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 400px) {
+    .header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .item-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .item-name {
+        font-size: 0.9rem;
+    }
+    
+    .modal-content {
+        border-radius: 12px 12px 0 0;
+        margin-top: auto;
+    }
 }
