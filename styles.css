@@ -389,8 +389,9 @@ header {
     inset: 0;
     background: rgba(0, 0, 0, 0.85);
     z-index: 1000;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
+    padding: 1rem;
 }
 
 .modal-overlay.active {
@@ -402,33 +403,25 @@ header {
     max-width: 500px;
     max-height: 85vh;
     background: var(--bg-card);
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    border-radius: 12px;
     border: 1px solid var(--border-accent);
-    border-bottom: none;
     overflow-y: auto;
-    animation: slideUp 0.25s ease-out;
+    animation: modalFadeIn 0.2s ease-out;
 }
 
 .modal-body {
     padding: 1.5rem;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
 }
 
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .modal-body {
-        padding-bottom: calc(3rem + env(safe-area-inset-bottom));
-    }
-}
-
-@keyframes slideUp {
+@keyframes modalFadeIn {
     from {
-        transform: translateY(100%);
         opacity: 0;
+        transform: scale(0.95);
     }
     to {
-        transform: translateY(0);
         opacity: 1;
+        transform: scale(1);
     }
 }
 
