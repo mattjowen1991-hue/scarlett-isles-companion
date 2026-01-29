@@ -13,11 +13,16 @@ const CONFIG = {
 };
 
 function getWeekNumber() {
+    // Campaign starts week of February 3, 2026
+    const campaignStart = new Date('2026-02-03');
     const now = new Date();
-    const start = new Date(now.getFullYear(), 0, 1);
-    const diff = now - start;
-    const oneWeek = 604800000;
-    return Math.ceil(diff / oneWeek);
+    const diff = now - campaignStart;
+    const oneWeek = 604800000; // milliseconds in a week
+    
+    // If before campaign start, return 0 or 1
+    if (diff < 0) return 1;
+    
+    return Math.floor(diff / oneWeek) + 1;
 }
 
 // ===================================

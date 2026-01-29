@@ -408,12 +408,16 @@ header {
     border-bottom: none;
     overflow-y: auto;
     animation: slideUp 0.25s ease-out;
-    padding-bottom: 2rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    padding-bottom: 3rem;
 }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .modal {
-        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+    .modal-body {
+        padding-bottom: calc(3rem + env(safe-area-inset-bottom));
     }
 }
 
@@ -526,10 +530,6 @@ header {
     background: var(--bg-card);
     color: var(--text-primary);
     border-color: var(--gold-dim);
-}
-
-.modal-body {
-    padding: 1.5rem;
 }
 
 .modal-section {
