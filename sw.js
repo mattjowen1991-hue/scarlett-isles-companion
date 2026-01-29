@@ -1,14 +1,14 @@
-const CACHE_NAME = 'knightly-treasures-v1';
+const CACHE_NAME = 'knightly-treasures-v2';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/items.json',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/shop-logo.png'
+  './',
+  './index.html',
+  './styles.css',
+  './app.js',
+  './items.json',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
+  './shop-logo.png'
 ];
 
 // Install event - cache assets
@@ -95,7 +95,7 @@ self.addEventListener('fetch', (event) => {
           .catch(() => {
             // Offline fallback for HTML pages
             if (event.request.headers.get('accept').includes('text/html')) {
-              return caches.match('/index.html');
+              return caches.match('./index.html');
             }
           });
       })
