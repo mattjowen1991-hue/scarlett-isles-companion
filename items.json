@@ -799,7 +799,7 @@
     "category": "gear",
     "rarity": "Common",
     "price": 2,
-    "icon": "https://api.iconify.design/game-icons/grappling-hook.svg?color=%23ffffff",
+    "icon": "https://api.iconify.design/game-icons/grapple.svg?color=%23ffffff",
     "properties": "Utility",
     "attunement": "No",
     "suitableFor": ["Rogue", "Ranger", "Fighter"],
