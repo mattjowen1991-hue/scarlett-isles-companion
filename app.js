@@ -39,99 +39,11 @@ function shuffleWithSeed(array, seed) {
 }
 
 // ===================================
-// ICON MAPPING
+// ICON - Use emoji from item data
 // ===================================
 
-const ICON_MAP = {
-    // Weapons - specific matches (check these first)
-    'vorpal': 'bloody-sword',
-    'holy avenger': 'winged-sword',
-    'flame tongue': 'flaming-sword',
-    'venom': 'dripping-blade',
-    'magic missiles': 'missile-swarm',
-    
-    // Weapons - general
-    'greatsword': 'broadsword',
-    'longsword': 'broadsword',
-    'shortsword': 'gladius',
-    'rapier': 'rapier',
-    'dagger': 'stiletto',
-    'battleaxe': 'battle-axe',
-    'handaxe': 'thrown-daggers',
-    'warhammer': 'war-pick',
-    'mace': 'flanged-mace',
-    'quarterstaff': 'bo',
-    'spear': 'spear-hook',
-    'longbow': 'bow-arrow',
-    'shortbow': 'high-shot',
-    'crossbow': 'crossbow',
-    
-    // Armor
-    'shield': 'round-shield',
-    'chain shirt': 'mail-shirt',
-    'chain': 'mail-shirt',
-    'studded leather': 'leather-vest',
-    'leather': 'leather-vest',
-    'plate': 'breastplate',
-    'bracers': 'forearm',
-    'gauntlets': 'gloves',
-    'gauntlet': 'gloves',
-    'helmet': 'visored-helm',
-    'helm': 'visored-helm',
-    
-    // Wearables
-    'cloak': 'cape',
-    'boots': 'leg-armor',
-    'goggles': 'steampunk-goggles',
-    'ring': 'ring',
-    'amulet': 'emerald-necklace',
-    'ioun': 'gem-pendant',
-    
-    // Magic items
-    'staff of power': 'wizard-staff',
-    'staff': 'wizard-staff',
-    'wand': 'fairy-wand',
-    'scroll': 'scroll-unfurled',
-    'book': 'spell-book',
-    'orb': 'crystal-ball',
-    'lantern': 'lantern-flame',
-    'decanter': 'drink-me',
-    
-    // Gear
-    'potion': 'potion-ball',
-    'bag': 'backpack',
-    'rope': 'rope-coil',
-    'torch': 'torch',
-    'ball bearings': 'stone-pile',
-    'bearings': 'stone-pile',
-    
-    // Default
-    'default': 'swap-bag'
-};
-
 function getItemIcon(item) {
-    const nameLower = item.name.toLowerCase();
-    const typeLower = item.type.toLowerCase();
-    
-    // Check full name first for specific matches (longer keys first)
-    const sortedKeys = Object.keys(ICON_MAP)
-        .filter(k => k !== 'default')
-        .sort((a, b) => b.length - a.length);
-    
-    for (const key of sortedKeys) {
-        if (nameLower.includes(key)) {
-            return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${ICON_MAP[key]}.svg`;
-        }
-    }
-    
-    // Then check type
-    for (const key of sortedKeys) {
-        if (typeLower.includes(key)) {
-            return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${ICON_MAP[key]}.svg`;
-        }
-    }
-    
-    return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${ICON_MAP.default}.svg`;
+    return item.icon || '📦';
 }
 
 // ===================================
@@ -233,7 +145,7 @@ function renderItems() {
     itemList.innerHTML = filtered.map(item => {
         const rarity = item.rarity.toLowerCase();
         const isFavorite = favorites.includes(item.id);
-        const iconUrl = getItemIcon(item);
+        const icon = getItemIcon(item);
         
         return `
             <div class="item-row ${rarity}" data-item-id="${item.id}">
@@ -241,7 +153,7 @@ function renderItems() {
                     ${isFavorite ? '★' : '☆'}
                 </span>
                 <div class="item-icon">
-                    <img src="${iconUrl}" alt="${item.name}" onerror="this.style.display='none'">
+                    <span class="item-emoji">${icon}</span>
                 </div>
                 <div class="item-details">
                     <h3 class="item-name">${item.name}</h3>
@@ -351,10 +263,10 @@ function openItemModal(itemId) {
     if (!item) return;
     
     const rarity = item.rarity.toLowerCase();
-    const iconUrl = getItemIcon(item);
+    const icon = getItemIcon(item);
     
     // Populate modal
-    document.getElementById('modalIcon').src = iconUrl;
+    document.getElementById('modalIcon').innerHTML = `<span class="modal-emoji">${icon}</span>`;
     document.getElementById('modalName').textContent = item.name;
     document.getElementById('modalType').textContent = item.type;
     

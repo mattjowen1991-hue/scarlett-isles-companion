@@ -6,12 +6,10 @@
     "category": "weapons",
     "rarity": "Legendary",
     "price": 50000,
+    "icon": "⚔️",
     "description": "When you attack a creature with this magic sword and roll a 20 on the attack roll, the target is decapitated if it has a head and can be killed by such means.",
     "suitableFor": ["Fighter"],
-    "stats": {
-      "Damage": "2d6+3 slashing",
-      "Critical": "Decapitate"
-    }
+    "stats": { "Damage": "2d6+3 slashing", "Critical": "Decapitate" }
   },
   {
     "id": "holy-avenger",
@@ -20,12 +18,10 @@
     "category": "weapons",
     "rarity": "Legendary",
     "price": 45000,
+    "icon": "🗡️",
     "description": "This radiant blade deals extra damage to fiends and undead. While you hold the drawn sword, it creates an aura of protection.",
     "suitableFor": ["Fighter", "Paladin"],
-    "stats": {
-      "Damage": "1d8+3 radiant",
-      "Aura": "10 ft protection"
-    }
+    "stats": { "Damage": "1d8+3 radiant", "Aura": "10 ft protection" }
   },
   {
     "id": "staff-power",
@@ -34,12 +30,10 @@
     "category": "weapons",
     "rarity": "Legendary",
     "price": 40000,
+    "icon": "🪄",
     "description": "This staff can be wielded as a magic quarterstaff and grants a +2 bonus to AC, saving throws, and spell attack rolls.",
     "suitableFor": ["Ranger"],
-    "stats": {
-      "Charges": "20",
-      "Bonus": "+2 AC/Saves"
-    }
+    "stats": { "Charges": "20", "Bonus": "+2 AC/Saves" }
   },
   {
     "id": "cloak-invisibility",
@@ -48,12 +42,10 @@
     "category": "gear",
     "rarity": "Legendary",
     "price": 30000,
+    "icon": "👻",
     "description": "While wearing this cloak, you can pull its hood over your head to become invisible. Anything you are wearing or carrying is invisible with you.",
     "suitableFor": ["Rogue", "Ranger"],
-    "stats": {
-      "Duration": "1 hour",
-      "Charges": "3/day"
-    }
+    "stats": { "Duration": "1 hour", "Charges": "3/day" }
   },
   {
     "id": "flame-tongue-longsword",
@@ -62,194 +54,10 @@
     "category": "weapons",
     "rarity": "Rare",
     "price": 5000,
+    "icon": "🔥",
     "description": "When you speak this sword's command word, flames erupt from the blade, shedding bright light in a 40-foot radius.",
     "suitableFor": ["Fighter", "Paladin"],
-    "stats": {
-      "Damage": "1d8 + 2d6 fire",
-      "Properties": "Versatile"
-    }
-  },
-  {
-    "id": "ring-protection",
-    "name": "Ring of Protection",
-    "type": "Ring",
-    "category": "gear",
-    "rarity": "Rare",
-    "price": 1500,
-    "description": "You gain a +1 bonus to AC and saving throws while wearing this ring.",
-    "suitableFor": ["Rogue", "Ranger"],
-    "stats": {
-      "AC Bonus": "+1",
-      "Saves": "+1"
-    }
-  },
-  {
-    "id": "bracers-archery",
-    "name": "Bracers of Archery",
-    "type": "Wondrous Item",
-    "category": "armor",
-    "rarity": "Uncommon",
-    "price": 450,
-    "description": "While wearing these bracers, you have proficiency with the longbow and shortbow, and gain a +2 bonus to damage rolls.",
-    "suitableFor": ["Ranger", "Fighter"],
-    "stats": {
-      "Damage Bonus": "+2",
-      "Requires": "Attunement"
-    }
-  },
-  {
-    "id": "cloak-elvenkind",
-    "name": "Cloak of Elvenkind",
-    "type": "Wondrous Item",
-    "category": "gear",
-    "rarity": "Uncommon",
-    "price": 500,
-    "description": "While you wear this cloak with its hood up, Wisdom (Perception) checks made to see you have disadvantage.",
-    "suitableFor": ["Rogue", "Ranger"],
-    "stats": {
-      "Stealth": "Advantage",
-      "Requires": "Attunement"
-    }
-  },
-  {
-    "id": "gauntlets-ogre-power",
-    "name": "Gauntlets of Ogre Power",
-    "type": "Wondrous Item",
-    "category": "armor",
-    "rarity": "Uncommon",
-    "price": 600,
-    "description": "Your Strength score is 19 while you wear these gauntlets. They have no effect if your Strength is already 19 or higher.",
-    "suitableFor": ["Fighter"],
-    "stats": {
-      "Strength": "Set to 19",
-      "Requires": "Attunement"
-    }
-  },
-  {
-    "id": "rapier-plus-one",
-    "name": "Rapier +1",
-    "type": "Weapon (Rapier)",
-    "category": "weapons",
-    "rarity": "Uncommon",
-    "price": 400,
-    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
-    "suitableFor": ["Rogue", "Fighter"],
-    "stats": {
-      "Damage": "1d8+1 piercing",
-      "Properties": "Finesse"
-    }
-  },
-  {
-    "id": "ball-bearings",
-    "name": "Ball Bearings (Bag of 1000)",
-    "type": "Adventuring Gear",
-    "category": "gear",
-    "rarity": "Common",
-    "price": 10,
-    "description": "As an action, you can spill these tiny metal balls to cover a 10-foot square area. Creatures moving through must succeed on a DC 10 Dexterity save or fall prone.",
-    "suitableFor": ["Rogue", "Ranger"],
-    "stats": {
-      "Area": "10 ft square",
-      "Save DC": "10"
-    }
-  },
-  {
-    "id": "potion-healing",
-    "name": "Potion of Healing",
-    "type": "Potion",
-    "category": "gear",
-    "rarity": "Common",
-    "price": 50,
-    "description": "You regain 2d4+2 hit points when you drink this potion.",
-    "suitableFor": ["Fighter", "Rogue", "Ranger"],
-    "stats": {
-      "Healing": "2d4+2",
-      "Action": "Bonus"
-    }
-  },
-  {
-    "id": "potion-greater-healing",
-    "name": "Potion of Greater Healing",
-    "type": "Potion",
-    "category": "gear",
-    "rarity": "Uncommon",
-    "price": 150,
-    "description": "You regain 4d4+4 hit points when you drink this potion.",
-    "suitableFor": ["Fighter", "Rogue", "Ranger"],
-    "stats": {
-      "Healing": "4d4+4",
-      "Action": "Bonus"
-    }
-  },
-  {
-    "id": "chain-shirt",
-    "name": "Chain Shirt +1",
-    "type": "Armor (Chain Shirt)",
-    "category": "armor",
-    "rarity": "Uncommon",
-    "price": 350,
-    "description": "You have a +1 bonus to AC while wearing this armor.",
-    "suitableFor": ["Fighter", "Ranger"],
-    "stats": {
-      "AC": "14 + Dex (max 2)",
-      "Weight": "20 lb"
-    }
-  },
-  {
-    "id": "shield-plus-one",
-    "name": "Shield +1",
-    "type": "Armor (Shield)",
-    "category": "armor",
-    "rarity": "Uncommon",
-    "price": 300,
-    "description": "While holding this shield, you have a +1 bonus to AC in addition to the shield's normal bonus.",
-    "suitableFor": ["Fighter", "Paladin"],
-    "stats": {
-      "AC Bonus": "+3 total",
-      "Weight": "6 lb"
-    }
-  },
-  {
-    "id": "boots-elvenkind",
-    "name": "Boots of Elvenkind",
-    "type": "Wondrous Item",
-    "category": "gear",
-    "rarity": "Uncommon",
-    "price": 400,
-    "description": "While you wear these boots, your steps make no sound. You have advantage on Dexterity (Stealth) checks that rely on moving silently.",
-    "suitableFor": ["Rogue", "Ranger"],
-    "stats": {
-      "Stealth": "Advantage (silent)",
-      "Weight": "1 lb"
-    }
-  },
-  {
-    "id": "bag-holding",
-    "name": "Bag of Holding",
-    "type": "Wondrous Item",
-    "category": "gear",
-    "rarity": "Uncommon",
-    "price": 500,
-    "description": "This bag has an interior space considerably larger than its outside dimensions. The bag can hold up to 500 pounds, not exceeding a volume of 64 cubic feet.",
-    "suitableFor": ["Fighter", "Rogue", "Ranger"],
-    "stats": {
-      "Capacity": "500 lb",
-      "Volume": "64 cu ft"
-    }
-  },
-  {
-    "id": "longbow-plus-one",
-    "name": "Longbow +1",
-    "type": "Weapon (Longbow)",
-    "category": "weapons",
-    "rarity": "Uncommon",
-    "price": 450,
-    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
-    "suitableFor": ["Ranger", "Fighter"],
-    "stats": {
-      "Damage": "1d8+1 piercing",
-      "Range": "150/600 ft"
-    }
+    "stats": { "Damage": "1d8 + 2d6 fire", "Properties": "Versatile" }
   },
   {
     "id": "amulet-health",
@@ -258,138 +66,10 @@
     "category": "gear",
     "rarity": "Rare",
     "price": 2000,
+    "icon": "📿",
     "description": "Your Constitution score is 19 while you wear this amulet. It has no effect if your Constitution is already 19 or higher.",
     "suitableFor": ["Fighter", "Rogue"],
-    "stats": {
-      "Constitution": "Set to 19",
-      "Requires": "Attunement"
-    }
-  },
-  {
-    "id": "dagger-venom",
-    "name": "Dagger of Venom",
-    "type": "Weapon (Dagger)",
-    "category": "weapons",
-    "rarity": "Rare",
-    "price": 1200,
-    "description": "You can use an action to cause poison to coat the blade. The poison remains until a hit deals an extra 2d10 poison damage.",
-    "suitableFor": ["Rogue"],
-    "stats": {
-      "Damage": "1d4 + 2d10 poison",
-      "Charges": "1/dawn"
-    }
-  },
-  {
-    "id": "helm-telepathy",
-    "name": "Helm of Telepathy",
-    "type": "Wondrous Item",
-    "category": "gear",
-    "rarity": "Uncommon",
-    "price": 750,
-    "description": "While wearing this helm, you can cast detect thoughts (save DC 13) and communicate telepathically with any creature within 30 feet.",
-    "suitableFor": ["Rogue", "Ranger"],
-    "stats": {
-      "Range": "30 ft",
-      "Save DC": "13"
-    }
-  },
-  {
-    "id": "rope-climbing",
-    "name": "Rope of Climbing",
-    "type": "Wondrous Item",
-    "category": "gear",
-    "rarity": "Uncommon",
-    "price": 300,
-    "description": "This 60-foot silk rope can be commanded to move and fasten itself securely. It can hold up to 3,000 pounds.",
-    "suitableFor": ["Rogue", "Ranger", "Fighter"],
-    "stats": {
-      "Length": "60 ft",
-      "Capacity": "3000 lb"
-    }
-  },
-  {
-    "id": "wand-magic-missiles",
-    "name": "Wand of Magic Missiles",
-    "type": "Wand",
-    "category": "gear",
-    "rarity": "Uncommon",
-    "price": 800,
-    "description": "This wand has 7 charges. While holding it, you can expend charges to cast magic missile.",
-    "suitableFor": ["Rogue", "Ranger"],
-    "stats": {
-      "Charges": "7",
-      "Recharge": "1d6+1/dawn"
-    }
-  },
-  {
-    "id": "studded-leather-plus-one",
-    "name": "Studded Leather +1",
-    "type": "Armor (Studded Leather)",
-    "category": "armor",
-    "rarity": "Uncommon",
-    "price": 400,
-    "description": "You have a +1 bonus to AC while wearing this armor.",
-    "suitableFor": ["Rogue", "Ranger"],
-    "stats": {
-      "AC": "13 + Dex",
-      "Weight": "13 lb"
-    }
-  },
-  {
-    "id": "shortsword-plus-one",
-    "name": "Shortsword +1",
-    "type": "Weapon (Shortsword)",
-    "category": "weapons",
-    "rarity": "Uncommon",
-    "price": 350,
-    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
-    "suitableFor": ["Rogue", "Fighter"],
-    "stats": {
-      "Damage": "1d6+1 piercing",
-      "Properties": "Finesse, Light"
-    }
-  },
-  {
-    "id": "cloak-protection",
-    "name": "Cloak of Protection",
-    "type": "Wondrous Item",
-    "category": "gear",
-    "rarity": "Uncommon",
-    "price": 550,
-    "description": "You gain a +1 bonus to AC and saving throws while you wear this cloak.",
-    "suitableFor": ["Rogue", "Ranger", "Fighter"],
-    "stats": {
-      "AC": "+1",
-      "Saves": "+1"
-    }
-  },
-  {
-    "id": "lantern-revealing",
-    "name": "Lantern of Revealing",
-    "type": "Wondrous Item",
-    "category": "gear",
-    "rarity": "Uncommon",
-    "price": 400,
-    "description": "This hooded lantern burns for 6 hours on 1 pint of oil. Invisible creatures and objects are visible in its bright light.",
-    "suitableFor": ["Ranger", "Fighter"],
-    "stats": {
-      "Light": "30 ft bright",
-      "Duration": "6 hours"
-    }
-  },
-  {
-    "id": "potion-invisibility",
-    "name": "Potion of Invisibility",
-    "type": "Potion",
-    "category": "gear",
-    "rarity": "Rare",
-    "price": 900,
-    "description": "When you drink this potion, you become invisible for 1 hour. The effect ends early if you attack or cast a spell.",
-    "suitableFor": ["Rogue", "Ranger"],
-    "stats": {
-      "Duration": "1 hour",
-      "Ends": "On attack/spell"
-    }
+    "stats": { "Constitution": "Set to 19", "Requires": "Attunement" }
   },
   {
     "id": "ioun-stone-protection",
@@ -398,53 +78,118 @@
     "category": "gear",
     "rarity": "Rare",
     "price": 1800,
+    "icon": "💎",
     "description": "This dusty rose prism orbits your head and grants a +1 bonus to AC.",
     "suitableFor": ["Fighter", "Rogue", "Ranger"],
-    "stats": {
-      "AC": "+1",
-      "Requires": "Attunement"
-    }
+    "stats": { "AC": "+1", "Requires": "Attunement" }
   },
   {
-    "id": "battleaxe-plus-one",
-    "name": "Battleaxe +1",
-    "type": "Weapon (Battleaxe)",
+    "id": "ring-protection",
+    "name": "Ring of Protection",
+    "type": "Ring",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 1500,
+    "icon": "💍",
+    "description": "You gain a +1 bonus to AC and saving throws while wearing this ring.",
+    "suitableFor": ["Rogue", "Ranger"],
+    "stats": { "AC Bonus": "+1", "Saves": "+1" }
+  },
+  {
+    "id": "dagger-venom",
+    "name": "Dagger of Venom",
+    "type": "Weapon (Dagger)",
     "category": "weapons",
-    "rarity": "Uncommon",
-    "price": 400,
-    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
-    "suitableFor": ["Fighter"],
-    "stats": {
-      "Damage": "1d8+1 slashing",
-      "Properties": "Versatile (1d10)"
-    }
+    "rarity": "Rare",
+    "price": 1200,
+    "icon": "🗡️",
+    "description": "You can use an action to cause poison to coat the blade. The poison remains until a hit deals an extra 2d10 poison damage.",
+    "suitableFor": ["Rogue"],
+    "stats": { "Damage": "1d4 + 2d10 poison", "Charges": "1/dawn" }
   },
   {
-    "id": "goggles-night",
-    "name": "Goggles of Night",
+    "id": "potion-invisibility",
+    "name": "Potion of Invisibility",
+    "type": "Potion",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 900,
+    "icon": "🧪",
+    "description": "When you drink this potion, you become invisible for 1 hour. The effect ends early if you attack or cast a spell.",
+    "suitableFor": ["Rogue", "Ranger"],
+    "stats": { "Duration": "1 hour", "Ends": "On attack/spell" }
+  },
+  {
+    "id": "wand-magic-missiles",
+    "name": "Wand of Magic Missiles",
+    "type": "Wand",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 800,
+    "icon": "🪄",
+    "description": "This wand has 7 charges. While holding it, you can expend charges to cast magic missile.",
+    "suitableFor": ["Rogue", "Ranger"],
+    "stats": { "Charges": "7", "Recharge": "1d6+1/dawn" }
+  },
+  {
+    "id": "helm-telepathy",
+    "name": "Helm of Telepathy",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 750,
+    "icon": "🪖",
+    "description": "While wearing this helm, you can cast detect thoughts (save DC 13) and communicate telepathically with any creature within 30 feet.",
+    "suitableFor": ["Rogue", "Ranger"],
+    "stats": { "Range": "30 ft", "Save DC": "13" }
+  },
+  {
+    "id": "gauntlets-ogre-power",
+    "name": "Gauntlets of Ogre Power",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 600,
+    "icon": "🧤",
+    "description": "Your Strength score is 19 while you wear these gauntlets. They have no effect if your Strength is already 19 or higher.",
+    "suitableFor": ["Fighter"],
+    "stats": { "Strength": "Set to 19", "Requires": "Attunement" }
+  },
+  {
+    "id": "cloak-protection",
+    "name": "Cloak of Protection",
     "type": "Wondrous Item",
     "category": "gear",
     "rarity": "Uncommon",
-    "price": 350,
-    "description": "While wearing these dark lenses, you have darkvision out to a range of 60 feet.",
-    "suitableFor": ["Rogue", "Fighter", "Ranger"],
-    "stats": {
-      "Darkvision": "60 ft"
-    }
+    "price": 550,
+    "icon": "🧥",
+    "description": "You gain a +1 bonus to AC and saving throws while you wear this cloak.",
+    "suitableFor": ["Rogue", "Ranger", "Fighter"],
+    "stats": { "AC": "+1", "Saves": "+1" }
   },
   {
-    "id": "decanter-endless-water",
-    "name": "Decanter of Endless Water",
+    "id": "cloak-elvenkind",
+    "name": "Cloak of Elvenkind",
     "type": "Wondrous Item",
     "category": "gear",
     "rarity": "Uncommon",
     "price": 500,
-    "description": "This stoppered flask produces fresh or salt water on command. Different command words produce different amounts.",
-    "suitableFor": ["Fighter", "Ranger"],
-    "stats": {
-      "Stream": "1 gallon/round",
-      "Geyser": "30 gallons/round"
-    }
+    "icon": "🧥",
+    "description": "While you wear this cloak with its hood up, Wisdom (Perception) checks made to see you have disadvantage.",
+    "suitableFor": ["Rogue", "Ranger"],
+    "stats": { "Stealth": "Advantage", "Requires": "Attunement" }
+  },
+  {
+    "id": "bag-holding",
+    "name": "Bag of Holding",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "👜",
+    "description": "This bag has an interior space considerably larger than its outside dimensions. The bag can hold up to 500 pounds, not exceeding a volume of 64 cubic feet.",
+    "suitableFor": ["Fighter", "Rogue", "Ranger"],
+    "stats": { "Capacity": "500 lb", "Volume": "64 cu ft" }
   },
   {
     "id": "greatsword-plus-one",
@@ -453,11 +198,201 @@
     "category": "weapons",
     "rarity": "Uncommon",
     "price": 500,
+    "icon": "⚔️",
     "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
     "suitableFor": ["Fighter"],
-    "stats": {
-      "Damage": "2d6+1 slashing",
-      "Properties": "Heavy, Two-handed"
-    }
+    "stats": { "Damage": "2d6+1 slashing", "Properties": "Heavy, Two-handed" }
+  },
+  {
+    "id": "decanter-endless-water",
+    "name": "Decanter of Endless Water",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "🫗",
+    "description": "This stoppered flask produces fresh or salt water on command. Different command words produce different amounts.",
+    "suitableFor": ["Fighter", "Ranger"],
+    "stats": { "Stream": "1 gallon/round", "Geyser": "30 gallons/round" }
+  },
+  {
+    "id": "bracers-archery",
+    "name": "Bracers of Archery",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "🏹",
+    "description": "While wearing these bracers, you have proficiency with the longbow and shortbow, and gain a +2 bonus to damage rolls.",
+    "suitableFor": ["Ranger", "Fighter"],
+    "stats": { "Damage Bonus": "+2", "Requires": "Attunement" }
+  },
+  {
+    "id": "longbow-plus-one",
+    "name": "Longbow +1",
+    "type": "Weapon (Longbow)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "🏹",
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "suitableFor": ["Ranger", "Fighter"],
+    "stats": { "Damage": "1d8+1 piercing", "Range": "150/600 ft" }
+  },
+  {
+    "id": "battleaxe-plus-one",
+    "name": "Battleaxe +1",
+    "type": "Weapon (Battleaxe)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "🪓",
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "suitableFor": ["Fighter"],
+    "stats": { "Damage": "1d8+1 slashing", "Properties": "Versatile (1d10)" }
+  },
+  {
+    "id": "studded-leather-plus-one",
+    "name": "Studded Leather +1",
+    "type": "Armor (Studded Leather)",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "🦺",
+    "description": "You have a +1 bonus to AC while wearing this armor.",
+    "suitableFor": ["Rogue", "Ranger"],
+    "stats": { "AC": "13 + Dex", "Weight": "13 lb" }
+  },
+  {
+    "id": "rapier-plus-one",
+    "name": "Rapier +1",
+    "type": "Weapon (Rapier)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "🤺",
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "suitableFor": ["Rogue", "Fighter"],
+    "stats": { "Damage": "1d8+1 piercing", "Properties": "Finesse" }
+  },
+  {
+    "id": "boots-elvenkind",
+    "name": "Boots of Elvenkind",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "👢",
+    "description": "While you wear these boots, your steps make no sound. You have advantage on Dexterity (Stealth) checks that rely on moving silently.",
+    "suitableFor": ["Rogue", "Ranger"],
+    "stats": { "Stealth": "Advantage (silent)", "Weight": "1 lb" }
+  },
+  {
+    "id": "lantern-revealing",
+    "name": "Lantern of Revealing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "🏮",
+    "description": "This hooded lantern burns for 6 hours on 1 pint of oil. Invisible creatures and objects are visible in its bright light.",
+    "suitableFor": ["Ranger", "Fighter"],
+    "stats": { "Light": "30 ft bright", "Duration": "6 hours" }
+  },
+  {
+    "id": "goggles-night",
+    "name": "Goggles of Night",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "🥽",
+    "description": "While wearing these dark lenses, you have darkvision out to a range of 60 feet.",
+    "suitableFor": ["Rogue", "Fighter", "Ranger"],
+    "stats": { "Darkvision": "60 ft" }
+  },
+  {
+    "id": "chain-shirt-plus-one",
+    "name": "Chain Shirt +1",
+    "type": "Armor (Chain Shirt)",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "⛓️",
+    "description": "You have a +1 bonus to AC while wearing this armor.",
+    "suitableFor": ["Fighter", "Ranger"],
+    "stats": { "AC": "14 + Dex (max 2)", "Weight": "20 lb" }
+  },
+  {
+    "id": "shortsword-plus-one",
+    "name": "Shortsword +1",
+    "type": "Weapon (Shortsword)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "🗡️",
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "suitableFor": ["Rogue", "Fighter"],
+    "stats": { "Damage": "1d6+1 piercing", "Properties": "Finesse, Light" }
+  },
+  {
+    "id": "shield-plus-one",
+    "name": "Shield +1",
+    "type": "Armor (Shield)",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "🛡️",
+    "description": "While holding this shield, you have a +1 bonus to AC in addition to the shield's normal bonus.",
+    "suitableFor": ["Fighter", "Paladin"],
+    "stats": { "AC Bonus": "+3 total", "Weight": "6 lb" }
+  },
+  {
+    "id": "rope-climbing",
+    "name": "Rope of Climbing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "🪢",
+    "description": "This 60-foot silk rope can be commanded to move and fasten itself securely. It can hold up to 3,000 pounds.",
+    "suitableFor": ["Rogue", "Ranger", "Fighter"],
+    "stats": { "Length": "60 ft", "Capacity": "3000 lb" }
+  },
+  {
+    "id": "potion-greater-healing",
+    "name": "Potion of Greater Healing",
+    "type": "Potion",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 150,
+    "icon": "🧪",
+    "description": "You regain 4d4+4 hit points when you drink this potion.",
+    "suitableFor": ["Fighter", "Rogue", "Ranger"],
+    "stats": { "Healing": "4d4+4", "Action": "Bonus" }
+  },
+  {
+    "id": "potion-healing",
+    "name": "Potion of Healing",
+    "type": "Potion",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 50,
+    "icon": "🧪",
+    "description": "You regain 2d4+2 hit points when you drink this potion.",
+    "suitableFor": ["Fighter", "Rogue", "Ranger"],
+    "stats": { "Healing": "2d4+2", "Action": "Bonus" }
+  },
+  {
+    "id": "ball-bearings",
+    "name": "Ball Bearings (Bag of 1000)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 10,
+    "icon": "⚫",
+    "description": "As an action, you can spill these tiny metal balls to cover a 10-foot square area. Creatures moving through must succeed on a DC 10 Dexterity save or fall prone.",
+    "suitableFor": ["Rogue", "Ranger"],
+    "stats": { "Area": "10 ft square", "Save DC": "10" }
   }
 ]

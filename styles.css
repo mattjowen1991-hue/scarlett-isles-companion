@@ -313,11 +313,9 @@ header {
     overflow: hidden;
 }
 
-.item-icon img {
-    width: 36px;
-    height: 36px;
-    opacity: 0.9;
-    filter: sepia(20%) saturate(80%);
+.item-emoji {
+    font-size: 1.75rem;
+    line-height: 1;
 }
 
 .item-details {
@@ -446,10 +444,9 @@ header {
     flex-shrink: 0;
 }
 
-.modal-icon img {
-    width: 48px;
-    height: 48px;
-    filter: sepia(20%) saturate(80%);
+.modal-emoji {
+    font-size: 2.5rem;
+    line-height: 1;
 }
 
 .modal-title-section {
