@@ -3,7 +3,43 @@
 // Weekly rotating shop for D&D Beyond companion
 // ============================================
 
+// Game-icons.net SVG format: https://game-icons.net/icons/ffffff/000000/1x1/lorc/icon-name.svg
 const ICON_BASE = 'https://game-icons.net/icons/ffffff/000000/1x1';
+
+// Icon mapping - all icons from game-icons.net by various artists
+const ICON_MAP = {
+    'health-potion': 'delapouite/health-potion',
+    'arrow-cluster': 'lorc/arrow-cluster',
+    'lockpicks': 'delapouite/lockpicks',
+    'grappling-hook': 'lorc/grappling-hook',
+    'first-aid': 'delapouite/first-aid',
+    'potion-ball': 'lorc/potion-ball',
+    'poison-bottle': 'lorc/poison-bottle',
+    'smoking-orb': 'lorc/smoking-orb',
+    'caltrops': 'lorc/caltrops',
+    'bear-trap': 'lorc/bear-trap',
+    'bottle-vapors': 'lorc/bottle-vapors',
+    'stones': 'lorc/stones',
+    'rope-coil': 'delapouite/rope-coil',
+    'acid': 'lorc/acid',
+    'fire-bottle': 'lorc/molotov',
+    'hooded-assassin': 'lorc/hooded-assassin',
+    'bracer': 'lorc/bracer',
+    'leg-armor': 'lorc/leg-armor',
+    'gauntlet': 'lorc/gauntlet',
+    'cape': 'lorc/cape',
+    'swap-bag': 'lorc/swap-bag',
+    'sword-hilt': 'lorc/sword-hilt',
+    'pocket-bow': 'lorc/pocket-bow',
+    'dripping-blade': 'lorc/dripping-blade',
+    'flaming-sword': 'lorc/flaming-sword',
+    'bow-arrow': 'lorc/bow-arrow',
+    'ring': 'lorc/ring',
+    'scythe': 'lorc/scythe',
+    'invisible': 'lorc/invisible',
+    'crossed-swords': 'lorc/crossed-swords',
+    'leather-armor': 'lorc/leather-armor'
+};
 
 let itemsData = null;
 let currentCategory = 'all';
@@ -163,17 +199,19 @@ function renderItemCard(item) {
 }
 
 function getItemIcon(item) {
-    // Use the icon specified in the item, or fall back to defaults
-    if (item.icon) return item.icon;
+    // Use the icon specified in the item, mapped to full path
+    if (item.icon && ICON_MAP[item.icon]) {
+        return ICON_MAP[item.icon];
+    }
     
     // Fallback icons by type
     const typeIcons = {
-        weapon: 'crossed-swords',
-        armor: 'leather-armor',
-        gear: 'swap-bag'
+        weapon: 'lorc/crossed-swords',
+        armor: 'lorc/leather-armor',
+        gear: 'lorc/swap-bag'
     };
     
-    return typeIcons[item.type] || 'swap-bag';
+    return typeIcons[item.type] || 'lorc/swap-bag';
 }
 
 function formatPrice(gp) {
