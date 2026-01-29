@@ -1,41 +1,43 @@
 /* ============================================
-   SCARLETT ISLES SHOP
-   D&D Beyond / Medieval Parchment Style
+   THE SCARLETT ISLES CAMPAIGN - SHOP
+   Colors matched to campaign logo
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
 
 :root {
-    /* D&D Beyond Inspired Colors */
-    --bg-dark: #1a1a1a;
-    --bg-card: #12131a;
-    --bg-elevated: #1e1f26;
-    --bg-hover: #252630;
+    /* Logo-Matched Colors */
+    --bg-black: #0a0a0a;
+    --bg-dark: #111111;
+    --bg-card: #1a1512;
+    --bg-elevated: #241c17;
+    --bg-hover: #2e241d;
     
-    /* Warm Accent Colors */
-    --cream: #e8d4b8;
-    --cream-dim: #c4a77d;
-    --gold: #c9a959;
-    --gold-bright: #e8c252;
-    --copper: #b87333;
-    --scarlet: #8b2635;
-    --scarlet-bright: #c4232f;
+    /* From the logo */
+    --gold-bright: #d4a853;
+    --gold: #c49a3d;
+    --gold-dim: #8b6d2b;
+    --scarlet: #6b1e1e;
+    --scarlet-bright: #8b2a2a;
+    --fire-orange: #d4682a;
+    --ocean-blue: #2a4a6b;
+    --forest-green: #2d4a2a;
+    --crystal-green: #4ae066;
     
-    /* Text Colors */
-    --text-primary: #e0d6c8;
-    --text-secondary: #a89f91;
-    --text-muted: #6b6560;
-    --text-gold: #c9a959;
+    /* Text */
+    --text-cream: #e8dcc8;
+    --text-secondary: #a89a88;
+    --text-muted: #6b6055;
     
-    /* Rarity Colors */
-    --common: #8a8a8a;
+    /* Rarity */
+    --common: #8a8580;
     --uncommon: #1fc219;
-    --rare: #4990e2;
-    --legendary: #ff8000;
+    --rare: #4a90d9;
+    --legendary: #ff8c00;
     
-    /* Border */
-    --border-dark: #2a2a2a;
-    --border-gold: #5c4a32;
+    /* Borders */
+    --border-dark: #2a2420;
+    --border-gold: #5c4a2a;
     
     /* Fonts */
     --font-display: 'Cinzel', serif;
@@ -58,14 +60,10 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-html {
-    font-size: 16px;
-}
-
 body {
     font-family: var(--font-body);
-    background: var(--bg-dark);
-    color: var(--text-primary);
+    background: var(--bg-black);
+    color: var(--text-cream);
     min-height: 100vh;
     min-height: 100dvh;
     line-height: 1.5;
@@ -74,20 +72,22 @@ body {
 .app {
     max-width: 600px;
     margin: 0 auto;
-    background: var(--bg-card);
+    background: var(--bg-dark);
     min-height: 100vh;
     min-height: 100dvh;
+    border-left: 1px solid var(--border-dark);
+    border-right: 1px solid var(--border-dark);
 }
 
 /* ============================================
-   HEADER - D&D Beyond Style
+   HEADER WITH LOGO
    ============================================ */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-lg) var(--spacing-md);
-    background: linear-gradient(180deg, #1e1f26 0%, var(--bg-card) 100%);
+    padding: var(--spacing-md);
+    background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
     border-bottom: 1px solid var(--border-dark);
     position: relative;
 }
@@ -96,29 +96,33 @@ body {
     content: '';
     position: absolute;
     bottom: 0;
-    left: var(--spacing-md);
-    right: var(--spacing-md);
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border-gold), transparent);
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--scarlet) 20%, 
+        var(--gold) 50%, 
+        var(--scarlet) 80%, 
+        transparent 100%
+    );
 }
 
-.header h1 {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    color: var(--cream);
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+.header-logo {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
 }
 
 .week-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: var(--bg-elevated);
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: 8px;
-    border: 1px solid var(--border-dark);
+    border: 1px solid var(--border-gold);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .week-label {
@@ -131,10 +135,11 @@ body {
 
 .week-number {
     font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: var(--gold);
+    font-size: 1.6rem;
+    color: var(--gold-bright);
     font-weight: 600;
     line-height: 1;
+    text-shadow: 0 0 10px rgba(212, 168, 83, 0.3);
 }
 
 /* ============================================
@@ -142,7 +147,7 @@ body {
    ============================================ */
 .shop-subtitle {
     padding: var(--spacing-md);
-    background: var(--bg-elevated);
+    background: var(--bg-card);
     border-bottom: 1px solid var(--border-dark);
 }
 
@@ -159,7 +164,7 @@ body {
 }
 
 /* ============================================
-   CATEGORY TABS - D&D Beyond Navigation
+   CATEGORY TABS
    ============================================ */
 .category-tabs {
     display: flex;
@@ -178,7 +183,7 @@ body {
     border-bottom: 3px solid transparent;
     color: var(--text-muted);
     font-family: var(--font-display);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     cursor: pointer;
     transition: all 0.2s;
     text-transform: uppercase;
@@ -190,9 +195,9 @@ body {
 }
 
 .category-tab.active {
-    color: var(--cream);
-    border-bottom-color: var(--scarlet-bright);
-    background: linear-gradient(180deg, transparent 0%, rgba(196, 35, 47, 0.1) 100%);
+    color: var(--gold-bright);
+    border-bottom-color: var(--gold);
+    background: linear-gradient(180deg, transparent 0%, rgba(196, 154, 61, 0.1) 100%);
 }
 
 /* ============================================
@@ -232,7 +237,7 @@ body {
 .rarity-btn.active[data-rarity="all"] {
     background: var(--bg-hover);
     border-color: var(--gold);
-    color: var(--gold);
+    color: var(--gold-bright);
 }
 
 .rarity-btn.common.active {
@@ -256,7 +261,7 @@ body {
 }
 
 /* ============================================
-   ITEMS LIST - D&D Beyond Style
+   ITEMS LIST
    ============================================ */
 .items-container {
     padding: 0;
@@ -267,7 +272,6 @@ body {
     flex-direction: column;
 }
 
-/* Item Card - Row Style */
 .item-card {
     display: flex;
     align-items: center;
@@ -277,7 +281,7 @@ body {
     border-bottom: 1px solid var(--border-dark);
     cursor: pointer;
     transition: background 0.15s;
-    min-height: 72px;
+    min-height: 76px;
     position: relative;
 }
 
@@ -295,7 +299,7 @@ body {
     background: var(--bg-hover);
 }
 
-/* Rarity left border */
+/* Rarity colors */
 .item-card.uncommon::before {
     background: var(--uncommon);
 }
@@ -308,20 +312,26 @@ body {
     background: var(--legendary);
 }
 
-/* Star/Wishlist placeholder area */
+.item-card.legendary {
+    background: linear-gradient(90deg, rgba(255, 140, 0, 0.08) 0%, var(--bg-card) 50%);
+}
+
+/* Star */
 .item-star {
-    width: 24px;
+    width: 20px;
     color: var(--text-muted);
-    font-size: 1rem;
+    font-size: 0.9rem;
     flex-shrink: 0;
+    opacity: 0.5;
 }
 
 /* Icon */
 .item-icon {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
     opacity: 0.9;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
 /* Item Info */
@@ -334,9 +344,9 @@ body {
     font-family: var(--font-display);
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--cream);
+    color: var(--text-cream);
     margin-bottom: 2px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
 }
 
 .item-card.uncommon .item-name {
@@ -349,10 +359,11 @@ body {
 
 .item-card.legendary .item-name {
     color: var(--legendary);
+    text-shadow: 0 0 8px rgba(255, 140, 0, 0.3);
 }
 
 .item-meta {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
@@ -367,24 +378,26 @@ body {
     font-size: 0.6rem;
     padding: 2px 6px;
     border-radius: 3px;
-    background: rgba(139, 38, 53, 0.3);
+    background: rgba(107, 30, 30, 0.4);
     color: #d4a5a5;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-family: var(--font-body);
+    border: 1px solid rgba(107, 30, 30, 0.6);
 }
 
 /* Price */
 .item-price {
     font-family: var(--font-display);
     font-size: 0.95rem;
-    color: var(--gold);
+    color: var(--gold-bright);
     white-space: nowrap;
     text-align: right;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* ============================================
-   MODAL - D&D Beyond Full Screen
+   MODAL
    ============================================ */
 .modal {
     display: none;
@@ -393,7 +406,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--bg-dark);
+    background: var(--bg-black);
     z-index: 1000;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -404,11 +417,13 @@ body {
 }
 
 .modal-content {
-    background: var(--bg-card);
+    background: var(--bg-dark);
     min-height: 100vh;
     min-height: 100dvh;
     max-width: 600px;
     margin: 0 auto;
+    border-left: 1px solid var(--border-dark);
+    border-right: 1px solid var(--border-dark);
 }
 
 .modal-close {
@@ -431,7 +446,7 @@ body {
 }
 
 .modal-close:active {
-    background: var(--scarlet);
+    background: var(--scarlet-bright);
     color: white;
 }
 
@@ -439,7 +454,7 @@ body {
 .modal-header {
     padding: var(--spacing-xl) var(--spacing-lg);
     padding-top: calc(var(--spacing-xl) + 10px);
-    background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
+    background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
     border-bottom: 1px solid var(--border-dark);
     position: relative;
 }
@@ -448,9 +463,9 @@ body {
     content: '';
     position: absolute;
     bottom: 0;
-    left: var(--spacing-lg);
-    right: var(--spacing-lg);
-    height: 1px;
+    left: 0;
+    right: 0;
+    height: 2px;
     background: linear-gradient(90deg, transparent, var(--border-gold), transparent);
 }
 
@@ -461,9 +476,10 @@ body {
 }
 
 .modal-icon {
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     flex-shrink: 0;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
 }
 
 .modal-title-area {
@@ -473,16 +489,19 @@ body {
 
 .modal-item-name {
     font-family: var(--font-display);
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 500;
     margin-bottom: 4px;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .modal-item-name.common { color: var(--common); }
 .modal-item-name.uncommon { color: var(--uncommon); }
 .modal-item-name.rare { color: var(--rare); }
-.modal-item-name.legendary { color: var(--legendary); }
+.modal-item-name.legendary { 
+    color: var(--legendary); 
+    text-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
+}
 
 .modal-item-category {
     font-size: 0.85rem;
@@ -500,10 +519,10 @@ body {
     font-family: var(--font-body);
 }
 
-.modal-item-rarity.common { background: rgba(138, 138, 138, 0.2); color: var(--common); }
+.modal-item-rarity.common { background: rgba(138, 133, 128, 0.2); color: var(--common); }
 .modal-item-rarity.uncommon { background: rgba(31, 194, 25, 0.15); color: var(--uncommon); }
-.modal-item-rarity.rare { background: rgba(73, 144, 226, 0.15); color: var(--rare); }
-.modal-item-rarity.legendary { background: rgba(255, 128, 0, 0.15); color: var(--legendary); }
+.modal-item-rarity.rare { background: rgba(74, 144, 217, 0.15); color: var(--rare); }
+.modal-item-rarity.legendary { background: rgba(255, 140, 0, 0.15); color: var(--legendary); }
 
 /* Modal Body */
 .modal-body {
@@ -534,7 +553,7 @@ body {
 
 .modal-description {
     font-size: 1rem;
-    color: var(--text-primary);
+    color: var(--text-cream);
     line-height: 1.7;
 }
 
@@ -545,9 +564,10 @@ body {
 }
 
 .modal-stat {
-    background: var(--bg-elevated);
+    background: var(--bg-card);
     padding: var(--spacing-md);
     border-radius: 6px;
+    border: 1px solid var(--border-dark);
 }
 
 .modal-stat-label {
@@ -560,7 +580,7 @@ body {
 .modal-stat-value {
     font-family: var(--font-display);
     font-size: 1rem;
-    color: var(--cream);
+    color: var(--text-cream);
 }
 
 .modal-properties {
@@ -572,13 +592,14 @@ body {
 .property-tag {
     font-size: 0.8rem;
     padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--bg-elevated);
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
     border-radius: 4px;
     color: var(--text-secondary);
 }
 
 .modal-effect {
-    background: rgba(201, 169, 89, 0.08);
+    background: linear-gradient(90deg, rgba(212, 168, 83, 0.1) 0%, rgba(212, 168, 83, 0.05) 100%);
     border-left: 3px solid var(--gold);
     padding: var(--spacing-md);
     border-radius: 0 6px 6px 0;
@@ -598,15 +619,16 @@ body {
     align-items: center;
     gap: var(--spacing-xs);
     padding: var(--spacing-sm) var(--spacing-md);
-    background: rgba(139, 38, 53, 0.2);
+    background: rgba(107, 30, 30, 0.25);
     border: 1px solid var(--scarlet);
     border-radius: 4px;
     font-size: 0.85rem;
-    color: var(--scarlet-bright);
+    color: #d4a5a5;
 }
 
 .good-for-tag .char-name {
-    color: var(--cream);
+    color: var(--text-cream);
+    font-weight: 600;
 }
 
 .modal-price {
@@ -614,7 +636,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: var(--spacing-lg);
-    background: var(--bg-elevated);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212, 168, 83, 0.05) 100%);
     border-radius: 6px;
     border: 1px solid var(--border-gold);
 }
@@ -630,7 +652,8 @@ body {
 .modal-price-value {
     font-family: var(--font-display);
     font-size: 1.8rem;
-    color: var(--gold);
+    color: var(--gold-bright);
+    text-shadow: 0 0 12px rgba(212, 168, 83, 0.3);
 }
 
 .modal-price-note {
@@ -639,8 +662,9 @@ body {
     text-align: center;
     margin-top: var(--spacing-md);
     padding: var(--spacing-md);
-    background: var(--bg-elevated);
+    background: var(--bg-card);
     border-radius: 4px;
+    border: 1px solid var(--border-dark);
 }
 
 /* ============================================
