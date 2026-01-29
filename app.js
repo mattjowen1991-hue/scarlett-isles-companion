@@ -1,95 +1,30 @@
-// ============================================
-// SCARLETT ISLES SHOP - JavaScript
-// Weekly rotating shop for D&D Beyond companion
-// ============================================
+/* ===================================
+   THE SCARLETT ISLES - KNIGHTLY TREASURES
+   Shop Application Logic
+   =================================== */
 
-// Game-icons.net SVG format: https://game-icons.net/icons/ffffff/000000/1x1/lorc/icon-name.svg
-const ICON_BASE = 'https://game-icons.net/icons/ffffff/000000/1x1';
+// ===================================
+// CONFIGURATION
+// ===================================
 
-// Icon mapping - all icons from game-icons.net by various artists
-const ICON_MAP = {
-    'health-potion': 'delapouite/health-potion',
-    'arrow-cluster': 'lorc/arrow-cluster',
-    'lockpicks': 'delapouite/lockpicks',
-    'grappling-hook': 'lorc/grappling-hook',
-    'first-aid': 'delapouite/first-aid',
-    'potion-ball': 'lorc/potion-ball',
-    'poison-bottle': 'lorc/poison-bottle',
-    'smoking-orb': 'lorc/smoking-orb',
-    'caltrops': 'lorc/caltrops',
-    'bear-trap': 'lorc/bear-trap',
-    'bottle-vapors': 'lorc/bottle-vapors',
-    'stones': 'lorc/stones',
-    'rope-coil': 'delapouite/rope-coil',
-    'acid': 'lorc/acid',
-    'fire-bottle': 'lorc/molotov',
-    'hooded-assassin': 'lorc/hooded-assassin',
-    'bracer': 'lorc/bracer',
-    'leg-armor': 'lorc/leg-armor',
-    'gauntlet': 'lorc/gauntlet',
-    'cape': 'lorc/cape',
-    'swap-bag': 'lorc/swap-bag',
-    'sword-hilt': 'lorc/sword-hilt',
-    'pocket-bow': 'lorc/pocket-bow',
-    'dripping-blade': 'lorc/dripping-blade',
-    'flaming-sword': 'lorc/flaming-sword',
-    'bow-arrow': 'lorc/bow-arrow',
-    'ring': 'lorc/ring',
-    'scythe': 'lorc/scythe',
-    'invisible': 'lorc/invisible',
-    'crossed-swords': 'lorc/crossed-swords',
-    'leather-armor': 'lorc/leather-armor'
+const CONFIG = {
+    weekSeed: getWeekNumber(),
+    itemsPerWeek: 12
 };
 
-let itemsData = null;
-let currentCategory = 'all';
-let currentRarity = 'all';
-
-// ============================================
-// INITIALIZATION
-// ============================================
-async function init() {
-    try {
-        const response = await fetch('items.json');
-        itemsData = await response.json();
-        
-        updateWeekNumber();
-        renderItems();
-        setupEventListeners();
-        
-    } catch (err) {
-        console.error('Failed to load items:', err);
-        document.getElementById('itemsGrid').innerHTML = `
-            <div class="empty-state">
-                <div class="empty-state-icon">❌</div>
-                <p>Failed to load shop items</p>
-            </div>
-        `;
-    }
-}
-
-// ============================================
-// WEEK NUMBER CALCULATION
-// ============================================
 function getWeekNumber() {
-    // Calculate week number since a fixed start date
-    // This ensures everyone sees the same items
-    const startDate = new Date('2025-01-06'); // A Monday
     const now = new Date();
-    const diffTime = now - startDate;
-    const diffWeeks = Math.floor(diffTime / (7 * 24 * 60 * 60 * 1000));
-    return diffWeeks + 1;
+    const start = new Date(now.getFullYear(), 0, 1);
+    const diff = now - start;
+    const oneWeek = 604800000;
+    return Math.ceil(diff / oneWeek);
 }
 
-function updateWeekNumber() {
-    document.getElementById('weekNumber').textContent = getWeekNumber();
-}
+// ===================================
+// SEEDED RANDOM (for consistent weekly inventory)
+// ===================================
 
-// ============================================
-// SEEDED RANDOM - Same items for everyone each week
-// ============================================
 function seededRandom(seed) {
-    // Simple seeded random number generator
     const x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
 }
@@ -103,261 +38,348 @@ function shuffleWithSeed(array, seed) {
     return shuffled;
 }
 
-function getWeeklyItems() {
-    if (!itemsData) return [];
+// ===================================
+// ICON MAPPING
+// ===================================
+
+const ICON_MAP = {
+    // Weapons
+    'longsword': 'plain-dagger',
+    'shortsword': 'stiletto',
+    'greatsword': 'broadsword',
+    'rapier': 'sai',
+    'dagger': 'plain-dagger',
+    'battleaxe': 'battle-axe',
+    'handaxe': 'axe',
+    'warhammer': 'warhammer',
+    'mace': 'mace-head',
+    'quarterstaff': 'bo',
+    'spear': 'spear-hook',
+    'longbow': 'pocket-bow',
+    'shortbow': 'high-shot',
+    'crossbow': 'crossbow',
+    'bow': 'pocket-bow',
     
-    const weekNum = getWeekNumber();
-    const seed = weekNum * 12345; // Unique seed per week
+    // Armor
+    'shield': 'shield',
+    'helmet': 'visored-helm',
+    'armor': 'breastplate',
+    'chainmail': 'chain-mail',
+    'leather': 'leather-armor',
+    'plate': 'breastplate',
+    'bracers': 'bracer',
+    'gauntlets': 'gauntlet',
+    'boots': 'boots',
+    'cloak': 'cloak',
     
-    // Group items by rarity
-    const byRarity = {
-        common: itemsData.items.filter(i => i.rarity === 'common'),
-        uncommon: itemsData.items.filter(i => i.rarity === 'uncommon'),
-        rare: itemsData.items.filter(i => i.rarity === 'rare'),
-        legendary: itemsData.items.filter(i => i.rarity === 'legendary')
-    };
+    // Gear
+    'potion': 'potion-ball',
+    'ring': 'ring',
+    'amulet': 'gem-pendant',
+    'wand': 'crystal-wand',
+    'staff': 'wizard-staff',
+    'scroll': 'scroll-unfurled',
+    'book': 'book-cover',
+    'bag': 'swap-bag',
+    'rope': 'rope-coil',
+    'lantern': 'lantern-flame',
+    'torch': 'torch',
+    'tent': 'camping-tent',
+    'rations': 'meat',
+    'tools': 'swiss-army-knife',
+    'instrument': 'lyre',
+    'ball': 'crystal-ball',
+    'orb': 'orb',
     
-    // Shuffle each rarity group with the week seed
-    const shuffledCommon = shuffleWithSeed(byRarity.common, seed);
-    const shuffledUncommon = shuffleWithSeed(byRarity.uncommon, seed + 1000);
-    const shuffledRare = shuffleWithSeed(byRarity.rare, seed + 2000);
-    const shuffledLegendary = shuffleWithSeed(byRarity.legendary, seed + 3000);
+    // Default
+    'default': 'chest'
+};
+
+function getItemIcon(item) {
+    const nameLower = item.name.toLowerCase();
+    const typeLower = item.type.toLowerCase();
     
-    // Pick items based on weekly count
-    const counts = itemsData.meta.weeklyItemCount;
-    const weeklyItems = [
-        ...shuffledCommon.slice(0, counts.common),
-        ...shuffledUncommon.slice(0, counts.uncommon),
-        ...shuffledRare.slice(0, counts.rare),
-        ...shuffledLegendary.slice(0, counts.legendary)
-    ];
+    // Check name first
+    for (const [key, icon] of Object.entries(ICON_MAP)) {
+        if (nameLower.includes(key)) {
+            return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${icon}.svg`;
+        }
+    }
     
-    return weeklyItems;
+    // Then check type
+    for (const [key, icon] of Object.entries(ICON_MAP)) {
+        if (typeLower.includes(key)) {
+            return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${icon}.svg`;
+        }
+    }
+    
+    return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${ICON_MAP.default}.svg`;
 }
 
-// ============================================
-// RENDER ITEMS
-// ============================================
+// ===================================
+// FORMAT HELPERS
+// ===================================
+
+function formatPrice(price) {
+    if (price >= 1000) {
+        return `${(price / 1000).toFixed(price % 1000 === 0 ? 0 : 1)}K`;
+    }
+    return price.toString();
+}
+
+function formatPriceFull(price) {
+    return price.toLocaleString();
+}
+
+// ===================================
+// STATE
+// ===================================
+
+let allItems = [];
+let weeklyItems = [];
+let currentCategory = 'all';
+let currentRarity = 'all';
+let favorites = JSON.parse(localStorage.getItem('tsi-favorites') || '[]');
+
+// ===================================
+// INITIALIZATION
+// ===================================
+
+async function init() {
+    // Set week number
+    const weekEl = document.getElementById('weekNumber');
+    if (weekEl) {
+        weekEl.textContent = CONFIG.weekSeed;
+    }
+    
+    // Load items
+    try {
+        const response = await fetch('items.json');
+        allItems = await response.json();
+        
+        // Get this week's selection
+        weeklyItems = shuffleWithSeed(allItems, CONFIG.weekSeed).slice(0, CONFIG.itemsPerWeek);
+        
+        renderItems();
+        setupEventListeners();
+    } catch (error) {
+        console.error('Failed to load items:', error);
+        const itemList = document.getElementById('itemList');
+        if (itemList) {
+            itemList.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">⚠️</div>
+                    <p class="empty-state-text">Failed to load shop inventory</p>
+                </div>
+            `;
+        }
+    }
+}
+
+// ===================================
+// RENDERING
+// ===================================
+
 function renderItems() {
-    const items = getWeeklyItems();
-    const grid = document.getElementById('itemsGrid');
-    
-    // Filter by category
-    let filtered = items;
-    if (currentCategory !== 'all') {
-        filtered = filtered.filter(item => item.type === currentCategory);
+    const itemList = document.getElementById('itemList');
+    if (!itemList) {
+        console.error('itemList element not found');
+        return;
     }
     
-    // Filter by rarity
-    if (currentRarity !== 'all') {
-        filtered = filtered.filter(item => item.rarity === currentRarity);
-    }
+    // Filter items
+    let filtered = weeklyItems.filter(item => {
+        const categoryMatch = currentCategory === 'all' || item.category === currentCategory;
+        const rarityMatch = currentRarity === 'all' || item.rarity.toLowerCase() === currentRarity;
+        return categoryMatch && rarityMatch;
+    });
     
     if (filtered.length === 0) {
-        grid.innerHTML = `
+        itemList.innerHTML = `
             <div class="empty-state">
                 <div class="empty-state-icon">🔍</div>
-                <p>No items match your filters</p>
+                <p class="empty-state-text">No items match your filters</p>
             </div>
         `;
         return;
     }
     
-    // Sort by rarity (legendary first) then by name
+    // Sort by rarity (legendary first) then price
     const rarityOrder = { legendary: 0, rare: 1, uncommon: 2, common: 3 };
     filtered.sort((a, b) => {
-        const rarityDiff = rarityOrder[a.rarity] - rarityOrder[b.rarity];
+        const rarityDiff = rarityOrder[a.rarity.toLowerCase()] - rarityOrder[b.rarity.toLowerCase()];
         if (rarityDiff !== 0) return rarityDiff;
-        return a.name.localeCompare(b.name);
+        return b.price - a.price;
     });
     
-    grid.innerHTML = filtered.map(item => renderItemCard(item)).join('');
-}
-
-function renderItemCard(item) {
-    const icon = getItemIcon(item);
-    const priceStr = formatPrice(item.price);
-    
-    // Show first 2 classes this is good for
-    const goodFor = item.goodFor.slice(0, 2).map(cls => 
-        `<span class="class-tag">${cls}</span>`
-    ).join('');
-    
-    return `
-        <div class="item-card ${item.rarity}" data-item-id="${item.id}">
-            <span class="item-star">☆</span>
-            <img src="${ICON_BASE}/${icon}.svg" alt="" class="item-icon" onerror="this.style.opacity='0.3'">
-            <div class="item-info">
-                <div class="item-name">${item.name}</div>
-                <div class="item-meta">${item.category}</div>
-                <div class="item-good-for">${goodFor}</div>
-            </div>
-            <div class="item-price">${priceStr}</div>
-        </div>
-    `;
-}
-
-function getItemIcon(item) {
-    // Use the icon specified in the item, mapped to full path
-    if (item.icon && ICON_MAP[item.icon]) {
-        return ICON_MAP[item.icon];
-    }
-    
-    // Fallback icons by type
-    const typeIcons = {
-        weapon: 'lorc/crossed-swords',
-        armor: 'lorc/leather-armor',
-        gear: 'lorc/swap-bag'
-    };
-    
-    return typeIcons[item.type] || 'lorc/swap-bag';
-}
-
-function formatPrice(gp) {
-    if (gp >= 1000) {
-        return `${(gp / 1000).toFixed(gp % 1000 === 0 ? 0 : 1)}k gp`;
-    }
-    return `${gp} gp`;
-}
-
-// ============================================
-// ITEM MODAL
-// ============================================
-function showItemModal(itemId) {
-    const items = getWeeklyItems();
-    const item = items.find(i => i.id === itemId);
-    if (!item) return;
-    
-    const modal = document.getElementById('itemModal');
-    const body = document.getElementById('modalBody');
-    
-    const icon = getItemIcon(item);
-    
-    // Find which party members this is good for
-    const goodForParty = itemsData.party.filter(p => 
-        item.goodFor.includes(p.class)
-    );
-    
-    body.innerHTML = `
-        <div class="modal-header">
-            <div class="modal-header-content">
-                <img src="${ICON_BASE}/${icon}.svg" alt="" class="modal-icon">
-                <div class="modal-title-area">
-                    <h2 class="modal-item-name ${item.rarity}">${item.name}</h2>
-                    <div class="modal-item-category">${item.category}</div>
-                    <span class="modal-item-rarity ${item.rarity}">${item.rarity}${item.attunement ? ' • Requires Attunement' : ''}</span>
-                </div>
-            </div>
-        </div>
+    itemList.innerHTML = filtered.map(item => {
+        const rarity = item.rarity.toLowerCase();
+        const isFavorite = favorites.includes(item.id);
+        const iconUrl = getItemIcon(item);
         
-        <div class="modal-body">
-            <div class="modal-section">
-                <div class="modal-section-title">Description</div>
-                <p class="modal-description">${item.description}</p>
-            </div>
-            
-            ${item.damage ? `
-                <div class="modal-section">
-                    <div class="modal-stats">
-                        <div class="modal-stat">
-                            <div class="modal-stat-label">Damage</div>
-                            <div class="modal-stat-value">${item.damage}</div>
-                        </div>
+        return `
+            <div class="item-row ${rarity}" data-item-id="${item.id}">
+                <span class="item-star ${isFavorite ? 'favorited' : ''}" data-item-id="${item.id}">
+                    ${isFavorite ? '★' : '☆'}
+                </span>
+                <div class="item-icon">
+                    <img src="${iconUrl}" alt="${item.name}" onerror="this.style.display='none'">
+                </div>
+                <div class="item-details">
+                    <h3 class="item-name">${item.name}</h3>
+                    <p class="item-type">${item.type}</p>
+                    <div class="item-tags">
+                        ${item.suitableFor.map(tag => `<span class="item-tag">${tag}</span>`).join('')}
                     </div>
                 </div>
-            ` : ''}
-            
-            ${item.properties && item.properties.length > 0 ? `
-                <div class="modal-section">
-                    <div class="modal-section-title">Properties</div>
-                    <div class="modal-properties">
-                        ${item.properties.map(p => `<span class="property-tag">${p}</span>`).join('')}
-                    </div>
-                </div>
-            ` : ''}
-            
-            ${item.effect ? `
-                <div class="modal-section">
-                    <div class="modal-section-title">Effect</div>
-                    <div class="modal-effect">${item.effect}</div>
-                </div>
-            ` : ''}
-            
-            <div class="modal-section">
-                <div class="modal-section-title">Great For</div>
-                <div class="modal-good-for">
-                    ${goodForParty.map(p => `
-                        <span class="good-for-tag">
-                            <span class="char-name">${p.name.split(' ')[0]}</span>
-                            (${p.class})
-                        </span>
-                    `).join('')}
+                <div class="item-price">
+                    ${formatPrice(item.price)}<span class="currency"> GP</span>
                 </div>
             </div>
-            
-            <div class="modal-section">
-                <div class="modal-price">
-                    <span class="modal-price-label">Price</span>
-                    <span class="modal-price-value">${item.price.toLocaleString()} gp</span>
-                </div>
-                <p class="modal-price-note">Add this item to D&D Beyond manually after purchasing in-game</p>
-            </div>
-        </div>
-    `;
-    
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
+        `;
+    }).join('');
 }
 
-function closeModal() {
-    const modal = document.getElementById('itemModal');
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-}
-
-// ============================================
+// ===================================
 // EVENT LISTENERS
-// ============================================
+// ===================================
+
 function setupEventListeners() {
     // Category tabs
-    document.querySelectorAll('.category-tab').forEach(tab => {
+    document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
-            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             currentCategory = tab.dataset.category;
             renderItems();
         });
     });
     
-    // Rarity filter
-    document.querySelectorAll('.rarity-btn').forEach(btn => {
+    // Rarity filters
+    document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            document.querySelectorAll('.rarity-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentRarity = btn.dataset.rarity;
             renderItems();
         });
     });
     
-    // Item clicks
-    document.getElementById('itemsGrid').addEventListener('click', (e) => {
-        const card = e.target.closest('.item-card');
-        if (card) {
-            showItemModal(parseInt(card.dataset.itemId));
-        }
-    });
+    // Item clicks (delegated)
+    const itemList = document.getElementById('itemList');
+    if (itemList) {
+        itemList.addEventListener('click', (e) => {
+            // Check if star was clicked
+            const star = e.target.closest('.item-star');
+            if (star) {
+                e.stopPropagation();
+                toggleFavorite(star.dataset.itemId);
+                return;
+            }
+            
+            // Check if item row was clicked
+            const row = e.target.closest('.item-row');
+            if (row) {
+                openItemModal(row.dataset.itemId);
+            }
+        });
+    }
     
     // Modal close
-    document.getElementById('closeModal').addEventListener('click', closeModal);
-    document.getElementById('itemModal').addEventListener('click', (e) => {
-        if (e.target.id === 'itemModal') closeModal();
-    });
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
     
-    // Escape key closes modal
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+    }
+    
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+    
+    // Close modal on escape
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
+        if (e.key === 'Escape') {
+            closeModal();
+        }
     });
 }
 
-// Start the app
-init();
+// ===================================
+// FAVORITES
+// ===================================
+
+function toggleFavorite(itemId) {
+    const index = favorites.indexOf(itemId);
+    if (index === -1) {
+        favorites.push(itemId);
+    } else {
+        favorites.splice(index, 1);
+    }
+    localStorage.setItem('tsi-favorites', JSON.stringify(favorites));
+    renderItems();
+}
+
+// ===================================
+// MODAL
+// ===================================
+
+function openItemModal(itemId) {
+    const item = weeklyItems.find(i => i.id === itemId);
+    if (!item) return;
+    
+    const rarity = item.rarity.toLowerCase();
+    const iconUrl = getItemIcon(item);
+    
+    // Populate modal
+    document.getElementById('modalIcon').src = iconUrl;
+    document.getElementById('modalName').textContent = item.name;
+    document.getElementById('modalType').textContent = item.type;
+    
+    const rarityEl = document.getElementById('modalRarity');
+    rarityEl.textContent = item.rarity;
+    rarityEl.className = `modal-rarity ${rarity}`;
+    
+    document.getElementById('modalDescription').textContent = item.description || 'A fine item from the Scarlett Isles.';
+    document.getElementById('modalPrice').textContent = `${formatPriceFull(item.price)} GP`;
+    
+    // Stats
+    const statsSection = document.getElementById('modalStatsSection');
+    const statsContainer = document.getElementById('modalStats');
+    
+    if (item.stats && Object.keys(item.stats).length > 0) {
+        statsSection.style.display = 'block';
+        statsContainer.innerHTML = Object.entries(item.stats).map(([key, value]) => `
+            <div class="stat-item">
+                <span class="stat-label">${key}</span>
+                <span class="stat-value">${value}</span>
+            </div>
+        `).join('');
+    } else {
+        statsSection.style.display = 'none';
+    }
+    
+    // Suitable for
+    document.getElementById('modalSuitable').innerHTML = item.suitableFor.map(tag => 
+        `<span class="item-tag">${tag}</span>`
+    ).join('');
+    
+    // Show modal
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ===================================
+// START
+// ===================================
+
+document.addEventListener('DOMContentLoaded', init);
