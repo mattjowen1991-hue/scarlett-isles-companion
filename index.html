@@ -40,9 +40,11 @@
             <!-- Tab Navigation -->
             <nav class="tab-nav">
                 <button class="tab-btn active" data-tab="stats">Stats</button>
+                <button class="tab-btn" data-tab="weapons">Weapons</button>
                 <button class="tab-btn" data-tab="items">Items</button>
                 <button class="tab-btn" data-tab="inventory">Gear</button>
                 <button class="tab-btn" data-tab="spells">Spells</button>
+                <button class="tab-btn" data-tab="shop">Shop</button>
             </nav>
 
             <!-- Stats Tab -->
@@ -50,9 +52,10 @@
                 <div class="portrait-section">
                     <img id="charPortrait" src="" alt="Character Portrait" class="portrait">
                     <div class="combat-stats">
-                        <div class="stat-box hp">
+                        <div class="stat-box hp tappable" id="hpBox">
                             <span class="stat-label">HP</span>
                             <span id="charHp" class="stat-value">0/0</span>
+                            <span class="tap-hint">tap</span>
                         </div>
                         <div class="stat-box ac">
                             <span class="stat-label">AC</span>
@@ -71,38 +74,33 @@
 
                 <div class="abilities-section">
                     <h3>Abilities</h3>
-                    <div id="abilitiesGrid" class="abilities-grid">
-                        <!-- Abilities loaded via JS -->
-                    </div>
+                    <div id="abilitiesGrid" class="abilities-grid"></div>
                 </div>
 
                 <div class="saves-section">
                     <h3>Saving Throws</h3>
-                    <div id="savesGrid" class="saves-grid">
-                        <!-- Saves loaded via JS -->
-                    </div>
+                    <div id="savesGrid" class="saves-grid"></div>
                 </div>
 
                 <div class="skills-section">
                     <h3>Skills</h3>
-                    <div id="skillsList" class="skills-list">
-                        <!-- Skills loaded via JS -->
-                    </div>
+                    <div id="skillsList" class="skills-list"></div>
                 </div>
 
                 <div class="features-section">
                     <h3>Features & Traits</h3>
-                    <div id="featuresList" class="features-list">
-                        <!-- Features loaded via JS -->
-                    </div>
+                    <div id="featuresList" class="features-list"></div>
                 </div>
             </div>
 
-            <!-- Items Tab (Magic Items with details) -->
+            <!-- Weapons Tab -->
+            <div id="weaponsTab" class="tab-content">
+                <div id="weaponsList" class="weapons-list"></div>
+            </div>
+
+            <!-- Items Tab (Magic Items) -->
             <div id="itemsTab" class="tab-content">
-                <div id="magicItemsList" class="magic-items-list">
-                    <!-- Magic items loaded via JS -->
-                </div>
+                <div id="magicItemsList" class="magic-items-list"></div>
             </div>
 
             <!-- Inventory Tab (Gear) -->
@@ -115,26 +113,91 @@
                         <span id="invWeight">0 lb</span> carried
                     </div>
                 </div>
-                <div id="inventoryList" class="inventory-list">
-                    <!-- Inventory loaded via JS -->
-                </div>
+                <div id="inventoryList" class="inventory-list"></div>
             </div>
 
             <!-- Spells Tab -->
             <div id="spellsTab" class="tab-content">
-                <div id="spellsContent">
-                    <!-- Spells loaded via JS -->
+                <div id="spellsContent"></div>
+            </div>
+
+            <!-- Shop Tab -->
+            <div id="shopTab" class="tab-content">
+                <div class="shop-controls">
+                    <div class="shop-gold">
+                        <span class="shop-gold-label">Your Gold:</span>
+                        <span id="shopGold" class="shop-gold-value">0 gp</span>
+                    </div>
+                    <div class="shop-filters">
+                        <select id="shopCategory" class="shop-filter">
+                            <option value="all">All Items</option>
+                            <option value="weapon">Weapons</option>
+                            <option value="armor">Armor</option>
+                            <option value="potion">Potions</option>
+                            <option value="scroll">Scrolls</option>
+                            <option value="wondrous">Wondrous</option>
+                            <option value="gear">Adventuring Gear</option>
+                        </select>
+                    </div>
                 </div>
+                <div id="shopList" class="shop-list"></div>
             </div>
         </div>
 
         <!-- Magic Item Detail Modal -->
         <div id="itemModal" class="modal">
             <div class="modal-content item-modal-content">
-                <button id="closeItemModal" class="modal-close">×</button>
-                <div id="itemModalBody">
-                    <!-- Item details loaded via JS -->
+                <button class="modal-close" data-modal="itemModal">×</button>
+                <div id="itemModalBody"></div>
+            </div>
+        </div>
+
+        <!-- HP Tracker Modal -->
+        <div id="hpModal" class="modal">
+            <div class="modal-content hp-modal-content">
+                <button class="modal-close" data-modal="hpModal">×</button>
+                <div class="hp-modal-body">
+                    <h2>Hit Points</h2>
+                    <div class="hp-display">
+                        <span id="hpModalCurrent" class="hp-current">0</span>
+                        <span class="hp-separator">/</span>
+                        <span id="hpModalMax" class="hp-max">0</span>
+                    </div>
+                    <div class="hp-bar-container">
+                        <div id="hpBar" class="hp-bar"></div>
+                    </div>
+                    <div class="hp-temp">
+                        <span>Temp HP:</span>
+                        <span id="hpModalTemp">0</span>
+                    </div>
+                    <div class="hp-controls">
+                        <div class="hp-adjust-row">
+                            <button class="hp-btn damage" data-amount="-10">-10</button>
+                            <button class="hp-btn damage" data-amount="-5">-5</button>
+                            <button class="hp-btn damage" data-amount="-1">-1</button>
+                            <button class="hp-btn heal" data-amount="1">+1</button>
+                            <button class="hp-btn heal" data-amount="5">+5</button>
+                            <button class="hp-btn heal" data-amount="10">+10</button>
+                        </div>
+                        <div class="hp-custom-row">
+                            <input type="number" id="hpCustomAmount" class="hp-custom-input" placeholder="Amount" min="1">
+                            <button id="hpDamageBtn" class="hp-btn damage">Damage</button>
+                            <button id="hpHealBtn" class="hp-btn heal">Heal</button>
+                        </div>
+                        <div class="hp-actions-row">
+                            <button id="hpFullHeal" class="hp-btn full-heal">Full Heal</button>
+                            <button id="hpAddTemp" class="hp-btn temp">+ Temp HP</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Shop Item Modal -->
+        <div id="shopModal" class="modal">
+            <div class="modal-content shop-modal-content">
+                <button class="modal-close" data-modal="shopModal">×</button>
+                <div id="shopModalBody"></div>
             </div>
         </div>
     </div>

@@ -929,6 +929,437 @@ body {
 }
 
 /* ============================================
+   WEAPONS TAB
+   ============================================ */
+
+.weapons-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.weapon-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: var(--spacing-md);
+}
+
+.weapon-card.magic {
+    border-color: var(--gold-dim);
+    cursor: pointer;
+}
+
+.weapon-card.magic:active {
+    background: var(--bg-card-hover);
+}
+
+.weapon-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-sm);
+}
+
+.weapon-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--gold);
+}
+
+.weapon-magic-badge {
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+
+.weapon-stats {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+}
+
+.weapon-stat {
+    text-align: center;
+}
+
+.weapon-stat-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.weapon-stat-value {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.weapon-properties {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* ============================================
+   HP TRACKER MODAL
+   ============================================ */
+
+.hp-modal-content {
+    padding: var(--spacing-lg);
+    padding-top: var(--spacing-xl);
+}
+
+.hp-modal-body h2 {
+    font-family: var(--font-display);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.hp-display {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+.hp-current {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--hp-green);
+}
+
+.hp-separator {
+    font-size: 2rem;
+    color: var(--text-muted);
+}
+
+.hp-max {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--text-secondary);
+}
+
+.hp-bar-container {
+    height: 20px;
+    background: var(--bg-card);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-md);
+    border: 1px solid var(--border-color);
+}
+
+.hp-bar {
+    height: 100%;
+    background: var(--hp-green);
+    transition: width 0.3s ease, background 0.3s ease;
+    border-radius: 10px;
+}
+
+.hp-temp {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-secondary);
+}
+
+.hp-temp span:last-child {
+    color: var(--ac-blue);
+    font-weight: 600;
+}
+
+.hp-controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.hp-adjust-row {
+    display: flex;
+    gap: var(--spacing-xs);
+    justify-content: center;
+}
+
+.hp-btn {
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.hp-btn.damage {
+    background: rgba(196, 35, 47, 0.2);
+    color: var(--scarlet);
+    border: 1px solid var(--scarlet);
+}
+
+.hp-btn.damage:active {
+    background: var(--scarlet);
+    color: white;
+}
+
+.hp-btn.heal {
+    background: rgba(124, 204, 108, 0.2);
+    color: var(--hp-green);
+    border: 1px solid var(--hp-green);
+}
+
+.hp-btn.heal:active {
+    background: var(--hp-green);
+    color: white;
+}
+
+.hp-btn.full-heal {
+    background: rgba(124, 204, 108, 0.3);
+    color: var(--hp-green);
+    border: 1px solid var(--hp-green);
+    flex: 1;
+}
+
+.hp-btn.temp {
+    background: rgba(108, 184, 204, 0.2);
+    color: var(--ac-blue);
+    border: 1px solid var(--ac-blue);
+    flex: 1;
+}
+
+.hp-custom-row {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.hp-custom-input {
+    flex: 1;
+    min-height: var(--touch-min);
+    padding: 0 var(--spacing-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    text-align: center;
+}
+
+.hp-custom-input::placeholder {
+    color: var(--text-muted);
+}
+
+.hp-actions-row {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+/* Tappable HP box hint */
+.stat-box.tappable {
+    cursor: pointer;
+    position: relative;
+}
+
+.tap-hint {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+/* ============================================
+   SHOP TAB
+   ============================================ */
+
+.shop-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: 12px;
+    gap: var(--spacing-md);
+}
+
+.shop-gold {
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-gold-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.shop-gold-value {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--gold);
+}
+
+.shop-filter {
+    min-height: var(--touch-min);
+    padding: 0 var(--spacing-md);
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.shop-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.shop-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.shop-item:active {
+    background: var(--bg-card-hover);
+}
+
+.shop-item.owned {
+    opacity: 0.6;
+}
+
+.shop-item.cant-afford {
+    opacity: 0.5;
+}
+
+.shop-item-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.shop-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.shop-item-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--gold);
+}
+
+.shop-item-type {
+    font-size: 0.8rem;
+}
+
+.shop-item-price {
+    text-align: right;
+}
+
+.shop-item-price .price {
+    font-family: var(--font-display);
+    color: var(--gold);
+}
+
+.owned-badge {
+    font-size: 0.75rem;
+    color: var(--hp-green);
+    background: rgba(124, 204, 108, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Shop Modal */
+.shop-modal-content {
+    padding: var(--spacing-lg);
+    padding-top: var(--spacing-xl);
+}
+
+.shop-item-cost {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+}
+
+.cost-label {
+    color: var(--text-secondary);
+}
+
+.cost-value {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--gold);
+}
+
+.shop-actions {
+    margin-top: var(--spacing-lg);
+}
+
+.shop-btn {
+    width: 100%;
+    min-height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.shop-btn.buy {
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    color: var(--bg-dark);
+}
+
+.shop-btn.buy:active {
+    transform: scale(0.98);
+}
+
+.shop-btn.owned,
+.shop-btn.cant-afford {
+    background: var(--bg-card);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+
+.toast {
+    position: fixed;
+    bottom: calc(20px + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--hp-green);
+    color: var(--bg-dark);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 10px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2000;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* ============================================
    UTILITIES & SCROLLBAR
    ============================================ */
 
