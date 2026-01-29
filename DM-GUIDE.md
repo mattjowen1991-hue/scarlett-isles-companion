@@ -38,6 +38,29 @@ Each week, the shop displays:
 
 ---
 
+## ⭐ Favourites Feature
+
+### How It Works
+
+Players can tap the star (☆) next to any item to mark it as a favourite (★). This helps them keep track of items they're saving up for or interested in.
+
+### Storage
+
+- **Stored locally** on each player's device (localStorage)
+- **NOT synced** between players - your favourites are private
+- **Persists** between visits on the same device/browser
+
+### Automatic Cleanup
+
+If a player favourites an item and someone else purchases it:
+
+1. The purchased item disappears from the shop (Firebase sync)
+2. The app detects the favourite now points to a purchased item
+3. The orphaned favourite is **automatically removed** from local storage
+4. No manual cleanup needed!
+
+---
+
 ## 💰 Purchase Tracking
 
 ### How It Works
@@ -210,6 +233,9 @@ A: The algorithm ensures each class gets a DIFFERENT legendary. If an item is su
 
 **Q: Can players see what others have favourited?**
 A: No, favourites are stored locally on each device. Only purchases are shared.
+
+**Q: What happens if I favourite an item and someone else buys it?**
+A: The app automatically cleans up orphaned favourites! When the purchase syncs from Firebase, any favourites pointing to purchased items are removed from your local storage. You won't have ghost favourites cluttering things up.
 
 **Q: What happens when all Legendaries are purchased?**
 A: The shop will show fewer Legendary items. If all 12 are bought, no Legendaries will appear until you add more to items.json.
