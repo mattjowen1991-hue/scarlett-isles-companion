@@ -1,89 +1,211 @@
 /* ============================================
-   SCARLETT ISLES COMPANION - APP.JS
-   Full Featured Version
+   SCARLETT ISLES COMPANION - FIREBASE VERSION
+   Real-time sync across all players
    ============================================ */
 
-// State
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCAtLDqghTbYhyhwcoTsefTiMecC30RMuQ",
+    authDomain: "scarlett-isles-companion.firebaseapp.com",
+    projectId: "scarlett-isles-companion",
+    storageBucket: "scarlett-isles-companion.firebasestorage.app",
+    messagingSenderId: "269614761446",
+    appId: "1:269614761446:web:d420e1198e62b68a474227"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Enable offline persistence
+db.enablePersistence().catch(err => {
+    console.log('Persistence error:', err.code);
+});
+
+// ============================================
+// STATE
+// ============================================
 let characters = [];
 let magicItems = [];
 let shopItems = [];
+let currentPlayer = null;
 let currentCharacter = null;
+let wishlist = new Set();
+let showingWishlistOnly = false;
+let unsubscribeCharacters = null;
 
 const ICON_BASE = 'https://api.iconify.design/game-icons';
 const ICON_COLOR = '%23f2d38a';
 
-// Initialize
+// Player definitions
+const PLAYERS = [
+    { id: 'matt', name: 'Matt', characters: ['kaelen-of-wolfhaven'] },
+    { id: 'harry', name: 'Harry (DM)', characters: ['charles-vect', 'elara-varrus', 'kaelen-of-wolfhaven', 'magnus-ironward', 'umbrys'], isDM: true },
+    { id: 'player3', name: 'Player 3', characters: ['magnus-ironward'] },
+    { id: 'player4', name: 'Player 4', characters: ['elara-varrus'] },
+    { id: 'player5', name: 'Player 5', characters: ['umbrys'] },
+    { id: 'player6', name: 'Player 6', characters: ['charles-vect'] }
+];
+
+// ============================================
+// INITIALIZATION
+// ============================================
 document.addEventListener('DOMContentLoaded', init);
 
 async function init() {
-    await loadData();
-    renderCharacterSelect();
-    setupEventListeners();
+    updateLoadingStatus('Loading game data...');
+    
+    try {
+        // Load static data (character templates, items)
+        await loadStaticData();
+        
+        updateLoadingStatus('Connecting to server...');
+        
+        // Initialize characters in Firebase if needed
+        await initializeFirebaseData();
+        
+        updateLoadingStatus('Ready!');
+        
+        // Show player selection
+        setTimeout(() => {
+            renderPlayerSelect();
+            showScreen('playerSelect');
+        }, 500);
+        
+        setupEventListeners();
+    } catch (error) {
+        console.error('Init error:', error);
+        updateLoadingStatus('Error: ' + error.message);
+    }
+}
+
+function updateLoadingStatus(message) {
+    document.getElementById('loadingStatus').textContent = message;
 }
 
 // ============================================
 // DATA LOADING
 // ============================================
-
-async function loadData() {
-    try {
-        const [charResponse, itemsResponse, shopResponse] = await Promise.all([
-            fetch('data/characters.json'),
-            fetch('data/magic-items.json'),
-            fetch('data/shop.json').catch(() => ({ json: () => ({ items: [] }) }))
-        ]);
-        
-        const charData = await charResponse.json();
-        const itemsData = await itemsResponse.json();
+async function loadStaticData() {
+    const [charResponse, itemsResponse, shopResponse] = await Promise.all([
+        fetch('data/characters.json'),
+        fetch('data/magic-items.json'),
+        fetch('data/shop.json').catch(() => null)
+    ]);
+    
+    const charData = await charResponse.json();
+    const itemsData = await itemsResponse.json();
+    
+    characters = charData.characters;
+    magicItems = itemsData.magicItems || [];
+    
+    if (shopResponse) {
         const shopData = await shopResponse.json();
-        
-        characters = charData.characters;
-        magicItems = itemsData.magicItems;
         shopItems = shopData.items || [];
-    } catch (error) {
-        console.error('Failed to load data:', error);
     }
 }
 
-function getMagicItem(id) {
-    return magicItems.find(item => item.id === id);
+async function initializeFirebaseData() {
+    // Check if characters exist in Firebase
+    const snapshot = await db.collection('characters').get();
+    
+    if (snapshot.empty) {
+        // First time setup - upload character data
+        console.log('Initializing Firebase with character data...');
+        const batch = db.batch();
+        
+        for (const char of characters) {
+            const ref = db.collection('characters').doc(char.id);
+            batch.set(ref, {
+                ...char,
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+        
+        await batch.commit();
+        console.log('Character data uploaded to Firebase');
+    }
 }
 
-function saveCharacterData() {
-    // Save to localStorage for persistence
-    localStorage.setItem('scarlett-isles-characters', JSON.stringify(characters));
-}
-
-function loadSavedData() {
-    const saved = localStorage.getItem('scarlett-isles-characters');
-    if (saved) {
-        const savedChars = JSON.parse(saved);
-        // Merge saved HP/gold with loaded characters
-        characters.forEach(char => {
-            const savedChar = savedChars.find(c => c.id === char.id);
-            if (savedChar) {
-                char.combat.currentHp = savedChar.combat?.currentHp ?? char.combat.currentHp;
-                char.combat.tempHp = savedChar.combat?.tempHp ?? 0;
-                char.currency = savedChar.currency ?? char.currency;
-                char.inventory = savedChar.inventory ?? char.inventory;
-                char.equippedMagicItems = savedChar.equippedMagicItems ?? char.equippedMagicItems;
-            }
+// ============================================
+// REAL-TIME LISTENERS
+// ============================================
+function subscribeToCharacters() {
+    if (unsubscribeCharacters) {
+        unsubscribeCharacters();
+    }
+    
+    unsubscribeCharacters = db.collection('characters')
+        .onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
+                const data = change.doc.data();
+                const index = characters.findIndex(c => c.id === data.id);
+                
+                if (index !== -1) {
+                    // Update local character data
+                    characters[index] = { ...characters[index], ...data };
+                    
+                    // If this is the current character, update display
+                    if (currentCharacter && currentCharacter.id === data.id) {
+                        currentCharacter = characters[index];
+                        updateHpDisplay();
+                        document.getElementById('charGold').textContent = `${currentCharacter.currency.gp} gp`;
+                    }
+                    
+                    // Update party HP display
+                    renderPartyHp();
+                }
+            });
+        }, error => {
+            console.error('Firestore listener error:', error);
         });
-    }
 }
 
 // ============================================
-// CHARACTER SELECT
+// PLAYER SELECTION
 // ============================================
+function renderPlayerSelect() {
+    const grid = document.getElementById('playerGrid');
+    grid.innerHTML = PLAYERS.map(player => `
+        <div class="player-card ${player.isDM ? 'dm' : ''}" data-player-id="${player.id}">
+            <div class="player-icon">${player.isDM ? '👑' : '⚔️'}</div>
+            <div class="player-name">${player.name}</div>
+            ${player.isDM ? '<div class="player-role">Dungeon Master</div>' : ''}
+        </div>
+    `).join('');
+}
 
+function selectPlayer(playerId) {
+    currentPlayer = PLAYERS.find(p => p.id === playerId);
+    if (!currentPlayer) return;
+    
+    document.getElementById('playerNameDisplay').textContent = currentPlayer.name;
+    
+    // Load wishlist for this player
+    loadWishlist();
+    
+    // Subscribe to real-time updates
+    subscribeToCharacters();
+    
+    renderCharacterSelect();
+    showScreen('characterSelect');
+}
+
+// ============================================
+// CHARACTER SELECTION
+// ============================================
 function renderCharacterSelect() {
-    loadSavedData();
     const grid = document.getElementById('characterGrid');
-    grid.innerHTML = characters.map(char => `
+    const availableChars = currentPlayer.isDM 
+        ? characters 
+        : characters.filter(c => currentPlayer.characters.includes(c.id));
+    
+    grid.innerHTML = availableChars.map(char => `
         <div class="character-card" data-id="${char.id}">
             <img src="${char.image}" alt="${char.name}" class="portrait-thumb">
             <div class="char-name">${char.name}</div>
             <div class="char-class">${char.class} ${char.level}</div>
+            <div class="char-hp-preview">${char.combat?.currentHp || char.combat?.maxHp}/${char.combat?.maxHp} HP</div>
         </div>
     `).join('');
 }
@@ -99,7 +221,6 @@ function selectCharacter(id) {
 // ============================================
 // CHARACTER SHEET
 // ============================================
-
 function renderCharacterSheet() {
     const char = currentCharacter;
     if (!char) return;
@@ -116,6 +237,7 @@ function renderCharacterSheet() {
     document.getElementById('charInit').textContent = formatModifier(char.combat.initiative);
     document.getElementById('charSpeed').textContent = char.combat.speed.split(' ')[0];
     
+    renderPartyHp();
     renderAbilities();
     renderSaves();
     renderSkills();
@@ -129,10 +251,37 @@ function renderCharacterSheet() {
 
 function updateHpDisplay() {
     const char = currentCharacter;
-    const hpText = char.combat.tempHp > 0 
-        ? `${char.combat.currentHp}+${char.combat.tempHp}/${char.combat.maxHp}`
+    if (!char) return;
+    
+    const tempHp = char.combat.tempHp || 0;
+    const hpText = tempHp > 0 
+        ? `${char.combat.currentHp}+${tempHp}/${char.combat.maxHp}`
         : `${char.combat.currentHp}/${char.combat.maxHp}`;
     document.getElementById('charHp').textContent = hpText;
+}
+
+function renderPartyHp() {
+    const list = document.getElementById('partyHpList');
+    if (!list) return;
+    
+    list.innerHTML = characters.map(char => {
+        const percent = Math.round((char.combat.currentHp / char.combat.maxHp) * 100);
+        const isCurrentChar = currentCharacter && char.id === currentCharacter.id;
+        
+        let barColor = 'var(--hp-green)';
+        if (percent <= 25) barColor = 'var(--scarlet)';
+        else if (percent <= 50) barColor = '#cccc6c';
+        
+        return `
+            <div class="party-hp-item ${isCurrentChar ? 'current' : ''}">
+                <span class="party-hp-name">${char.name.split(' ')[0]}</span>
+                <div class="party-hp-bar-container">
+                    <div class="party-hp-bar" style="width: ${percent}%; background: ${barColor}"></div>
+                </div>
+                <span class="party-hp-text">${char.combat.currentHp}/${char.combat.maxHp}</span>
+            </div>
+        `;
+    }).join('');
 }
 
 function renderAbilities() {
@@ -203,15 +352,12 @@ function renderFeatures() {
 // ============================================
 // WEAPONS TAB
 // ============================================
-
 function renderWeapons() {
     const char = currentCharacter;
     const weapons = char.weapons || [];
     
     document.getElementById('weaponsList').innerHTML = weapons.map(weapon => {
         const isMagic = weapon.magicItemId;
-        const magicItem = isMagic ? getMagicItem(weapon.magicItemId) : null;
-        
         return `
             <div class="weapon-card ${isMagic ? 'magic' : ''}" ${isMagic ? `data-item-id="${weapon.magicItemId}"` : ''}>
                 <div class="weapon-header">
@@ -241,7 +387,6 @@ function renderWeapons() {
 // ============================================
 // MAGIC ITEMS TAB
 // ============================================
-
 function renderMagicItems() {
     const char = currentCharacter;
     const itemIds = char.equippedMagicItems || [];
@@ -268,6 +413,10 @@ function renderMagicItems() {
             </div>
         `;
     }).join('');
+}
+
+function getMagicItem(id) {
+    return magicItems.find(item => item.id === id);
 }
 
 function showItemDetail(itemId) {
@@ -313,7 +462,6 @@ function showItemDetail(itemId) {
 // ============================================
 // INVENTORY TAB
 // ============================================
-
 function renderInventory() {
     const char = currentCharacter;
     
@@ -336,7 +484,6 @@ function renderInventory() {
 // ============================================
 // SPELLS TAB
 // ============================================
-
 function renderSpells() {
     const char = currentCharacter;
     const container = document.getElementById('spellsContent');
@@ -387,9 +534,8 @@ function renderSpells() {
 }
 
 // ============================================
-// HP TRACKER
+// HP TRACKER (with Firebase sync)
 // ============================================
-
 function openHpModal() {
     const char = currentCharacter;
     document.getElementById('hpModalCurrent').textContent = char.combat.currentHp;
@@ -405,17 +551,15 @@ function updateHpBar() {
     const bar = document.getElementById('hpBar');
     bar.style.width = percent + '%';
     
-    // Color based on HP percentage
     if (percent > 50) bar.style.background = 'var(--hp-green)';
     else if (percent > 25) bar.style.background = '#cccc6c';
     else bar.style.background = 'var(--scarlet)';
 }
 
-function adjustHp(amount) {
+async function adjustHp(amount) {
     const char = currentCharacter;
     
     if (amount < 0) {
-        // Damage - reduce temp HP first
         let damage = Math.abs(amount);
         if (char.combat.tempHp > 0) {
             if (char.combat.tempHp >= damage) {
@@ -428,58 +572,86 @@ function adjustHp(amount) {
         }
         char.combat.currentHp = Math.max(0, char.combat.currentHp - damage);
     } else {
-        // Healing - can't exceed max
         char.combat.currentHp = Math.min(char.combat.maxHp, char.combat.currentHp + amount);
     }
     
+    // Update UI
     document.getElementById('hpModalCurrent').textContent = char.combat.currentHp;
     document.getElementById('hpModalTemp').textContent = char.combat.tempHp || 0;
     updateHpBar();
     updateHpDisplay();
-    saveCharacterData();
+    
+    // Sync to Firebase
+    await syncCharacterToFirebase(char);
 }
 
-function fullHeal() {
+async function fullHeal() {
     const char = currentCharacter;
     char.combat.currentHp = char.combat.maxHp;
     char.combat.tempHp = 0;
+    
     document.getElementById('hpModalCurrent').textContent = char.combat.currentHp;
     document.getElementById('hpModalTemp').textContent = 0;
     updateHpBar();
     updateHpDisplay();
-    saveCharacterData();
+    
+    await syncCharacterToFirebase(char);
 }
 
-function addTempHp() {
+async function addTempHp() {
     const amount = parseInt(document.getElementById('hpCustomAmount').value) || 0;
     if (amount > 0) {
         currentCharacter.combat.tempHp = Math.max(currentCharacter.combat.tempHp || 0, amount);
         document.getElementById('hpModalTemp').textContent = currentCharacter.combat.tempHp;
         document.getElementById('hpCustomAmount').value = '';
         updateHpDisplay();
-        saveCharacterData();
+        await syncCharacterToFirebase(currentCharacter);
+    }
+}
+
+async function syncCharacterToFirebase(char) {
+    try {
+        await db.collection('characters').doc(char.id).update({
+            'combat.currentHp': char.combat.currentHp,
+            'combat.tempHp': char.combat.tempHp || 0,
+            'currency': char.currency,
+            'inventory': char.inventory,
+            'equippedMagicItems': char.equippedMagicItems || [],
+            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    } catch (error) {
+        console.error('Sync error:', error);
+        showToast('Sync failed - changes saved locally');
     }
 }
 
 // ============================================
 // SHOP TAB
 // ============================================
-
 function renderShop() {
     const char = currentCharacter;
     document.getElementById('shopGold').textContent = `${char.currency.gp} gp`;
+    document.getElementById('wishlistCount').textContent = wishlist.size;
     
+    const province = document.getElementById('shopProvince').value;
     const category = document.getElementById('shopCategory').value;
     
-    // Use magic items as shop inventory for now
     let items = [...magicItems];
     
+    // Filter by wishlist if toggled
+    if (showingWishlistOnly) {
+        items = items.filter(item => wishlist.has(item.id));
+    }
+    
+    // Filter by category
     if (category !== 'all') {
         items = items.filter(item => {
             const type = item.type.toLowerCase();
             if (category === 'weapon') return type.includes('weapon');
             if (category === 'armor') return type.includes('armor') || type.includes('shield');
             if (category === 'wondrous') return type.includes('wondrous');
+            if (category === 'potion') return type.includes('potion');
+            if (category === 'scroll') return type.includes('scroll');
             return true;
         });
     }
@@ -487,20 +659,22 @@ function renderShop() {
     document.getElementById('shopList').innerHTML = items.map(item => {
         const owned = char.equippedMagicItems?.includes(item.id);
         const canAfford = char.currency.gp >= item.cost;
+        const isWishlisted = wishlist.has(item.id);
         
         return `
             <div class="shop-item ${owned ? 'owned' : ''} ${!canAfford && !owned ? 'cant-afford' : ''}" data-item-id="${item.id}">
+                <button class="wishlist-btn ${isWishlisted ? 'active' : ''}" data-wishlist-id="${item.id}">★</button>
                 <img src="${ICON_BASE}/${item.icon || 'swap-bag'}.svg?color=${ICON_COLOR}" alt="" class="shop-item-icon">
                 <div class="shop-item-info">
                     <div class="shop-item-name">${item.name}</div>
-                    <div class="shop-item-type rarity-${item.rarity.toLowerCase().replace(' ', '-')}">${item.rarity} ${item.type}</div>
+                    <div class="shop-item-type rarity-${item.rarity.toLowerCase().replace(' ', '-')}">${item.rarity}</div>
                 </div>
                 <div class="shop-item-price">
                     ${owned ? '<span class="owned-badge">Owned</span>' : `<span class="price">${item.cost} gp</span>`}
                 </div>
             </div>
         `;
-    }).join('') || '<div class="no-items">No items available</div>';
+    }).join('') || '<div class="no-items">No items match your filters</div>';
 }
 
 function showShopItemDetail(itemId) {
@@ -510,12 +684,11 @@ function showShopItemDetail(itemId) {
     const char = currentCharacter;
     const owned = char.equippedMagicItems?.includes(item.id);
     const canAfford = char.currency.gp >= item.cost;
-    
-    const icon = item.icon || 'swap-bag';
+    const isWishlisted = wishlist.has(item.id);
     
     document.getElementById('shopModalBody').innerHTML = `
         <div class="item-detail-header">
-            <img src="${ICON_BASE}/${icon}.svg?color=${ICON_COLOR}" alt="" class="item-detail-icon">
+            <img src="${ICON_BASE}/${item.icon || 'swap-bag'}.svg?color=${ICON_COLOR}" alt="" class="item-detail-icon">
             <div>
                 <h2 class="item-detail-name">${item.name}</h2>
                 <div class="item-detail-type">${item.type}</div>
@@ -539,6 +712,9 @@ function showShopItemDetail(itemId) {
             </div>
         `).join('')}</div>` : ''}
         <div class="shop-actions">
+            <button class="shop-btn wishlist ${isWishlisted ? 'active' : ''}" data-wishlist-id="${item.id}">
+                ${isWishlisted ? '★ On Wishlist' : '☆ Add to Wishlist'}
+            </button>
             ${owned 
                 ? '<button class="shop-btn owned" disabled>Already Owned</button>'
                 : canAfford 
@@ -551,38 +727,71 @@ function showShopItemDetail(itemId) {
     openModal('shopModal');
 }
 
-function buyItem(itemId) {
+async function buyItem(itemId) {
     const item = getMagicItem(itemId);
     const char = currentCharacter;
     
     if (!item || char.currency.gp < item.cost) return;
     
-    // Deduct gold
     char.currency.gp -= item.cost;
-    
-    // Add to equipped items
     if (!char.equippedMagicItems) char.equippedMagicItems = [];
     char.equippedMagicItems.push(item.id);
+    char.inventory.push({ name: item.name, qty: 1, weight: 0, magicItemId: item.id });
     
-    // Add to inventory
-    char.inventory.push({
-        name: item.name,
-        qty: 1,
-        weight: 0,
-        magicItemId: item.id
-    });
-    
-    // Update displays
     document.getElementById('charGold').textContent = `${char.currency.gp} gp`;
     renderShop();
     renderMagicItems();
     renderInventory();
-    saveCharacterData();
+    
+    await syncCharacterToFirebase(char);
     
     closeModal('shopModal');
-    
-    // Show confirmation
     showToast(`Purchased ${item.name}!`);
+}
+
+// ============================================
+// WISHLIST
+// ============================================
+function toggleWishlist(itemId) {
+    if (wishlist.has(itemId)) {
+        wishlist.delete(itemId);
+    } else {
+        wishlist.add(itemId);
+    }
+    saveWishlist();
+    renderShop();
+    document.getElementById('wishlistCount').textContent = wishlist.size;
+}
+
+function saveWishlist() {
+    localStorage.setItem(`wishlist-${currentPlayer.id}`, JSON.stringify([...wishlist]));
+}
+
+function loadWishlist() {
+    const saved = localStorage.getItem(`wishlist-${currentPlayer.id}`);
+    wishlist = new Set(saved ? JSON.parse(saved) : []);
+}
+
+function toggleWishlistView() {
+    showingWishlistOnly = !showingWishlistOnly;
+    document.getElementById('wishlistToggle').classList.toggle('active', showingWishlistOnly);
+    renderShop();
+}
+
+// ============================================
+// MODALS & NAVIGATION
+// ============================================
+function openModal(modalId) {
+    document.getElementById(modalId).classList.add('active');
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+}
+
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
 }
 
 function showToast(message) {
@@ -598,31 +807,21 @@ function showToast(message) {
 }
 
 // ============================================
-// MODALS
-// ============================================
-
-function openModal(modalId) {
-    document.getElementById(modalId).classList.add('active');
-}
-
-function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
-}
-
-// ============================================
-// NAVIGATION
-// ============================================
-
-function showScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(screenId).classList.add('active');
-}
-
-// ============================================
 // EVENT LISTENERS
 // ============================================
-
 function setupEventListeners() {
+    // Player selection
+    document.getElementById('playerGrid').addEventListener('click', (e) => {
+        const card = e.target.closest('.player-card');
+        if (card) selectPlayer(card.dataset.playerId);
+    });
+    
+    // Player back button
+    document.getElementById('playerBackBtn').addEventListener('click', () => {
+        showScreen('playerSelect');
+        currentPlayer = null;
+    });
+    
     // Character selection
     document.getElementById('characterGrid').addEventListener('click', (e) => {
         const card = e.target.closest('.character-card');
@@ -655,20 +854,31 @@ function setupEventListeners() {
         if (card) showItemDetail(card.dataset.itemId);
     });
     
-    // Weapon clicks (for magic weapons)
+    // Weapon clicks
     document.getElementById('weaponsList').addEventListener('click', (e) => {
         const card = e.target.closest('.weapon-card.magic');
         if (card) showItemDetail(card.dataset.itemId);
     });
     
-    // Shop item clicks
+    // Shop clicks
     document.getElementById('shopList').addEventListener('click', (e) => {
+        // Wishlist button
+        const wishlistBtn = e.target.closest('.wishlist-btn');
+        if (wishlistBtn) {
+            e.stopPropagation();
+            toggleWishlist(wishlistBtn.dataset.wishlistId);
+            return;
+        }
+        
+        // Item card
         const card = e.target.closest('.shop-item');
         if (card) showShopItemDetail(card.dataset.itemId);
     });
     
-    // Shop category filter
+    // Shop filters
+    document.getElementById('shopProvince').addEventListener('change', renderShop);
     document.getElementById('shopCategory').addEventListener('change', renderShop);
+    document.getElementById('wishlistToggle').addEventListener('click', toggleWishlistView);
     
     // Modal close buttons
     document.querySelectorAll('.modal-close').forEach(btn => {
@@ -682,38 +892,32 @@ function setupEventListeners() {
         });
     });
     
-    // HP adjustment buttons
+    // HP controls
     document.querySelectorAll('.hp-btn[data-amount]').forEach(btn => {
         btn.addEventListener('click', () => adjustHp(parseInt(btn.dataset.amount)));
     });
     
-    // Custom damage/heal
     document.getElementById('hpDamageBtn').addEventListener('click', () => {
         const amount = parseInt(document.getElementById('hpCustomAmount').value) || 0;
-        if (amount > 0) {
-            adjustHp(-amount);
-            document.getElementById('hpCustomAmount').value = '';
-        }
+        if (amount > 0) { adjustHp(-amount); document.getElementById('hpCustomAmount').value = ''; }
     });
     
     document.getElementById('hpHealBtn').addEventListener('click', () => {
         const amount = parseInt(document.getElementById('hpCustomAmount').value) || 0;
-        if (amount > 0) {
-            adjustHp(amount);
-            document.getElementById('hpCustomAmount').value = '';
-        }
+        if (amount > 0) { adjustHp(amount); document.getElementById('hpCustomAmount').value = ''; }
     });
     
-    // Full heal
     document.getElementById('hpFullHeal').addEventListener('click', fullHeal);
-    
-    // Add temp HP
     document.getElementById('hpAddTemp').addEventListener('click', addTempHp);
     
-    // Shop buy button (delegated)
+    // Shop modal actions
     document.getElementById('shopModalBody').addEventListener('click', (e) => {
         if (e.target.classList.contains('buy')) {
             buyItem(e.target.dataset.itemId);
+        }
+        if (e.target.dataset.wishlistId) {
+            toggleWishlist(e.target.dataset.wishlistId);
+            showShopItemDetail(e.target.dataset.wishlistId); // Refresh modal
         }
     });
 }
@@ -721,7 +925,6 @@ function setupEventListeners() {
 // ============================================
 // UTILITIES
 // ============================================
-
 function formatModifier(mod) {
     return mod >= 0 ? `+${mod}` : `${mod}`;
 }

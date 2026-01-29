@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#1a0a0a">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Scarlett Isles Companion</title>
@@ -15,11 +16,41 @@
 </head>
 <body>
     <div id="app">
-        <!-- Character Selection Screen -->
-        <div id="characterSelect" class="screen active">
+        <!-- Loading Screen -->
+        <div id="loadingScreen" class="screen active">
+            <div class="loading-content">
+                <h1>Scarlett Isles</h1>
+                <p class="subtitle">Companion</p>
+                <div class="loading-spinner"></div>
+                <p id="loadingStatus">Connecting...</p>
+            </div>
+        </div>
+
+        <!-- Player Selection Screen -->
+        <div id="playerSelect" class="screen">
             <header class="header">
                 <h1>Scarlett Isles</h1>
                 <p class="subtitle">Companion</p>
+            </header>
+            <div class="player-select-content">
+                <h2>Who's Playing?</h2>
+                <div id="playerGrid" class="player-grid">
+                    <!-- Players loaded via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Selection Screen -->
+        <div id="characterSelect" class="screen">
+            <header class="header">
+                <div class="header-with-back">
+                    <button id="playerBackBtn" class="back-btn">← Players</button>
+                    <div>
+                        <h1>Scarlett Isles</h1>
+                        <p class="subtitle" id="playerNameDisplay">Player</p>
+                    </div>
+                    <div class="header-spacer"></div>
+                </div>
             </header>
             <div id="characterGrid" class="character-grid">
                 <!-- Characters loaded via JS -->
@@ -70,6 +101,12 @@
                             <span id="charSpeed" class="stat-value">30</span>
                         </div>
                     </div>
+                </div>
+
+                <!-- Party HP Overview -->
+                <div class="party-hp-section">
+                    <h3>Party Status</h3>
+                    <div id="partyHpList" class="party-hp-list"></div>
                 </div>
 
                 <div class="abilities-section">
@@ -128,17 +165,28 @@
                         <span class="shop-gold-label">Your Gold:</span>
                         <span id="shopGold" class="shop-gold-value">0 gp</span>
                     </div>
-                    <div class="shop-filters">
-                        <select id="shopCategory" class="shop-filter">
-                            <option value="all">All Items</option>
-                            <option value="weapon">Weapons</option>
-                            <option value="armor">Armor</option>
-                            <option value="potion">Potions</option>
-                            <option value="scroll">Scrolls</option>
-                            <option value="wondrous">Wondrous</option>
-                            <option value="gear">Adventuring Gear</option>
-                        </select>
-                    </div>
+                    <select id="shopProvince" class="shop-filter">
+                        <option value="all">All Provinces</option>
+                        <option value="aurushi">Aurushi Province</option>
+                        <option value="pelagoshi">Pelagoshi Province</option>
+                        <option value="tellurian">Tellurian Province</option>
+                        <option value="wanderer">Wandering Merchants</option>
+                    </select>
+                </div>
+                <div class="shop-filters-row">
+                    <select id="shopCategory" class="shop-filter">
+                        <option value="all">All Categories</option>
+                        <option value="weapon">Weapons</option>
+                        <option value="armor">Armor & Shields</option>
+                        <option value="potion">Potions</option>
+                        <option value="scroll">Scrolls</option>
+                        <option value="wondrous">Wondrous Items</option>
+                        <option value="gear">Adventuring Gear</option>
+                    </select>
+                    <button id="wishlistToggle" class="wishlist-toggle">
+                        <span class="wishlist-icon">★</span>
+                        <span id="wishlistCount">0</span>
+                    </button>
                 </div>
                 <div id="shopList" class="shop-list"></div>
             </div>
@@ -202,6 +250,11 @@
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <!-- App -->
     <script src="app.js"></script>
 </body>
 </html>

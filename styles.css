@@ -83,6 +83,216 @@ body {
 }
 
 /* ============================================
+   LOADING SCREEN
+   ============================================ */
+
+#loadingScreen {
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-content h1 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: var(--spacing-xs);
+}
+
+.loading-content .subtitle {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xl);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    margin: 0 auto var(--spacing-md);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#loadingStatus {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   PLAYER SELECTION SCREEN
+   ============================================ */
+
+#playerSelect {
+    padding: var(--spacing-md);
+    overflow-y: auto;
+}
+
+.player-select-content {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.player-select-content h2 {
+    font-family: var(--font-display);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.player-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.player-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.player-card:active {
+    background: var(--bg-card-hover);
+    border-color: var(--gold-dim);
+    transform: scale(0.98);
+}
+
+.player-card.dm {
+    border-color: var(--gold-dim);
+    background: rgba(242, 211, 138, 0.05);
+}
+
+.player-icon {
+    font-size: 1.5rem;
+}
+
+.player-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.player-role {
+    font-size: 0.8rem;
+    color: var(--gold);
+}
+
+/* Header with back button */
+.header-with-back {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.header-with-back > div {
+    flex: 1;
+    text-align: center;
+}
+
+.header-with-back h1 {
+    font-size: 1.5rem;
+}
+
+.header-spacer {
+    width: 70px;
+}
+
+/* Character HP preview on card */
+.char-hp-preview {
+    font-size: 0.75rem;
+    color: var(--hp-green);
+    margin-top: 4px;
+}
+
+/* ============================================
+   PARTY HP SECTION
+   ============================================ */
+
+.party-hp-section {
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.party-hp-section h3 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--gold);
+    margin-bottom: var(--spacing-sm);
+}
+
+.party-hp-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.party-hp-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) 0;
+}
+
+.party-hp-item.current {
+    background: rgba(242, 211, 138, 0.1);
+    margin: 0 calc(-1 * var(--spacing-sm));
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 6px;
+}
+
+.party-hp-name {
+    width: 70px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.party-hp-bar-container {
+    flex: 1;
+    height: 8px;
+    background: var(--bg-dark);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.party-hp-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.party-hp-text {
+    width: 55px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+/* ============================================
    CHARACTER SELECT SCREEN
    ============================================ */
 
@@ -1178,11 +1388,21 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
     padding: var(--spacing-md);
     background: var(--bg-card);
     border-radius: 12px;
     gap: var(--spacing-md);
+}
+
+.shop-filters-row {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.shop-filters-row .shop-filter {
+    flex: 1;
 }
 
 .shop-gold {
@@ -1220,13 +1440,64 @@ body {
 .shop-item {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
     padding: var(--spacing-md);
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.15s;
+}
+
+.wishlist-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    min-height: var(--touch-min);
+    padding: 0 var(--spacing-md);
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.wishlist-toggle.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(242, 211, 138, 0.1);
+}
+
+.wishlist-icon {
+    font-size: 1.1rem;
+}
+
+.wishlist-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    line-height: 1;
+}
+
+.wishlist-btn.active {
+    color: var(--gold);
+}
+
+.shop-btn.wishlist {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.shop-btn.wishlist.active {
+    background: rgba(242, 211, 138, 0.1);
+    color: var(--gold);
+    border-color: var(--gold);
 }
 
 .shop-item:active {
