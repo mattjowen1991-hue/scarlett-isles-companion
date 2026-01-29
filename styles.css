@@ -1689,3 +1689,860 @@ body {
 #characterSelect {
     -webkit-overflow-scrolling: touch;
 }
+
+/* ============================================
+   INVENTORY/EQUIPMENT SYSTEM - D&D Beyond Style
+   ============================================ */
+
+.inv-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.inv-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.inv-section-header h4 {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+.inv-weight {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.inv-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.inv-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-height: var(--touch-min);
+}
+
+.inv-item:active {
+    background: var(--bg-card-hover);
+}
+
+.inv-item.magical {
+    border-left: 3px solid var(--gold-dim);
+}
+
+.inv-item.needs-attunement {
+    opacity: 0.7;
+}
+
+.inv-item-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--text-muted);
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.inv-item-checkbox.magic {
+    border-color: var(--gold-dim);
+    border-radius: 2px;
+}
+
+.inv-item-checkbox.checked {
+    background: var(--scarlet);
+    border-color: var(--scarlet);
+}
+
+.inv-item-checkbox.magic.checked {
+    background: transparent;
+    border-color: var(--gold);
+}
+
+.inv-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.inv-item-name {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inv-item.magical .inv-item-name {
+    color: var(--gold);
+}
+
+.inv-item-type {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.inv-item-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+}
+
+.inv-qty {
+    background: var(--bg-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.inv-weight-small {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 40px;
+    text-align: right;
+}
+
+/* Attunement Section */
+.attunement-section {
+    background: var(--bg-card);
+    padding: var(--spacing-md);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.attunement-section .inv-section-header {
+    border-bottom: none;
+    margin-bottom: var(--spacing-md);
+}
+
+.attune-count {
+    font-family: var(--font-display);
+    color: var(--gold);
+}
+
+.attunement-slots {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.attunement-slot {
+    padding: var(--spacing-md);
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.attunement-slot.filled {
+    border-style: solid;
+    border-color: var(--gold-dim);
+    background: rgba(242, 211, 138, 0.05);
+    cursor: pointer;
+}
+
+.attunement-slot.filled:active {
+    background: rgba(242, 211, 138, 0.1);
+}
+
+.attunement-slot.empty {
+    opacity: 0.5;
+}
+
+.attune-item-name {
+    font-family: var(--font-display);
+    color: var(--gold);
+    font-size: 0.95rem;
+}
+
+.attune-item-effect {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.attune-empty {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+}
+
+/* Item Action Buttons */
+.item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.item-action-btn {
+    width: 100%;
+    min-height: var(--touch-min);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.item-action-btn:active {
+    background: var(--bg-card-hover);
+}
+
+.item-action-btn.equip {
+    background: rgba(124, 204, 108, 0.2);
+    border-color: var(--hp-green);
+    color: var(--hp-green);
+}
+
+.item-action-btn.unequip {
+    background: rgba(108, 184, 204, 0.2);
+    border-color: var(--ac-blue);
+    color: var(--ac-blue);
+}
+
+.item-action-btn.attune {
+    background: rgba(242, 211, 138, 0.2);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.item-action-btn.unattune {
+    background: rgba(242, 211, 138, 0.1);
+    border-color: var(--gold-dim);
+    color: var(--gold-dim);
+}
+
+.item-action-btn.drop {
+    background: rgba(196, 35, 47, 0.2);
+    border-color: var(--scarlet);
+    color: var(--scarlet);
+}
+
+.item-action-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.item-detail-icon-placeholder {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background: var(--bg-card);
+    border-radius: 8px;
+}
+
+/* Weapon Effect Display */
+.weapon-effect {
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-top: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: rgba(242, 211, 138, 0.1);
+    border-radius: 4px;
+}
+
+/* ============================================
+   PURCHASE CHOICE MODAL
+   ============================================ */
+
+.purchase-choice {
+    text-align: center;
+    padding: var(--spacing-md) 0;
+}
+
+.purchase-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.purchase-header h2 {
+    font-family: var(--font-display);
+    color: var(--hp-green);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.purchase-item-name {
+    font-family: var(--font-display);
+    color: var(--gold);
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.purchase-cost {
+    color: var(--scarlet);
+    font-size: 1rem;
+}
+
+.purchase-prompt {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.purchase-actions {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.purchase-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.purchase-btn:active {
+    transform: scale(0.98);
+}
+
+.purchase-btn.equip-btn {
+    border-color: var(--hp-green);
+}
+
+.purchase-btn.equip-btn:active {
+    background: rgba(124, 204, 108, 0.2);
+}
+
+.purchase-btn.backpack-btn {
+    border-color: var(--gold-dim);
+}
+
+.purchase-btn.backpack-btn:active {
+    background: rgba(242, 211, 138, 0.1);
+}
+
+.purchase-btn-icon {
+    font-size: 2rem;
+}
+
+.purchase-btn-text {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   CURRENCY DISPLAY
+   ============================================ */
+
+.currency-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.currency-pp {
+    color: #a8d4e6;
+}
+
+.currency-gp {
+    color: var(--gold);
+}
+
+.currency-ep {
+    color: #b8b8b8;
+}
+
+.currency-sp {
+    color: #c0c0c0;
+}
+
+.currency-cp {
+    color: #cd7f32;
+}
+
+/* ============================================
+   COIN PURSE (Mobile-friendly expandable)
+   ============================================ */
+
+.coin-purse-btn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(242, 211, 138, 0.15);
+    border: 2px solid var(--gold-dim);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 1.5rem;
+}
+
+.coin-purse-btn:active {
+    background: rgba(242, 211, 138, 0.3);
+    transform: scale(0.95);
+}
+
+/* Coin Purse Modal - slides up from bottom */
+.coin-purse-modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+}
+
+.coin-purse-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.coin-purse-content {
+    background: var(--bg-card);
+    border-top: 2px solid var(--gold-dim);
+    border-radius: 20px 20px 0 0;
+    padding: var(--spacing-lg);
+    padding-bottom: calc(var(--spacing-lg) + var(--safe-bottom));
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+}
+
+.coin-purse-modal.open .coin-purse-content {
+    transform: translateY(0);
+}
+
+.coin-purse-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.coin-purse-header h3 {
+    font-family: var(--font-display);
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+
+.coin-purse-close {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--bg-dark);
+    border-radius: 50%;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coin-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.coin-row {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: var(--bg-dark);
+    border-radius: 10px;
+    min-height: 50px;
+}
+
+.coin-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+}
+
+.coin-label {
+    flex: 1;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.coin-value {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    min-width: 60px;
+    text-align: right;
+}
+
+/* Coin colors */
+.coin-row.pp .coin-value { color: #a8d4e6; }
+.coin-row.gp .coin-value { color: var(--gold); }
+.coin-row.ep .coin-value { color: #b8b8b8; }
+.coin-row.sp .coin-value { color: #c0c0c0; }
+.coin-row.cp .coin-value { color: #cd7f32; }
+
+.coin-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+}
+
+.coin-total-label {
+    color: var(--text-secondary);
+}
+
+.coin-total-value {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--gold);
+}
+
+/* Shop Coin Purse Button */
+.shop-coin-purse {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(242, 211, 138, 0.1);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.shop-coin-purse:active {
+    background: rgba(242, 211, 138, 0.2);
+}
+
+.shop-purse-icon {
+    font-size: 1.2rem;
+}
+
+.shop-gold-value {
+    font-family: var(--font-display);
+    color: var(--gold);
+    font-size: 1rem;
+}
+
+/* ============================================
+   DM CURRENCY EDITING
+   ============================================ */
+
+.dm-edit-currency-btn {
+    width: 100%;
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    background: rgba(196, 35, 47, 0.2);
+    border: 1px solid var(--scarlet);
+    border-radius: 8px;
+    color: var(--scarlet);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.dm-edit-currency-btn:active {
+    background: rgba(196, 35, 47, 0.3);
+}
+
+.coin-purse-edit {
+    padding-top: var(--spacing-sm);
+}
+
+.coin-edit-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.coin-edit-row {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-dark);
+    border-radius: 10px;
+    min-height: 56px;
+}
+
+.coin-edit-row .coin-icon {
+    font-size: 1.3rem;
+    width: 36px;
+    text-align: center;
+}
+
+.coin-edit-row .coin-label {
+    flex: 1;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.coin-edit-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.coin-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s;
+}
+
+.coin-btn:active {
+    background: var(--bg-card-hover);
+    transform: scale(0.95);
+}
+
+.coin-btn.minus {
+    color: var(--scarlet);
+}
+
+.coin-btn.plus {
+    color: var(--hp-green);
+}
+
+.coin-input {
+    width: 70px;
+    height: 40px;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--gold);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    -moz-appearance: textfield;
+}
+
+.coin-input::-webkit-outer-spin-button,
+.coin-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.coin-edit-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.coin-edit-btn {
+    flex: 1;
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-height: var(--touch-min);
+}
+
+.coin-edit-btn.cancel {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.coin-edit-btn.save {
+    background: var(--hp-green);
+    border: none;
+    color: var(--bg-dark);
+    font-weight: 600;
+}
+
+.coin-edit-btn:active {
+    transform: scale(0.98);
+}
+
+/* ============================================
+   SELL ITEM STYLES
+   ============================================ */
+
+.sell-info {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(242, 211, 138, 0.1);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+}
+
+.sell-info-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.sell-info-price {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--gold);
+}
+
+.sell-info-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+.item-action-btn.sell {
+    background: rgba(242, 211, 138, 0.2);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.no-sell-reason {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-top: var(--spacing-sm);
+}
+
+/* ============================================
+   SHOP BUY/SELL TOGGLE
+   ============================================ */
+
+.shop-mode-toggle {
+    display: flex;
+    gap: 2px;
+    background: var(--bg-dark);
+    padding: 4px;
+    border-radius: 12px;
+    margin-bottom: var(--spacing-md);
+}
+
+.shop-mode-btn {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: var(--touch-min);
+}
+
+.shop-mode-btn.active {
+    background: var(--bg-card);
+    color: var(--gold);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.shop-mode-btn:not(.active):active {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sell-mode-info {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(242, 211, 138, 0.1);
+    border: 1px dashed var(--gold-dim);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+}
+
+.sell-mode-hint {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Sell item in shop list */
+.sell-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-xs);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.sell-item:active {
+    background: var(--bg-card-hover);
+}
+
+.sell-item-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+}
+
+.sell-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.sell-item-name {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sell-item-name.magical {
+    color: var(--gold);
+}
+
+.sell-item-type {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.sell-item-price {
+    text-align: right;
+}
+
+.sell-item-price .price {
+    font-family: var(--font-display);
+    color: var(--gold);
+    font-size: 1rem;
+}
+
+.sell-item-price .no-sell {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+}

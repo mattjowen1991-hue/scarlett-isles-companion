@@ -65,14 +65,119 @@
                     <h2 id="charName">Character Name</h2>
                     <p id="charClassLevel">Class Level</p>
                 </div>
-                <div id="charGold" class="gold-display">0 gp</div>
+                <button id="coinPurse" class="coin-purse-btn">
+                    <span class="coin-purse-icon">💰</span>
+                </button>
             </header>
+            
+            <!-- Coin Purse Modal (slides up from bottom) -->
+            <div id="coinPurseModal" class="coin-purse-modal">
+                <div class="coin-purse-content">
+                    <div class="coin-purse-header">
+                        <h3>💰 Coin Purse</h3>
+                        <button id="closeCoinPurse" class="coin-purse-close">✕</button>
+                    </div>
+                    
+                    <!-- View Mode -->
+                    <div id="coinPurseView" class="coin-purse-view">
+                        <div class="coin-grid">
+                            <div class="coin-row pp">
+                                <span class="coin-icon">⬜</span>
+                                <span class="coin-label">Platinum</span>
+                                <span id="currencyPP" class="coin-value">0</span>
+                            </div>
+                            <div class="coin-row gp">
+                                <span class="coin-icon">🟡</span>
+                                <span class="coin-label">Gold</span>
+                                <span id="currencyGP" class="coin-value">0</span>
+                            </div>
+                            <div class="coin-row ep">
+                                <span class="coin-icon">⚪</span>
+                                <span class="coin-label">Electrum</span>
+                                <span id="currencyEP" class="coin-value">0</span>
+                            </div>
+                            <div class="coin-row sp">
+                                <span class="coin-icon">⚪</span>
+                                <span class="coin-label">Silver</span>
+                                <span id="currencySP" class="coin-value">0</span>
+                            </div>
+                            <div class="coin-row cp">
+                                <span class="coin-icon">🟤</span>
+                                <span class="coin-label">Copper</span>
+                                <span id="currencyCP" class="coin-value">0</span>
+                            </div>
+                        </div>
+                        <div class="coin-total-row">
+                            <span class="coin-total-label">Total Value:</span>
+                            <span id="currencyTotal" class="coin-total-value">0 gp</span>
+                        </div>
+                        <button id="dmEditCurrencyBtn" class="dm-edit-currency-btn" style="display: none;">
+                            ✏️ Edit Currency (DM)
+                        </button>
+                    </div>
+                    
+                    <!-- Edit Mode (DM Only) -->
+                    <div id="coinPurseEdit" class="coin-purse-edit" style="display: none;">
+                        <div class="coin-edit-grid">
+                            <div class="coin-edit-row pp">
+                                <span class="coin-icon">⬜</span>
+                                <span class="coin-label">Platinum</span>
+                                <div class="coin-edit-controls">
+                                    <button class="coin-btn minus" data-currency="pp">−</button>
+                                    <input type="number" id="editPP" class="coin-input" value="0" min="0">
+                                    <button class="coin-btn plus" data-currency="pp">+</button>
+                                </div>
+                            </div>
+                            <div class="coin-edit-row gp">
+                                <span class="coin-icon">🟡</span>
+                                <span class="coin-label">Gold</span>
+                                <div class="coin-edit-controls">
+                                    <button class="coin-btn minus" data-currency="gp">−</button>
+                                    <input type="number" id="editGP" class="coin-input" value="0" min="0">
+                                    <button class="coin-btn plus" data-currency="gp">+</button>
+                                </div>
+                            </div>
+                            <div class="coin-edit-row ep">
+                                <span class="coin-icon">⚪</span>
+                                <span class="coin-label">Electrum</span>
+                                <div class="coin-edit-controls">
+                                    <button class="coin-btn minus" data-currency="ep">−</button>
+                                    <input type="number" id="editEP" class="coin-input" value="0" min="0">
+                                    <button class="coin-btn plus" data-currency="ep">+</button>
+                                </div>
+                            </div>
+                            <div class="coin-edit-row sp">
+                                <span class="coin-icon">⚪</span>
+                                <span class="coin-label">Silver</span>
+                                <div class="coin-edit-controls">
+                                    <button class="coin-btn minus" data-currency="sp">−</button>
+                                    <input type="number" id="editSP" class="coin-input" value="0" min="0">
+                                    <button class="coin-btn plus" data-currency="sp">+</button>
+                                </div>
+                            </div>
+                            <div class="coin-edit-row cp">
+                                <span class="coin-icon">🟤</span>
+                                <span class="coin-label">Copper</span>
+                                <div class="coin-edit-controls">
+                                    <button class="coin-btn minus" data-currency="cp">−</button>
+                                    <input type="number" id="editCP" class="coin-input" value="0" min="0">
+                                    <button class="coin-btn plus" data-currency="cp">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="coin-edit-actions">
+                            <button id="cancelCurrencyEdit" class="coin-edit-btn cancel">Cancel</button>
+                            <button id="saveCurrencyEdit" class="coin-edit-btn save">💾 Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Tab Navigation -->
             <nav class="tab-nav">
                 <button class="tab-btn active" data-tab="stats">Stats</button>
                 <button class="tab-btn" data-tab="weapons">Weapons</button>
-                <button class="tab-btn" data-tab="items">Items</button>
+                <button class="tab-btn" data-tab="items">Magic</button>
                 <button class="tab-btn" data-tab="inventory">Gear</button>
                 <button class="tab-btn" data-tab="spells">Spells</button>
                 <button class="tab-btn" data-tab="shop">Shop</button>
@@ -160,16 +265,24 @@
 
             <!-- Shop Tab -->
             <div id="shopTab" class="tab-content">
+                <!-- Buy/Sell Toggle -->
+                <div class="shop-mode-toggle">
+                    <button id="shopModeBuy" class="shop-mode-btn active" data-mode="buy">🛒 Buy</button>
+                    <button id="shopModeSell" class="shop-mode-btn" data-mode="sell">💰 Sell</button>
+                </div>
+                
                 <div class="shop-controls">
-                    <div class="shop-gold">
-                        <span class="shop-gold-label">Your Gold:</span>
+                    <button class="shop-coin-purse" onclick="openCoinPurse()">
+                        <span class="shop-purse-icon">💰</span>
                         <span id="shopGold" class="shop-gold-value">0 gp</span>
-                    </div>
+                    </button>
                     <select id="shopProvince" class="shop-filter">
                         <option value="all">🌍 All Settlements</option>
                     </select>
                 </div>
-                <div class="shop-filters-row">
+                
+                <!-- Buy Mode Filters -->
+                <div id="buyFilters" class="shop-filters-row">
                     <select id="shopCategory" class="shop-filter">
                         <option value="all">All Categories</option>
                         <option value="weapon">⚔️ Weapons</option>
@@ -185,6 +298,13 @@
                         <span id="wishlistCount">0</span>
                     </button>
                 </div>
+                
+                <!-- Sell Mode Info -->
+                <div id="sellInfo" class="sell-mode-info" style="display: none;">
+                    <span class="sell-mode-hint">Select a settlement to see sell prices</span>
+                </div>
+                
+                <!-- Shop/Sell List -->
                 <div id="shopList" class="shop-list"></div>
             </div>
         </div>
