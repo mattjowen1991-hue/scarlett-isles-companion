@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Scarlett Isles Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+    <div id="app">
+        <!-- Character Selection Screen -->
+        <div id="characterSelect" class="screen active">
+            <header class="header">
+                <h1>Scarlett Isles</h1>
+                <p class="subtitle">Companion</p>
+            </header>
+            <div id="characterGrid" class="character-grid">
+                <!-- Characters loaded via JS -->
+            </div>
+        </div>
+
+        <!-- Character Sheet Screen -->
+        <div id="characterSheet" class="screen">
+            <header class="sheet-header">
+                <button id="backBtn" class="back-btn">← Party</button>
+                <div class="header-info">
+                    <h2 id="charName">Character Name</h2>
+                    <p id="charClassLevel">Class Level</p>
+                </div>
+                <div id="charGold" class="gold-display">0 gp</div>
+            </header>
+
+            <!-- Tab Navigation -->
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="stats">Stats</button>
+                <button class="tab-btn" data-tab="inventory">Inventory</button>
+                <button class="tab-btn" data-tab="spells">Spells</button>
+                <button class="tab-btn" data-tab="shop">Shop</button>
+            </nav>
+
+            <!-- Stats Tab -->
+            <div id="statsTab" class="tab-content active">
+                <div class="portrait-section">
+                    <img id="charPortrait" src="" alt="Character Portrait" class="portrait">
+                    <div class="combat-stats">
+                        <div class="stat-box hp">
+                            <span class="stat-label">HP</span>
+                            <span id="charHp" class="stat-value">0/0</span>
+                        </div>
+                        <div class="stat-box ac">
+                            <span class="stat-label">AC</span>
+                            <span id="charAc" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-box init">
+                            <span class="stat-label">Init</span>
+                            <span id="charInit" class="stat-value">+0</span>
+                        </div>
+                        <div class="stat-box speed">
+                            <span class="stat-label">Speed</span>
+                            <span id="charSpeed" class="stat-value">30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="abilities-section">
+                    <h3>Abilities</h3>
+                    <div id="abilitiesGrid" class="abilities-grid">
+                        <!-- Abilities loaded via JS -->
+                    </div>
+                </div>
+
+                <div class="saves-section">
+                    <h3>Saving Throws</h3>
+                    <div id="savesGrid" class="saves-grid">
+                        <!-- Saves loaded via JS -->
+                    </div>
+                </div>
+
+                <div class="skills-section">
+                    <h3>Skills</h3>
+                    <div id="skillsList" class="skills-list">
+                        <!-- Skills loaded via JS -->
+                    </div>
+                </div>
+
+                <div class="features-section">
+                    <h3>Features & Traits</h3>
+                    <div id="featuresList" class="features-list">
+                        <!-- Features loaded via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Tab -->
+            <div id="inventoryTab" class="tab-content">
+                <div class="inventory-header">
+                    <div class="currency-display">
+                        <span id="invGold" class="currency gold">0 gp</span>
+                    </div>
+                    <div class="weight-display">
+                        <span id="invWeight">0 lb</span> carried
+                    </div>
+                </div>
+                <div id="inventoryList" class="inventory-list">
+                    <!-- Inventory loaded via JS -->
+                </div>
+            </div>
+
+            <!-- Spells Tab -->
+            <div id="spellsTab" class="tab-content">
+                <div id="spellsContent">
+                    <!-- Spells loaded via JS -->
+                </div>
+            </div>
+
+            <!-- Shop Tab -->
+            <div id="shopTab" class="tab-content">
+                <div class="shop-header">
+                    <p>Visit the <a href="https://yourusername.github.io/scarlett-isles-shop" target="_blank" id="shopLink">Scarlett Isles Shop</a> to browse items.</p>
+                    <p class="shop-note">Coming soon: Direct shop integration!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

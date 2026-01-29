@@ -1,0 +1,668 @@
+{
+  "characters": [
+    {
+      "id": "charles-vect",
+      "name": "Charles Vect",
+      "player": "hjhudsonwriter",
+      "image": "images/Charles_Vect.jpeg",
+      "species": "Human",
+      "class": "Rogue",
+      "subclass": "Thief",
+      "level": 6,
+      "background": "Criminal",
+      "origin": "Pelagoshi Province",
+      "alignment": "Medium",
+      "stats": {
+        "strength": { "score": 13, "modifier": 1 },
+        "dexterity": { "score": 16, "modifier": 3 },
+        "constitution": { "score": 16, "modifier": 3 },
+        "intelligence": { "score": 8, "modifier": -1 },
+        "wisdom": { "score": 10, "modifier": 0 },
+        "charisma": { "score": 12, "modifier": 1 }
+      },
+      "combat": {
+        "armorClass": 14,
+        "initiative": 6,
+        "speed": "30 ft. (Walking), 30 ft. (Climbing)",
+        "maxHp": 51,
+        "currentHp": 51,
+        "tempHp": 0,
+        "hitDice": { "total": "6d8", "remaining": 6 }
+      },
+      "proficiencyBonus": 3,
+      "savingThrows": {
+        "strength": { "modifier": 1, "proficient": false },
+        "dexterity": { "modifier": 6, "proficient": true },
+        "constitution": { "modifier": 3, "proficient": false },
+        "intelligence": { "modifier": 2, "proficient": true },
+        "wisdom": { "modifier": 0, "proficient": false },
+        "charisma": { "modifier": 1, "proficient": false }
+      },
+      "skills": {
+        "acrobatics": { "modifier": 9, "proficient": true, "expertise": true },
+        "animalHandling": { "modifier": 0, "proficient": false },
+        "arcana": { "modifier": -1, "proficient": false },
+        "athletics": { "modifier": 4, "proficient": true },
+        "deception": { "modifier": 1, "proficient": false },
+        "history": { "modifier": -1, "proficient": false },
+        "insight": { "modifier": 0, "proficient": false },
+        "intimidation": { "modifier": 1, "proficient": false },
+        "investigation": { "modifier": 5, "proficient": true, "expertise": true },
+        "medicine": { "modifier": 0, "proficient": false },
+        "nature": { "modifier": -1, "proficient": false },
+        "perception": { "modifier": 3, "proficient": true },
+        "performance": { "modifier": 1, "proficient": false },
+        "persuasion": { "modifier": 7, "proficient": true, "expertise": true },
+        "religion": { "modifier": -1, "proficient": false },
+        "sleightOfHand": { "modifier": 6, "proficient": true },
+        "stealth": { "modifier": 9, "proficient": true, "expertise": true },
+        "survival": { "modifier": 0, "proficient": false }
+      },
+      "passives": {
+        "perception": 13,
+        "insight": 10,
+        "investigation": 15
+      },
+      "proficiencies": {
+        "armor": ["Light Armor"],
+        "weapons": ["Crossbow, Hand", "Rapier", "Scimitar", "Shortsword", "Simple Weapons", "Whip"],
+        "tools": ["Forgery Kit", "Thieves' Tools"],
+        "languages": ["Common", "Elvish", "Giant", "Thieves' Cant"]
+      },
+      "weapons": [
+        { "name": "Rapier", "attack": 6, "damage": "1d8+3", "type": "Piercing", "properties": "Martial, Finesse, Vex" },
+        { "name": "Scimitar", "attack": 6, "damage": "1d6+3", "type": "Slashing", "properties": "Martial, Finesse, Light, Nick" },
+        { "name": "Unarmed Strike", "attack": 4, "damage": "2", "type": "Bludgeoning", "properties": "" }
+      ],
+      "currency": {
+        "cp": 0,
+        "sp": 0,
+        "ep": 0,
+        "gp": 58,
+        "pp": 0
+      },
+      "inventory": [
+        { "name": "Leather", "qty": 1, "weight": 10 },
+        { "name": "Dagger", "qty": 2, "weight": 1 },
+        { "name": "Shortbow", "qty": 1, "weight": 2 },
+        { "name": "Rapier", "qty": 1, "weight": 2 },
+        { "name": "Scimitar", "qty": 1, "weight": 3 },
+        { "name": "Shortsword", "qty": 1, "weight": 2 },
+        { "name": "Double-Bladed Scimitar", "qty": 1, "weight": 6 },
+        { "name": "Backpack", "qty": 1, "weight": 5 },
+        { "name": "Quiver", "qty": 1, "weight": 1 },
+        { "name": "Thieves' Tools", "qty": 1, "weight": 1 },
+        { "name": "Arrows", "qty": 20, "weight": 1 },
+        { "name": "Stabilising Ampule", "qty": 1, "weight": 0 },
+        { "name": "Custom Item", "qty": 1, "weight": 0 },
+        { "name": "Oil", "qty": 7, "weight": 7 },
+        { "name": "Ball Bearings", "qty": 1000, "weight": 2 },
+        { "name": "Rations", "qty": 5, "weight": 10 },
+        { "name": "Rope", "qty": 1, "weight": 5 },
+        { "name": "Bell", "qty": 1, "weight": 0 },
+        { "name": "Tinderbox", "qty": 1, "weight": 1 },
+        { "name": "Waterskin", "qty": 1, "weight": 5 },
+        { "name": "Hooded Lantern", "qty": 1, "weight": 2 },
+        { "name": "Candle", "qty": 10, "weight": 0 },
+        { "name": "Crowbar", "qty": 1, "weight": 5 },
+        { "name": "root cutting blades", "qty": 1, "weight": 0 }
+      ],
+      "features": [
+        "Sneak Attack (3d6)",
+        "Thieves' Cant",
+        "Cunning Action",
+        "Steady Aim",
+        "Fast Hands",
+        "Second-Story Work",
+        "Uncanny Dodge",
+        "Expertise"
+      ],
+      "spells": {
+        "ability": null,
+        "saveDC": null,
+        "attackBonus": null,
+        "slots": {},
+        "known": [
+          { "name": "Tidepull", "level": 1, "source": "Scarlett Isles Origin: Pelagoshi Province" }
+        ]
+      }
+    },
+    {
+      "id": "elara-varrus",
+      "name": "Elara Varrus",
+      "player": "hjhudsonwriter",
+      "image": "images/Elara_Varrus.jpeg",
+      "species": "Human",
+      "class": "Fighter",
+      "subclass": "Champion",
+      "level": 7,
+      "background": "Custom Background",
+      "alignment": "Lawful Neutral",
+      "age": 25,
+      "gender": "Female",
+      "stats": {
+        "strength": { "score": 16, "modifier": 3 },
+        "dexterity": { "score": 15, "modifier": 2 },
+        "constitution": { "score": 13, "modifier": 1 },
+        "intelligence": { "score": 13, "modifier": 1 },
+        "wisdom": { "score": 10, "modifier": 0 },
+        "charisma": { "score": 8, "modifier": -1 }
+      },
+      "combat": {
+        "armorClass": 15,
+        "initiative": 2,
+        "speed": "30 ft. (Walking)",
+        "maxHp": 53,
+        "currentHp": 53,
+        "tempHp": 0,
+        "hitDice": { "total": "7d10", "remaining": 7 }
+      },
+      "proficiencyBonus": 3,
+      "savingThrows": {
+        "strength": { "modifier": 6, "proficient": true },
+        "dexterity": { "modifier": 2, "proficient": false },
+        "constitution": { "modifier": 4, "proficient": true },
+        "intelligence": { "modifier": 1, "proficient": false },
+        "wisdom": { "modifier": 0, "proficient": false },
+        "charisma": { "modifier": -1, "proficient": false }
+      },
+      "skills": {
+        "acrobatics": { "modifier": 2, "proficient": false },
+        "animalHandling": { "modifier": 0, "proficient": false },
+        "arcana": { "modifier": 1, "proficient": false },
+        "athletics": { "modifier": 6, "proficient": true },
+        "deception": { "modifier": -1, "proficient": false },
+        "history": { "modifier": 1, "proficient": false },
+        "insight": { "modifier": 3, "proficient": true },
+        "intimidation": { "modifier": -1, "proficient": false },
+        "investigation": { "modifier": 4, "proficient": true },
+        "medicine": { "modifier": 0, "proficient": false },
+        "nature": { "modifier": 1, "proficient": false },
+        "perception": { "modifier": 3, "proficient": true },
+        "performance": { "modifier": -1, "proficient": false },
+        "persuasion": { "modifier": -1, "proficient": false },
+        "religion": { "modifier": 1, "proficient": false },
+        "sleightOfHand": { "modifier": 2, "proficient": false },
+        "stealth": { "modifier": 2, "proficient": false },
+        "survival": { "modifier": 3, "proficient": true }
+      },
+      "passives": {
+        "perception": 13,
+        "insight": 13,
+        "investigation": 14
+      },
+      "proficiencies": {
+        "armor": ["Heavy Armor", "Light Armor", "Medium Armor", "Shields"],
+        "weapons": ["Martial Weapons", "Simple Weapons"],
+        "tools": ["Harp", "Monster Harvesting Tools", "Navigator's Tools", "Smith's Tools"],
+        "languages": ["Common", "Common Sign Language", "Dwarvish", "Giant"]
+      },
+      "weapons": [
+        { "name": "Longbow", "attack": 7, "damage": "1d8+2", "type": "Piercing", "properties": "Martial, Ammunition, Heavy, Range, Two-Handed, Slow, Range (150/600)" },
+        { "name": "Scimitar", "attack": 6, "damage": "1d6+3", "type": "Slashing", "properties": "Martial, Finesse, Light, Nick" },
+        { "name": "Shortbow", "attack": 7, "damage": "1d6+2", "type": "Piercing", "properties": "Simple, Ammunition, Range, Two-Handed, Vex, Range (80/320)" },
+        { "name": "Shortsword", "attack": 6, "damage": "1d6+3", "type": "Piercing", "properties": "Martial, Finesse, Light, Vex" },
+        { "name": "Sun Blade", "attack": 6, "damage": "1d8+3", "type": "Radiant", "properties": "+1d8 Radiant, Martial, Versatile, Sap, Finesse" },
+        { "name": "Unarmed Strike", "attack": 6, "damage": "4", "type": "Bludgeoning", "properties": "" }
+      ],
+      "currency": {
+        "cp": 0,
+        "sp": 0,
+        "ep": 0,
+        "gp": 711,
+        "pp": 0
+      },
+      "inventory": [
+        { "name": "Efreeti Chain Shirt", "qty": 1, "weight": 20 },
+        { "name": "Studded Leather", "qty": 1, "weight": 13 },
+        { "name": "Half Plate", "qty": 1, "weight": 40 },
+        { "name": "Shortbow", "qty": 1, "weight": 2 },
+        { "name": "Scimitar", "qty": 1, "weight": 3 },
+        { "name": "Shortsword", "qty": 1, "weight": 2 },
+        { "name": "Longbow", "qty": 2, "weight": 4 },
+        { "name": "Backpack", "qty": 1, "weight": 5 },
+        { "name": "Quiver", "qty": 1, "weight": 1 },
+        { "name": "Arrows", "qty": 20, "weight": 1 },
+        { "name": "Sun Blade", "qty": 1, "weight": 3 },
+        { "name": "Custom Item", "qty": 1, "weight": 0 },
+        { "name": "Memory Knott", "qty": 2, "weight": 0 },
+        { "name": "Oil", "qty": 2, "weight": 2 },
+        { "name": "Rations", "qty": 10, "weight": 20 },
+        { "name": "Rope", "qty": 1, "weight": 5 },
+        { "name": "Tinderbox", "qty": 1, "weight": 1 },
+        { "name": "Torch", "qty": 10, "weight": 10 },
+        { "name": "Waterskin", "qty": 1, "weight": 5 },
+        { "name": "Caltrops", "qty": 20, "weight": 2 },
+        { "name": "Crowbar", "qty": 1, "weight": 5 }
+      ],
+      "features": [
+        "Fighting Style",
+        "Second Wind",
+        "Action Surge (1/Short Rest)",
+        "Improved Critical (19-20)",
+        "Remarkable Athlete",
+        "Extra Attack",
+        "Tactical Shift",
+        "Tactical Mind"
+      ],
+      "spells": null
+    },
+    {
+      "id": "kaelen-of-wolfhaven",
+      "name": "Kaelen of Wolfhaven",
+      "player": "hjhudsonwriter",
+      "image": "images/Kaelen_of_Wolfhaven.jpeg",
+      "species": "Human",
+      "class": "Ranger",
+      "subclass": "Hunter",
+      "level": 7,
+      "background": "Northern Province Origin",
+      "origin": "Tellurian Province",
+      "alignment": "Neutral Good",
+      "faith": "Tellurian",
+      "age": 34,
+      "gender": "Male",
+      "stats": {
+        "strength": { "score": 12, "modifier": 1 },
+        "dexterity": { "score": 19, "modifier": 4 },
+        "constitution": { "score": 14, "modifier": 2 },
+        "intelligence": { "score": 10, "modifier": 0 },
+        "wisdom": { "score": 14, "modifier": 2 },
+        "charisma": { "score": 8, "modifier": -1 }
+      },
+      "combat": {
+        "armorClass": 16,
+        "initiative": 7,
+        "speed": "40 ft. (Walking), 40 ft. (Climbing), 40 ft. (Swimming)",
+        "maxHp": 60,
+        "currentHp": 60,
+        "tempHp": 0,
+        "hitDice": { "total": "7d10", "remaining": 7 }
+      },
+      "proficiencyBonus": 3,
+      "savingThrows": {
+        "strength": { "modifier": 4, "proficient": true },
+        "dexterity": { "modifier": 7, "proficient": true },
+        "constitution": { "modifier": 2, "proficient": false },
+        "intelligence": { "modifier": 0, "proficient": false },
+        "wisdom": { "modifier": 2, "proficient": false },
+        "charisma": { "modifier": -1, "proficient": false }
+      },
+      "skills": {
+        "acrobatics": { "modifier": 4, "proficient": false },
+        "animalHandling": { "modifier": 5, "proficient": true },
+        "arcana": { "modifier": 0, "proficient": false },
+        "athletics": { "modifier": 1, "proficient": false },
+        "deception": { "modifier": -1, "proficient": false },
+        "history": { "modifier": 0, "proficient": false },
+        "insight": { "modifier": 5, "proficient": true },
+        "intimidation": { "modifier": -1, "proficient": false },
+        "investigation": { "modifier": 0, "proficient": false },
+        "medicine": { "modifier": 2, "proficient": false },
+        "nature": { "modifier": 0, "proficient": false },
+        "perception": { "modifier": 5, "proficient": true },
+        "performance": { "modifier": -1, "proficient": false },
+        "persuasion": { "modifier": -1, "proficient": false },
+        "religion": { "modifier": 0, "proficient": false },
+        "sleightOfHand": { "modifier": 4, "proficient": false },
+        "stealth": { "modifier": 10, "proficient": true, "expertise": true },
+        "survival": { "modifier": 5, "proficient": true }
+      },
+      "passives": {
+        "perception": 15,
+        "insight": 15,
+        "investigation": 10
+      },
+      "proficiencies": {
+        "armor": ["Light Armor", "Medium Armor", "Shields"],
+        "weapons": ["Martial Weapons", "Simple Weapons"],
+        "tools": ["Woodcarver's Tools"],
+        "languages": ["Celestial", "Common", "Common Sign Language", "Elvish", "Giant"]
+      },
+      "weapons": [
+        { "name": "Longbow", "attack": 9, "damage": "1d8+4", "type": "Piercing", "properties": "Martial, Ammunition, Heavy, Range, Two-Handed, Slow, Range (150/600)" },
+        { "name": "Scimitar", "attack": 7, "damage": "1d6+4", "type": "Slashing", "properties": "Martial, Finesse, Light, Nick" },
+        { "name": "Shortbow", "attack": 9, "damage": "1d6+4", "type": "Piercing", "properties": "Simple, Ammunition, Range, Two-Handed, Vex, Range (80/320)" },
+        { "name": "Shortsword", "attack": 7, "damage": "1d6+4", "type": "Piercing", "properties": "Martial, Finesse, Light, Vex" },
+        { "name": "Unarmed Strike", "attack": 4, "damage": "2", "type": "Bludgeoning", "properties": "" }
+      ],
+      "currency": {
+        "cp": 0,
+        "sp": 0,
+        "ep": 0,
+        "gp": 227,
+        "pp": 0
+      },
+      "inventory": [
+        { "name": "Sun Blade", "qty": 1, "weight": 3 },
+        { "name": "Pendant of The House of The Sun", "qty": 1, "weight": 5 },
+        { "name": "Studded Leather", "qty": 1, "weight": 13 },
+        { "name": "Chain Shirt", "qty": 1, "weight": 20 },
+        { "name": "Salve", "qty": 1, "weight": 0 },
+        { "name": "Healing Salve", "qty": 1, "weight": 0 },
+        { "name": "Shortbow", "qty": 1, "weight": 2 },
+        { "name": "Scimitar", "qty": 1, "weight": 3 },
+        { "name": "Shortsword", "qty": 1, "weight": 2 },
+        { "name": "Longbow", "qty": 1, "weight": 2 },
+        { "name": "Backpack", "qty": 1, "weight": 5 },
+        { "name": "Quiver", "qty": 2, "weight": 2 },
+        { "name": "Arrows", "qty": 40, "weight": 2 },
+        { "name": "Sprig of Mistletoe", "qty": 1, "weight": 0 },
+        { "name": "Bedroll", "qty": 2, "weight": 14 },
+        { "name": "Mess Kit", "qty": 1, "weight": 1 },
+        { "name": "Rations (1 day)", "qty": 10, "weight": 20 },
+        { "name": "Tinderbox", "qty": 1, "weight": 1 },
+        { "name": "Waterskin", "qty": 1, "weight": 5 },
+        { "name": "Stabilising Ampoule", "qty": 1, "weight": 0 },
+        { "name": "Oil", "qty": 2, "weight": 2 },
+        { "name": "Rations", "qty": 10, "weight": 20 },
+        { "name": "Rope", "qty": 1, "weight": 5 },
+        { "name": "Torch", "qty": 10, "weight": 10 },
+        { "name": "Clan Writ", "qty": 1, "weight": 0 },
+        { "name": "Stone Talisman", "qty": 1, "weight": 0 },
+        { "name": "Heartwood Resin Vial", "qty": 1, "weight": 0 },
+        { "name": "Warden's Token", "qty": 1, "weight": 0 }
+      ],
+      "features": [
+        "Favored Enemy",
+        "Hunter's Mark (Always Prepared)",
+        "Deft Explorer",
+        "Fighting Style",
+        "Spellcasting",
+        "Hunter's Prey: Colossus Slayer",
+        "Extra Attack",
+        "Roving",
+        "Defensive Tactics: Multiattack Defense"
+      ],
+      "spells": {
+        "ability": "WIS",
+        "saveDC": 13,
+        "attackBonus": 5,
+        "slots": { "1st": 4 },
+        "known": [
+          { "name": "Speak with Animals", "level": 1, "ritual": true },
+          { "name": "Cure Wounds", "level": 1 },
+          { "name": "Rootbind", "level": 1, "source": "Scarlett Isles Origin: Tellurian Province" },
+          { "name": "Hunter's Mark", "level": 1, "prepared": true }
+        ]
+      },
+      "allies": {
+        "companion": "Lokie (The Raven)",
+        "organizations": ["The Wolfguard (Wolfhaven)", "The Keepers of the Old Way", "The Wolfhaven Guard (Former Scout)", "Clan Blackstone (Citizen)"]
+      }
+    },
+    {
+      "id": "magnus-ironward",
+      "name": "Magnus Ironward",
+      "player": "hjhudsonwriter",
+      "image": "images/Magnus_Ironward.jpeg",
+      "species": "Human",
+      "class": "Fighter",
+      "subclass": "Champion",
+      "level": 7,
+      "background": "Soldier",
+      "origin": "Aurushi Province",
+      "alignment": "Lawful Neutral",
+      "age": 38,
+      "gender": "Male",
+      "stats": {
+        "strength": { "score": 18, "modifier": 4 },
+        "dexterity": { "score": 12, "modifier": 1 },
+        "constitution": { "score": 16, "modifier": 3 },
+        "intelligence": { "score": 8, "modifier": -1 },
+        "wisdom": { "score": 13, "modifier": 1 },
+        "charisma": { "score": 10, "modifier": 0 }
+      },
+      "combat": {
+        "armorClass": 17,
+        "initiative": 4,
+        "speed": "30 ft. (Walking)",
+        "maxHp": 67,
+        "currentHp": 67,
+        "tempHp": 0,
+        "hitDice": { "total": "7d10", "remaining": 7 }
+      },
+      "proficiencyBonus": 3,
+      "savingThrows": {
+        "strength": { "modifier": 7, "proficient": true },
+        "dexterity": { "modifier": 1, "proficient": false },
+        "constitution": { "modifier": 6, "proficient": true },
+        "intelligence": { "modifier": -1, "proficient": false },
+        "wisdom": { "modifier": 1, "proficient": false },
+        "charisma": { "modifier": 0, "proficient": false }
+      },
+      "skills": {
+        "acrobatics": { "modifier": 1, "proficient": false },
+        "animalHandling": { "modifier": 1, "proficient": false },
+        "arcana": { "modifier": -1, "proficient": false },
+        "athletics": { "modifier": 7, "proficient": true },
+        "deception": { "modifier": 0, "proficient": false },
+        "history": { "modifier": -1, "proficient": false },
+        "insight": { "modifier": 4, "proficient": true },
+        "intimidation": { "modifier": 3, "proficient": true },
+        "investigation": { "modifier": -1, "proficient": false },
+        "medicine": { "modifier": 1, "proficient": false },
+        "nature": { "modifier": -1, "proficient": false },
+        "perception": { "modifier": 4, "proficient": true },
+        "performance": { "modifier": 0, "proficient": false },
+        "persuasion": { "modifier": 0, "proficient": false },
+        "religion": { "modifier": -1, "proficient": false },
+        "sleightOfHand": { "modifier": 1, "proficient": false },
+        "stealth": { "modifier": 1, "proficient": false },
+        "survival": { "modifier": 1, "proficient": false }
+      },
+      "passives": {
+        "perception": 14,
+        "insight": 14,
+        "investigation": 9
+      },
+      "proficiencies": {
+        "armor": ["Heavy Armor", "Light Armor", "Medium Armor", "Shields"],
+        "weapons": ["Martial Weapons", "Simple Weapons"],
+        "tools": ["Dice Set"],
+        "languages": ["Common", "Dwarvish", "Giant"]
+      },
+      "weapons": [
+        { "name": "Sun Blade", "attack": 7, "damage": "1d8+4", "type": "Radiant", "properties": "+1d8 Radiant, Martial, Versatile, Sap, Finesse" },
+        { "name": "Unarmed Strike", "attack": 7, "damage": "5", "type": "Bludgeoning", "properties": "" }
+      ],
+      "currency": {
+        "cp": 0,
+        "sp": 0,
+        "ep": 0,
+        "gp": 373,
+        "pp": 0
+      },
+      "inventory": [
+        { "name": "Shield of the Cavalier", "qty": 1, "weight": 6 },
+        { "name": "Sun Blade", "qty": 1, "weight": 3 },
+        { "name": "Chain Mail", "qty": 1, "weight": 55 },
+        { "name": "Stabilising Ampoule", "qty": 1, "weight": 0 },
+        { "name": "Tellurian Charm", "qty": 2, "weight": 0 },
+        { "name": "Salve", "qty": 4, "weight": 0 },
+        { "name": "Blackstone Greatsword", "qty": 1, "weight": 6 },
+        { "name": "Javelin", "qty": 8, "weight": 16 },
+        { "name": "Spear", "qty": 1, "weight": 3 },
+        { "name": "Flail", "qty": 1, "weight": 2 },
+        { "name": "Dice Set", "qty": 1, "weight": 0 },
+        { "name": "Backpack", "qty": 1, "weight": 5 },
+        { "name": "Quiver", "qty": 1, "weight": 1 },
+        { "name": "Rope", "qty": 1, "weight": 5 },
+        { "name": "Healer's Kit", "qty": 1, "weight": 3 },
+        { "name": "Crowbar", "qty": 1, "weight": 5 },
+        { "name": "Traveler's Clothes", "qty": 1, "weight": 4 },
+        { "name": "Oil", "qty": 2, "weight": 2 },
+        { "name": "Rations", "qty": 10, "weight": 20 },
+        { "name": "Tinderbox", "qty": 1, "weight": 1 },
+        { "name": "Torch", "qty": 10, "weight": 10 },
+        { "name": "Waterskin", "qty": 1, "weight": 5 },
+        { "name": "Caltrops", "qty": 20, "weight": 2 },
+        { "name": "Stabilising Ampoule", "qty": 1, "weight": 0 }
+      ],
+      "features": [
+        "Fighting Style: Great Weapon Fighting",
+        "Second Wind",
+        "Action Surge (1/Short Rest)",
+        "Improved Critical (19-20)",
+        "Remarkable Athlete",
+        "Extra Attack",
+        "Tactical Shift",
+        "Tactical Mind",
+        "Magic Initiate (Cleric)",
+        "Defense (+1 AC)",
+        "Command The Moment"
+      ],
+      "spells": {
+        "ability": "WIS",
+        "saveDC": null,
+        "attackBonus": null,
+        "slots": {},
+        "cantrips": [
+          { "name": "Guidance", "source": "Magic Initiate (Cleric)" },
+          { "name": "Sacred Flame", "source": "Magic Initiate (Cleric)" }
+        ],
+        "known": [
+          { "name": "Bless", "level": 1, "source": "Magic Initiate (Cleric)" },
+          { "name": "Solar Edict", "level": 1, "source": "Scarlett Isles Origin: Aurushi Province" }
+        ]
+      }
+    },
+    {
+      "id": "umbrys",
+      "name": "Umbrys",
+      "player": "hjhudsonwriter",
+      "image": "images/Umbrys.jpeg",
+      "species": "Human",
+      "class": "Ranger",
+      "subclass": "Hunter",
+      "level": 7,
+      "background": "Sage",
+      "alignment": "Medium",
+      "stats": {
+        "strength": { "score": 13, "modifier": 1 },
+        "dexterity": { "score": 16, "modifier": 3 },
+        "constitution": { "score": 14, "modifier": 2 },
+        "intelligence": { "score": 8, "modifier": -1 },
+        "wisdom": { "score": 14, "modifier": 2 },
+        "charisma": { "score": 10, "modifier": 0 }
+      },
+      "combat": {
+        "armorClass": 15,
+        "initiative": 3,
+        "speed": "40 ft. (Walking), 40 ft. (Climbing), 40 ft. (Swimming)",
+        "maxHp": 60,
+        "currentHp": 60,
+        "tempHp": 0,
+        "hitDice": { "total": "7d10", "remaining": 7 }
+      },
+      "proficiencyBonus": 3,
+      "savingThrows": {
+        "strength": { "modifier": 4, "proficient": true },
+        "dexterity": { "modifier": 6, "proficient": true },
+        "constitution": { "modifier": 2, "proficient": false },
+        "intelligence": { "modifier": -1, "proficient": false },
+        "wisdom": { "modifier": 2, "proficient": false },
+        "charisma": { "modifier": 0, "proficient": false }
+      },
+      "skills": {
+        "acrobatics": { "modifier": 6, "proficient": true },
+        "animalHandling": { "modifier": 5, "proficient": true },
+        "arcana": { "modifier": 5, "proficient": true, "expertise": true },
+        "athletics": { "modifier": 4, "proficient": true },
+        "deception": { "modifier": 0, "proficient": false },
+        "history": { "modifier": 2, "proficient": true },
+        "insight": { "modifier": 5, "proficient": true },
+        "intimidation": { "modifier": 0, "proficient": false },
+        "investigation": { "modifier": 2, "proficient": true },
+        "medicine": { "modifier": 2, "proficient": false },
+        "nature": { "modifier": 2, "proficient": true },
+        "perception": { "modifier": 2, "proficient": false },
+        "performance": { "modifier": 0, "proficient": false },
+        "persuasion": { "modifier": 0, "proficient": false },
+        "religion": { "modifier": -1, "proficient": false },
+        "sleightOfHand": { "modifier": 3, "proficient": false },
+        "stealth": { "modifier": 3, "proficient": false },
+        "survival": { "modifier": 2, "proficient": false }
+      },
+      "passives": {
+        "perception": 12,
+        "insight": 15,
+        "investigation": 12
+      },
+      "proficiencies": {
+        "armor": ["Light Armor", "Medium Armor", "Shields"],
+        "weapons": ["Martial Weapons", "Simple Weapons"],
+        "tools": ["Alchemist's Supplies"],
+        "languages": ["Celestial", "Common", "Draconic", "Dwarvish", "Elvish", "Halfling", "Orc"]
+      },
+      "weapons": [
+        { "name": "Scimitar", "attack": 6, "damage": "1d6+3", "type": "Slashing", "properties": "Martial, Finesse, Light, Nick" },
+        { "name": "Shortsword", "attack": 6, "damage": "1d6+3", "type": "Piercing", "properties": "Martial, Finesse, Light, Vex" },
+        { "name": "Poison Spray", "attack": 5, "damage": "2d12", "type": "Poison", "properties": "V/S" },
+        { "name": "Unarmed Strike", "attack": 4, "damage": "2", "type": "Bludgeoning", "properties": "" }
+      ],
+      "currency": {
+        "cp": 0,
+        "sp": 0,
+        "ep": 0,
+        "gp": 0,
+        "pp": 0
+      },
+      "inventory": [
+        { "name": "Studded Leather", "qty": 1, "weight": 13 },
+        { "name": "Earthdraw Greatbow", "qty": 1, "weight": 0 },
+        { "name": "Scimitar", "qty": 1, "weight": 3 },
+        { "name": "Shortsword", "qty": 1, "weight": 2 },
+        { "name": "Ink (1 ounce bottle)", "qty": 2, "weight": 0 },
+        { "name": "Clothes, Common", "qty": 1, "weight": 3 },
+        { "name": "Small Knife", "qty": 2, "weight": 0 },
+        { "name": "Oil", "qty": 4, "weight": 4 },
+        { "name": "Backpack", "qty": 2, "weight": 10 },
+        { "name": "Quiver", "qty": 2, "weight": 2 },
+        { "name": "Rations", "qty": 20, "weight": 40 },
+        { "name": "Rope", "qty": 2, "weight": 10 },
+        { "name": "Bedroll", "qty": 2, "weight": 14 },
+        { "name": "Tinderbox", "qty": 2, "weight": 2 },
+        { "name": "Torch", "qty": 20, "weight": 20 },
+        { "name": "Arrows", "qty": 220, "weight": 11 },
+        { "name": "Sprig of Mistletoe", "qty": 2, "weight": 0 },
+        { "name": "Waterskin", "qty": 2, "weight": 10 },
+        { "name": "Book", "qty": 1, "weight": 5 },
+        { "name": "Ink Pen", "qty": 1, "weight": 0 },
+        { "name": "Parchment (one sheet)", "qty": 10, "weight": 0 },
+        { "name": "Little Bag of Sand", "qty": 1, "weight": 0 }
+      ],
+      "features": [
+        "Favored Enemy",
+        "Hunter's Mark (Always Prepared)",
+        "Deft Explorer",
+        "Fighting Style: Druidic Warrior",
+        "Spellcasting",
+        "Hunter's Prey: Colossus Slayer",
+        "Extra Attack",
+        "Roving",
+        "Defensive Tactics: Multiattack Defense"
+      ],
+      "spells": {
+        "ability": "WIS",
+        "saveDC": 13,
+        "attackBonus": 5,
+        "slots": { "1st": 4 },
+        "cantrips": [
+          { "name": "Poison Spray", "source": "Fighting Style: Druidic Warrior" },
+          { "name": "Mending", "source": "Fighting Style: Druidic Warrior" }
+        ],
+        "known": [
+          { "name": "Cure Wounds", "level": 1 },
+          { "name": "Ensnaring Strike", "level": 1 },
+          { "name": "Hunter's Mark", "level": 1, "prepared": true }
+        ]
+      }
+    }
+  ],
+  "meta": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-01-29",
+    "campaign": "Scarlett Isles"
+  }
+}
