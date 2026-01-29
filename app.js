@@ -43,10 +43,14 @@ function shuffleWithSeed(array, seed) {
 // ===================================
 
 const ICON_MAP = {
-    // Weapons
-    'longsword': 'plain-dagger',
+    // Weapons - specific
+    'vorpal': 'bloody-sword',
+    'holy avenger': 'sword-altar',
+    'flame tongue': 'flaming-sword',
+    'venom': 'dripping-blade',
+    'longsword': 'broadsword',
     'shortsword': 'stiletto',
-    'greatsword': 'broadsword',
+    'greatsword': 'sharp-axe',
     'rapier': 'sai',
     'dagger': 'plain-dagger',
     'battleaxe': 'battle-axe',
@@ -58,53 +62,45 @@ const ICON_MAP = {
     'longbow': 'pocket-bow',
     'shortbow': 'high-shot',
     'crossbow': 'crossbow',
-    'bow': 'pocket-bow',
-    'flame': 'flaming-sword',
-    'fire': 'flaming-sword',
     
-    // Armor
-    'shield': 'shield',
-    'helmet': 'visored-helm',
-    'helm': 'visored-helm',
-    'armor': 'breastplate',
-    'chainmail': 'chain-mail',
+    // Armor - specific
+    'shield': 'checked-shield',
     'chain shirt': 'chain-mail',
+    'chainmail': 'chain-mail',
+    'studded leather': 'leather-armor',
     'leather': 'leather-armor',
-    'studded': 'leather-armor',
     'plate': 'breastplate',
     'bracers': 'bracer',
     'gauntlets': 'gauntlet',
     'gauntlet': 'gauntlet',
-    'boots': 'boots',
-    'cloak': 'cloak',
-    'goggles': 'steampunk-goggles',
+    'helmet': 'visored-helm',
+    'helm': 'visored-helm',
     
-    // Jewelry & Accessories  
+    // Wearables
+    'cloak': 'hooded-figure',
+    'boots': 'boots',
+    'goggles': 'goggles',
     'ring': 'ring',
     'amulet': 'gem-pendant',
-    'ioun': 'crystal-ball',
-    'necklace': 'gem-pendant',
+    'ioun': 'floating-crystal',
     
-    // Magic Items
-    'wand': 'crystal-wand',
+    // Magic items
+    'staff of power': 'wizard-staff',
     'staff': 'wizard-staff',
+    'wand': 'crystal-wand',
     'scroll': 'scroll-unfurled',
     'book': 'book-cover',
     'orb': 'orb',
-    'ball': 'crystal-ball',
-    'decanter': 'potion-ball',
     'lantern': 'lantern-flame',
+    'decanter': 'water-flask',
     
-    // Gear & Equipment
+    // Gear
     'potion': 'potion-ball',
     'bag': 'swap-bag',
     'rope': 'rope-coil',
     'torch': 'torch',
-    'tent': 'camping-tent',
-    'rations': 'meat',
-    'tools': 'swiss-army-knife',
-    'instrument': 'lyre',
-    'bearings': 'gears',
+    'ball bearings': 'caltrops',
+    'bearings': 'caltrops',
     
     // Default
     'default': 'chest'
@@ -114,16 +110,16 @@ function getItemIcon(item) {
     const nameLower = item.name.toLowerCase();
     const typeLower = item.type.toLowerCase();
     
-    // Check name first
+    // Check full name first for specific matches
     for (const [key, icon] of Object.entries(ICON_MAP)) {
-        if (nameLower.includes(key)) {
+        if (key !== 'default' && nameLower.includes(key)) {
             return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${icon}.svg`;
         }
     }
     
     // Then check type
     for (const [key, icon] of Object.entries(ICON_MAP)) {
-        if (typeLower.includes(key)) {
+        if (key !== 'default' && typeLower.includes(key)) {
             return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${icon}.svg`;
         }
     }
