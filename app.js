@@ -43,84 +43,91 @@ function shuffleWithSeed(array, seed) {
 // ===================================
 
 const ICON_MAP = {
-    // Weapons - specific
+    // Weapons - specific matches (check these first)
     'vorpal': 'bloody-sword',
-    'holy avenger': 'sword-altar',
+    'holy avenger': 'winged-sword',
     'flame tongue': 'flaming-sword',
     'venom': 'dripping-blade',
+    'magic missiles': 'missile-swarm',
+    
+    // Weapons - general
+    'greatsword': 'broadsword',
     'longsword': 'broadsword',
-    'shortsword': 'stiletto',
-    'greatsword': 'sharp-axe',
-    'rapier': 'sai',
-    'dagger': 'plain-dagger',
+    'shortsword': 'gladius',
+    'rapier': 'rapier',
+    'dagger': 'stiletto',
     'battleaxe': 'battle-axe',
-    'handaxe': 'axe',
-    'warhammer': 'warhammer',
-    'mace': 'mace-head',
+    'handaxe': 'thrown-daggers',
+    'warhammer': 'war-pick',
+    'mace': 'flanged-mace',
     'quarterstaff': 'bo',
     'spear': 'spear-hook',
-    'longbow': 'pocket-bow',
+    'longbow': 'bow-arrow',
     'shortbow': 'high-shot',
     'crossbow': 'crossbow',
     
-    // Armor - specific
-    'shield': 'checked-shield',
-    'chain shirt': 'chain-mail',
-    'chainmail': 'chain-mail',
-    'studded leather': 'leather-armor',
-    'leather': 'leather-armor',
+    // Armor
+    'shield': 'round-shield',
+    'chain shirt': 'mail-shirt',
+    'chain': 'mail-shirt',
+    'studded leather': 'leather-vest',
+    'leather': 'leather-vest',
     'plate': 'breastplate',
-    'bracers': 'bracer',
-    'gauntlets': 'gauntlet',
-    'gauntlet': 'gauntlet',
+    'bracers': 'forearm',
+    'gauntlets': 'gloves',
+    'gauntlet': 'gloves',
     'helmet': 'visored-helm',
     'helm': 'visored-helm',
     
     // Wearables
-    'cloak': 'hooded-figure',
-    'boots': 'boots',
-    'goggles': 'goggles',
+    'cloak': 'cape',
+    'boots': 'leg-armor',
+    'goggles': 'steampunk-goggles',
     'ring': 'ring',
-    'amulet': 'gem-pendant',
-    'ioun': 'floating-crystal',
+    'amulet': 'emerald-necklace',
+    'ioun': 'gem-pendant',
     
     // Magic items
     'staff of power': 'wizard-staff',
     'staff': 'wizard-staff',
-    'wand': 'crystal-wand',
+    'wand': 'fairy-wand',
     'scroll': 'scroll-unfurled',
-    'book': 'book-cover',
-    'orb': 'orb',
+    'book': 'spell-book',
+    'orb': 'crystal-ball',
     'lantern': 'lantern-flame',
-    'decanter': 'water-flask',
+    'decanter': 'drink-me',
     
     // Gear
     'potion': 'potion-ball',
-    'bag': 'swap-bag',
+    'bag': 'backpack',
     'rope': 'rope-coil',
     'torch': 'torch',
-    'ball bearings': 'caltrops',
-    'bearings': 'caltrops',
+    'ball bearings': 'stone-pile',
+    'bearings': 'stone-pile',
     
     // Default
-    'default': 'chest'
+    'default': 'swap-bag'
 };
 
 function getItemIcon(item) {
     const nameLower = item.name.toLowerCase();
     const typeLower = item.type.toLowerCase();
     
-    // Check full name first for specific matches
-    for (const [key, icon] of Object.entries(ICON_MAP)) {
-        if (key !== 'default' && nameLower.includes(key)) {
-            return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${icon}.svg`;
+    // Check full name first for specific matches (longer keys first)
+    const sortedKeys = Object.keys(ICON_MAP)
+        .filter(k => k !== 'default')
+        .sort((a, b) => b.length - a.length);
+    
+    for (const key of sortedKeys) {
+        if (nameLower.includes(key)) {
+            return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${ICON_MAP[key]}.svg`;
         }
     }
     
     // Then check type
-    for (const [key, icon] of Object.entries(ICON_MAP)) {
-        if (key !== 'default' && typeLower.includes(key)) {
-            return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${icon}.svg`;
+    for (const key of sortedKeys) {
+        if (typeLower.includes(key)) {
+            return `https://game-icons.net/icons/ffffff/000000/1x1/lorc/${ICON_MAP[key]}.svg`;
         }
     }
     
