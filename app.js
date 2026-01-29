@@ -263,14 +263,18 @@ function toggleFavorite(itemId) {
 // MODAL
 // ===================================
 
+let currentModalItem = null;
+
 function openItemModal(itemId) {
     const item = weeklyItems.find(i => i.id === itemId);
     if (!item) return;
     
+    currentModalItem = item;
     const rarity = item.rarity.toLowerCase();
     const iconUrl = getItemIcon(item);
+    const isRareOrBetter = ['rare', 'legendary'].includes(rarity);
     
-    // Populate modal
+    // Populate modal header
     document.getElementById('modalIcon').innerHTML = `<img src="${iconUrl}" alt="${item.name}">`;
     document.getElementById('modalName').textContent = item.name;
     document.getElementById('modalType').textContent = item.type;
@@ -279,38 +283,150 @@ function openItemModal(itemId) {
     rarityEl.textContent = item.rarity;
     rarityEl.className = `modal-rarity ${rarity}`;
     
-    document.getElementById('modalDescription').textContent = item.description || 'A fine item from the Scarlett Isles.';
-    document.getElementById('modalPrice').textContent = `${formatPriceFull(item.price)} GP`;
+    // Build modal body content
+    let bodyHTML = '';
+    
+    // Flavour text for rare/legendary
+    if (isRareOrBetter && item.flavour) {
+        bodyHTML += `
+            <div class="modal-section">
+                <p class="modal-flavour">${item.flavour}</p>
+            </div>
+        `;
+    }
+    
+    // Properties section for rare/legendary
+    if (item.properties || item.attunement || item.damage) {
+        bodyHTML += `
+            <div class="modal-section">
+                <h3 class="modal-section-title">Item Details</h3>
+                <div class="modal-details-grid">
+                    ${item.properties ? `<div class="detail-row"><span class="detail-label">Properties</span><span class="detail-value">${item.properties}</span></div>` : ''}
+                    ${item.attunement ? `<div class="detail-row"><span class="detail-label">Attunement</span><span class="detail-value">${item.attunement}</span></div>` : ''}
+                    ${item.damage ? `<div class="detail-row"><span class="detail-label">Damage</span><span class="detail-value">${item.damage}</span></div>` : ''}
+                </div>
+            </div>
+        `;
+    }
+    
+    // Description
+    bodyHTML += `
+        <div class="modal-section">
+            <h3 class="modal-section-title">Description</h3>
+            <div class="modal-description">${formatDescription(item.description || 'A fine item from the Scarlett Isles.')}</div>
+        </div>
+    `;
     
     // Stats
-    const statsSection = document.getElementById('modalStatsSection');
-    const statsContainer = document.getElementById('modalStats');
-    
     if (item.stats && Object.keys(item.stats).length > 0) {
-        statsSection.style.display = 'block';
-        statsContainer.innerHTML = Object.entries(item.stats).map(([key, value]) => `
-            <div class="stat-item">
-                <span class="stat-label">${key}</span>
-                <span class="stat-value">${value}</span>
+        bodyHTML += `
+            <div class="modal-section">
+                <h3 class="modal-section-title">Properties</h3>
+                <div class="modal-stats">
+                    ${Object.entries(item.stats).map(([key, value]) => `
+                        <div class="stat-item">
+                            <span class="stat-label">${key}</span>
+                            <span class="stat-value">${value}</span>
+                        </div>
+                    `).join('')}
+                </div>
             </div>
-        `).join('');
-    } else {
-        statsSection.style.display = 'none';
+        `;
     }
     
     // Suitable for
-    document.getElementById('modalSuitable').innerHTML = item.suitableFor.map(tag => 
-        `<span class="item-tag">${tag}</span>`
-    ).join('');
+    bodyHTML += `
+        <div class="modal-section">
+            <h3 class="modal-section-title">Suitable For</h3>
+            <div class="modal-suitable">
+                ${item.suitableFor.map(tag => `<span class="item-tag">${tag}</span>`).join('')}
+            </div>
+        </div>
+    `;
+    
+    // Price
+    bodyHTML += `
+        <div class="modal-section">
+            <div class="modal-price">
+                <span class="modal-price-label">Price</span>
+                <span class="modal-price-value">${formatPriceFull(item.price)} GP</span>
+            </div>
+        </div>
+    `;
+    
+    // Copy button
+    bodyHTML += `
+        <div class="modal-section">
+            <button class="copy-btn" onclick="copyItemToClipboard()">
+                <span class="copy-btn-icon">📋</span>
+                Copy for D&D Beyond
+            </button>
+        </div>
+    `;
+    
+    document.getElementById('modalBody').innerHTML = bodyHTML;
     
     // Show modal
     document.getElementById('modalOverlay').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
+function formatDescription(desc) {
+    // Convert markdown-style bold to HTML
+    return desc
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+}
+
+function copyItemToClipboard() {
+    if (!currentModalItem) return;
+    
+    const item = currentModalItem;
+    const rarity = item.rarity;
+    
+    let text = `**${item.name}**\n`;
+    text += `${item.type}, ${rarity.toLowerCase()}\n`;
+    text += `Cost: ${formatPriceFull(item.price)} gp\n`;
+    
+    if (item.properties) {
+        text += `Properties: ${item.properties}\n`;
+    }
+    if (item.attunement) {
+        text += `Requires Attunement: ${item.attunement}\n`;
+    }
+    if (item.damage) {
+        text += `Damage: ${item.damage}\n`;
+    }
+    
+    text += `\n`;
+    
+    if (item.flavour) {
+        text += `*${item.flavour}*\n\n`;
+    }
+    
+    text += item.description || '';
+    
+    navigator.clipboard.writeText(text).then(() => {
+        // Show feedback
+        const btn = document.querySelector('.copy-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="copy-btn-icon">✓</span> Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy to clipboard');
+    });
+}
+
 function closeModal() {
     document.getElementById('modalOverlay').classList.remove('active');
     document.body.style.overflow = '';
+    currentModalItem = null;
 }
 
 // ===================================
