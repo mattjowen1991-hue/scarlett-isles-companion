@@ -2,65 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Scarlett Isles Shop</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Knightly Treasures | The Scarlett Isles</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏪</text></svg>">
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta name="theme-color" content="#0a0908">
 </head>
 <body>
-    <div class="app">
-        <!-- Header -->
-        <header class="header">
+    <header>
+        <div class="header-left">
             <img src="logo.png" alt="The Scarlett Isles" class="header-logo">
-            <div class="week-info">
-                <span class="week-label">Week</span>
-                <span id="weekNumber" class="week-number">1</span>
+            <div class="shop-title">
+                <div class="shop-name">Knightly Treasures</div>
+                <div class="shop-subtitle">Fine Arms & Adventuring Goods</div>
             </div>
-        </header>
-        
-        <!-- Subtitle -->
-        <div class="shop-subtitle">
-            <p>Browse this week's wares. Add items you purchase to D&D Beyond manually.</p>
-            <p class="refresh-note">🔄 Shop refreshes every Monday</p>
         </div>
-
-        <!-- Category Tabs -->
-        <nav class="category-tabs">
-            <button class="category-tab active" data-category="all">All</button>
-            <button class="category-tab" data-category="weapon">Weapons</button>
-            <button class="category-tab" data-category="armor">Armor</button>
-            <button class="category-tab" data-category="gear">Gear</button>
-        </nav>
-
-        <!-- Rarity Filter -->
-        <div class="rarity-filter">
-            <button class="rarity-btn active" data-rarity="all">All</button>
-            <button class="rarity-btn common" data-rarity="common">Common</button>
-            <button class="rarity-btn uncommon" data-rarity="uncommon">Uncommon</button>
-            <button class="rarity-btn rare" data-rarity="rare">Rare</button>
-            <button class="rarity-btn legendary" data-rarity="legendary">Legendary</button>
+        <div class="week-badge">
+            <span class="week-label">Week</span>
+            <span class="week-number" id="weekNumber">1</span>
         </div>
-
-        <!-- Items Grid -->
-        <main class="items-container">
-            <div id="itemsGrid" class="items-grid">
-                <!-- Items will be populated here -->
+    </header>
+    
+    <div class="header-divider"></div>
+    
+    <!-- Category Tabs -->
+    <nav class="tabs">
+        <button class="tab active" data-category="all">All</button>
+        <button class="tab" data-category="weapons">Weapons</button>
+        <button class="tab" data-category="armor">Armor</button>
+        <button class="tab" data-category="gear">Gear</button>
+    </nav>
+    
+    <!-- Rarity Filters -->
+    <div class="filters">
+        <button class="filter-btn active" data-rarity="all">All</button>
+        <button class="filter-btn" data-rarity="common">Common</button>
+        <button class="filter-btn" data-rarity="uncommon">Uncommon</button>
+        <button class="filter-btn" data-rarity="rare">Rare</button>
+        <button class="filter-btn" data-rarity="legendary">Legendary</button>
+    </div>
+    
+    <!-- Item List -->
+    <main class="item-list" id="itemList">
+        <!-- Items populated by JavaScript -->
+    </main>
+    
+    <!-- Item Detail Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="itemModal">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <img id="modalIcon" src="" alt="">
+                </div>
+                <div class="modal-title-section">
+                    <h2 class="modal-name" id="modalName">Item Name</h2>
+                    <p class="modal-type" id="modalType">Item Type</p>
+                    <span class="modal-rarity" id="modalRarity">Rare</span>
+                </div>
+                <button class="modal-close" id="modalClose">&times;</button>
             </div>
-        </main>
-
-        <!-- Item Detail Modal -->
-        <div id="itemModal" class="modal">
-            <div class="modal-content">
-                <button class="modal-close" id="closeModal">×</button>
-                <div id="modalBody">
-                    <!-- Modal content populated by JS -->
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Description</h3>
+                    <p class="modal-description" id="modalDescription">Item description goes here.</p>
+                </div>
+                
+                <div class="modal-section" id="modalStatsSection">
+                    <h3 class="modal-section-title">Properties</h3>
+                    <div class="modal-stats" id="modalStats">
+                        <!-- Stats populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Suitable For</h3>
+                    <div class="modal-suitable" id="modalSuitable">
+                        <!-- Tags populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <div class="modal-price">
+                        <span class="modal-price-label">Price</span>
+                        <span class="modal-price-value" id="modalPrice">100 GP</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <script src="app.js"></script>
 </body>
 </html>
