@@ -185,12 +185,11 @@ function renderItemCard(item) {
     
     return `
         <div class="item-card ${item.rarity}" data-item-id="${item.id}">
-            <img src="${ICON_BASE}/${icon}.svg" alt="" class="item-icon">
+            <span class="item-star">☆</span>
+            <img src="${ICON_BASE}/${icon}.svg" alt="" class="item-icon" onerror="this.style.opacity='0.3'">
             <div class="item-info">
                 <div class="item-name">${item.name}</div>
-                <div class="item-meta">
-                    <span class="item-category">${item.category}</span>
-                </div>
+                <div class="item-meta">${item.category}</div>
                 <div class="item-good-for">${goodFor}</div>
             </div>
             <div class="item-price">${priceStr}</div>
