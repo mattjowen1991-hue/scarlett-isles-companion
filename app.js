@@ -633,11 +633,15 @@ function showPurchaseDialog() {
     const playerName = prompt(`Who is purchasing the ${currentModalItem.name}?\n\nEnter player/character name:`);
     
     if (playerName && playerName.trim()) {
-        const confirmPurchase = confirm(`Confirm purchase:\n\n${currentModalItem.name}\nPurchased by: ${playerName.trim()}\nPrice: ${formatPriceFull(currentModalItem.price)} GP\n\nThis item will be removed from the shop permanently.`);
+        const firstConfirm = confirm(`⚠️ FIRST CONFIRMATION ⚠️\n\n${currentModalItem.name}\nPurchased by: ${playerName.trim()}\nPrice: ${formatPriceFull(currentModalItem.price)} GP\n\nHave you ACTUALLY purchased this item and added it to your D&D Beyond inventory?`);
         
-        if (confirmPurchase) {
-            markAsPurchased(currentModalItem.id, playerName.trim());
-            closeModal();
+        if (firstConfirm) {
+            const finalConfirm = confirm(`⚠️ FINAL CONFIRMATION ⚠️\n\nThis action CANNOT be undone!\n\nThe ${currentModalItem.name} will be permanently removed from the shop.\n\nAre you absolutely sure?`);
+            
+            if (finalConfirm) {
+                markAsPurchased(currentModalItem.id, playerName.trim());
+                closeModal();
+            }
         }
     }
 }
