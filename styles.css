@@ -1500,6 +1500,49 @@ body {
     border-color: var(--gold);
 }
 
+/* Item Tags and Effects */
+.item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+}
+
+.item-tag {
+    padding: 2px 8px;
+    background: rgba(242, 211, 138, 0.1);
+    border: 1px solid var(--gold-dim);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--gold);
+}
+
+.item-effect {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(124, 204, 108, 0.1);
+    border: 1px solid var(--hp-green);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.item-shops {
+    margin-top: var(--spacing-md);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.shops-label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.shop-type {
+    display: inline-block;
+    margin-right: var(--spacing-sm);
+}
+
 .shop-item:active {
     background: var(--bg-card-hover);
 }

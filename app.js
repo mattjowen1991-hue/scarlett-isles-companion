@@ -27,9 +27,11 @@ db.enablePersistence().catch(err => {
 // ============================================
 let characters = [];
 let magicItems = [];
-let shopItems = [];
+let shopData = null;
+let worldData = null;
 let currentPlayer = null;
 let currentCharacter = null;
+let currentSettlement = null;
 let wishlist = new Set();
 let showingWishlistOnly = false;
 let unsubscribeCharacters = null;
@@ -87,22 +89,23 @@ function updateLoadingStatus(message) {
 // DATA LOADING
 // ============================================
 async function loadStaticData() {
-    const [charResponse, itemsResponse, shopResponse] = await Promise.all([
+    const [charResponse, itemsResponse, shopResponse, worldResponse] = await Promise.all([
         fetch('data/characters.json'),
         fetch('data/magic-items.json'),
-        fetch('data/shop.json').catch(() => null)
+        fetch('data/shop.json'),
+        fetch('data/world.json').catch(() => null)
     ]);
     
     const charData = await charResponse.json();
     const itemsData = await itemsResponse.json();
+    shopData = await shopResponse.json();
+    
+    if (worldResponse) {
+        worldData = await worldResponse.json();
+    }
     
     characters = charData.characters;
     magicItems = itemsData.magicItems || [];
-    
-    if (shopResponse) {
-        const shopData = await shopResponse.json();
-        shopItems = shopData.items || [];
-    }
 }
 
 async function initializeFirebaseData() {
@@ -626,91 +629,215 @@ async function syncCharacterToFirebase(char) {
 }
 
 // ============================================
-// SHOP TAB
+// SHOP TAB - Full Featured
 // ============================================
 function renderShop() {
     const char = currentCharacter;
     document.getElementById('shopGold').textContent = `${char.currency.gp} gp`;
     document.getElementById('wishlistCount').textContent = wishlist.size;
     
-    const province = document.getElementById('shopProvince').value;
+    // Populate settlement dropdown if not done
+    const settlementSelect = document.getElementById('shopProvince');
+    if (settlementSelect.options.length <= 1) {
+        populateSettlementDropdown();
+    }
+    
+    const settlementId = settlementSelect.value;
     const category = document.getElementById('shopCategory').value;
     
-    let items = [...magicItems];
+    // Get available items based on settlement
+    let items = getAvailableItems(settlementId, category);
     
     // Filter by wishlist if toggled
     if (showingWishlistOnly) {
-        items = items.filter(item => wishlist.has(item.id));
+        items = items.filter(item => wishlist.has(item.id.toString()));
     }
     
-    // Filter by category
-    if (category !== 'all') {
-        items = items.filter(item => {
-            const type = item.type.toLowerCase();
-            if (category === 'weapon') return type.includes('weapon');
-            if (category === 'armor') return type.includes('armor') || type.includes('shield');
-            if (category === 'wondrous') return type.includes('wondrous');
-            if (category === 'potion') return type.includes('potion');
-            if (category === 'scroll') return type.includes('scroll');
-            return true;
-        });
-    }
+    // Sort by rarity then price
+    const rarityOrder = { 'Common': 0, 'Uncommon': 1, 'Rare': 2, 'Very Rare': 3, 'Legendary': 4 };
+    items.sort((a, b) => {
+        const rarityDiff = (rarityOrder[a.rarity] || 0) - (rarityOrder[b.rarity] || 0);
+        if (rarityDiff !== 0) return rarityDiff;
+        return (a.price_gp || 0) - (b.price_gp || 0);
+    });
     
     document.getElementById('shopList').innerHTML = items.map(item => {
-        const owned = char.equippedMagicItems?.includes(item.id);
-        const canAfford = char.currency.gp >= item.cost;
-        const isWishlisted = wishlist.has(item.id);
+        const owned = isItemOwned(item);
+        const canAfford = char.currency.gp >= (item.price_gp || 0);
+        const isWishlisted = wishlist.has(item.id.toString());
+        const icon = getItemIcon(item);
         
         return `
             <div class="shop-item ${owned ? 'owned' : ''} ${!canAfford && !owned ? 'cant-afford' : ''}" data-item-id="${item.id}">
                 <button class="wishlist-btn ${isWishlisted ? 'active' : ''}" data-wishlist-id="${item.id}">★</button>
-                <img src="${ICON_BASE}/${item.icon || 'swap-bag'}.svg?color=${ICON_COLOR}" alt="" class="shop-item-icon">
+                <img src="${ICON_BASE}/${icon}.svg?color=${ICON_COLOR}" alt="" class="shop-item-icon">
                 <div class="shop-item-info">
                     <div class="shop-item-name">${item.name}</div>
-                    <div class="shop-item-type rarity-${item.rarity.toLowerCase().replace(' ', '-')}">${item.rarity}</div>
+                    <div class="shop-item-type rarity-${item.rarity.toLowerCase().replace(' ', '-')}">${item.rarity} ${item.category}</div>
                 </div>
                 <div class="shop-item-price">
-                    ${owned ? '<span class="owned-badge">Owned</span>' : `<span class="price">${item.cost} gp</span>`}
+                    ${owned ? '<span class="owned-badge">Owned</span>' : `<span class="price">${item.price_gp || 0} gp</span>`}
                 </div>
             </div>
         `;
-    }).join('') || '<div class="no-items">No items match your filters</div>';
+    }).join('') || '<div class="no-items">No items available at this location</div>';
+}
+
+function populateSettlementDropdown() {
+    const select = document.getElementById('shopProvince');
+    select.innerHTML = '<option value="all">🌍 All Settlements</option>';
+    
+    if (!shopData?.settlements) return;
+    
+    // Group by province
+    const provinces = {};
+    shopData.settlements.forEach(s => {
+        const prov = s.province || 'Unknown';
+        if (!provinces[prov]) provinces[prov] = [];
+        provinces[prov].push(s);
+    });
+    
+    Object.entries(provinces).forEach(([province, settlements]) => {
+        const group = document.createElement('optgroup');
+        group.label = province;
+        settlements.forEach(s => {
+            const option = document.createElement('option');
+            option.value = s.id;
+            option.textContent = s.name;
+            group.appendChild(option);
+        });
+        select.appendChild(group);
+    });
+}
+
+function getAvailableItems(settlementId, category) {
+    if (!shopData?.items) return [];
+    
+    let items = [...shopData.items];
+    
+    // Filter by settlement's available shop types
+    if (settlementId && settlementId !== 'all') {
+        const settlement = shopData.settlements.find(s => s.id === settlementId);
+        if (settlement) {
+            currentSettlement = settlement;
+            const availableShopTypes = settlement.shops || [];
+            items = items.filter(item => {
+                const itemShopTypes = item.shop_types || [];
+                return itemShopTypes.some(st => availableShopTypes.includes(st));
+            });
+        }
+    } else {
+        currentSettlement = null;
+    }
+    
+    // Filter by category
+    if (category && category !== 'all') {
+        items = items.filter(item => {
+            const cat = (item.category || '').toLowerCase();
+            if (category === 'weapon') return cat.includes('weapon');
+            if (category === 'armor') return cat.includes('armor') || cat.includes('shield');
+            if (category === 'potion') return cat.includes('potion');
+            if (category === 'scroll') return cat.includes('scroll');
+            if (category === 'wondrous') return cat.includes('wondrous') || cat.includes('magical');
+            if (category === 'gear') return cat.includes('gear') || cat.includes('supplies') || cat.includes('tools');
+            if (category === 'contraband') return cat.includes('contraband') || cat.includes('poison');
+            return true;
+        });
+    }
+    
+    return items;
+}
+
+function getItemIcon(item) {
+    // Try to get icon from icons.json mapping or item itself
+    if (item.icon) return item.icon;
+    
+    // Default icons by category
+    const categoryIcons = {
+        'Weapons': 'crossed-swords',
+        'Armor': 'leather-armor',
+        'Shields': 'shield',
+        'Potions': 'potion-ball',
+        'Poisons': 'poison-bottle',
+        'Scrolls': 'scroll-unfurled',
+        'Adventuring Gear': 'backpack',
+        'Supplies': 'bindle',
+        'Tools': 'hammer-nails',
+        'Wondrous Items': 'sparkles',
+        'Holy Items': 'ankh',
+        'Contraband': 'hooded-figure'
+    };
+    
+    return categoryIcons[item.category] || 'swap-bag';
+}
+
+function isItemOwned(item) {
+    // Check if character already owns this item
+    const char = currentCharacter;
+    if (!char) return false;
+    
+    // Check inventory
+    return char.inventory?.some(inv => 
+        inv.name.toLowerCase() === item.name.toLowerCase()
+    ) || false;
 }
 
 function showShopItemDetail(itemId) {
-    const item = getMagicItem(itemId);
+    const item = shopData?.items?.find(i => i.id == itemId);
     if (!item) return;
     
     const char = currentCharacter;
-    const owned = char.equippedMagicItems?.includes(item.id);
-    const canAfford = char.currency.gp >= item.cost;
-    const isWishlisted = wishlist.has(item.id);
+    const owned = isItemOwned(item);
+    const canAfford = char.currency.gp >= (item.price_gp || 0);
+    const isWishlisted = wishlist.has(item.id.toString());
+    const icon = getItemIcon(item);
+    
+    // Build properties display
+    const props = item.properties || [];
+    const propsHtml = props.length > 0 
+        ? `<div class="item-properties">${props.map(p => `<span class="item-property">${p}</span>`).join('')}</div>` 
+        : '';
+    
+    // Build tags display
+    const tags = item.tags || [];
+    const tagsHtml = tags.length > 0 
+        ? `<div class="item-tags">${tags.map(t => `<span class="item-tag">${t}</span>`).join('')}</div>` 
+        : '';
+    
+    // Shop availability
+    const shopTypes = item.shop_types || [];
+    const shopsHtml = shopTypes.length > 0 
+        ? `<div class="item-shops"><span class="shops-label">Available at:</span> ${shopTypes.map(st => {
+            const shop = shopData.shopTypes?.find(s => s.id === st);
+            return shop ? `<span class="shop-type">${shop.icon || ''} ${shop.name}</span>` : st;
+        }).join(', ')}</div>`
+        : '';
     
     document.getElementById('shopModalBody').innerHTML = `
         <div class="item-detail-header">
-            <img src="${ICON_BASE}/${item.icon || 'swap-bag'}.svg?color=${ICON_COLOR}" alt="" class="item-detail-icon">
+            <img src="${ICON_BASE}/${icon}.svg?color=${ICON_COLOR}" alt="" class="item-detail-icon">
             <div>
                 <h2 class="item-detail-name">${item.name}</h2>
-                <div class="item-detail-type">${item.type}</div>
+                <div class="item-detail-type">${item.category}${item.type ? ` (${item.type})` : ''}</div>
                 <div class="item-detail-rarity rarity-${item.rarity.toLowerCase().replace(' ', '-')}">${item.rarity}</div>
             </div>
         </div>
         <div class="shop-item-cost">
             <span class="cost-label">Price:</span>
-            <span class="cost-value">${item.cost} gp</span>
+            <span class="cost-value">${item.price_gp || 0} gp</span>
         </div>
-        ${item.attunement ? `<div class="item-attunement">Requires Attunement${typeof item.attunement === 'string' ? ': ' + item.attunement : ''}</div>` : ''}
         ${item.damage ? `<div class="item-stats">
             <div class="item-stat"><span class="item-stat-label">Damage</span><span class="item-stat-value">${item.damage}</span></div>
-            ${item.bonus ? `<div class="item-stat"><span class="item-stat-label">Bonus</span><span class="item-stat-value">${item.bonus}</span></div>` : ''}
+            ${item.ac ? `<div class="item-stat"><span class="item-stat-label">AC</span><span class="item-stat-value">${item.ac}</span></div>` : ''}
         </div>` : ''}
-        <div class="item-description">${item.description}</div>
-        ${item.features?.length ? `<div class="item-features">${item.features.map(f => `
-            <div class="item-feature">
-                <div class="item-feature-name">${f.name}</div>
-                <div class="item-feature-desc">${f.description.replace(/\n/g, '<br>')}</div>
-            </div>
-        `).join('')}</div>` : ''}
+        ${item.ac && !item.damage ? `<div class="item-stats">
+            <div class="item-stat"><span class="item-stat-label">AC</span><span class="item-stat-value">${item.ac}</span></div>
+        </div>` : ''}
+        ${propsHtml}
+        <div class="item-description">${item.description || 'No description available.'}</div>
+        ${item.effect ? `<div class="item-effect"><strong>Effect:</strong> ${item.effect}</div>` : ''}
+        ${tagsHtml}
+        ${shopsHtml}
         <div class="shop-actions">
             <button class="shop-btn wishlist ${isWishlisted ? 'active' : ''}" data-wishlist-id="${item.id}">
                 ${isWishlisted ? '★ On Wishlist' : '☆ Add to Wishlist'}
@@ -718,8 +845,8 @@ function showShopItemDetail(itemId) {
             ${owned 
                 ? '<button class="shop-btn owned" disabled>Already Owned</button>'
                 : canAfford 
-                    ? `<button class="shop-btn buy" data-item-id="${item.id}">Buy for ${item.cost} gp</button>`
-                    : `<button class="shop-btn cant-afford" disabled>Can't Afford (${item.cost} gp)</button>`
+                    ? `<button class="shop-btn buy" data-item-id="${item.id}">Buy for ${item.price_gp || 0} gp</button>`
+                    : `<button class="shop-btn cant-afford" disabled>Can't Afford (Need ${(item.price_gp || 0) - char.currency.gp} more gp)</button>`
             }
         </div>
     `;
@@ -728,19 +855,25 @@ function showShopItemDetail(itemId) {
 }
 
 async function buyItem(itemId) {
-    const item = getMagicItem(itemId);
+    const item = shopData?.items?.find(i => i.id == itemId);
     const char = currentCharacter;
     
-    if (!item || char.currency.gp < item.cost) return;
+    if (!item || char.currency.gp < (item.price_gp || 0)) return;
     
-    char.currency.gp -= item.cost;
-    if (!char.equippedMagicItems) char.equippedMagicItems = [];
-    char.equippedMagicItems.push(item.id);
-    char.inventory.push({ name: item.name, qty: 1, weight: 0, magicItemId: item.id });
+    // Deduct gold
+    char.currency.gp -= (item.price_gp || 0);
     
+    // Add to inventory
+    char.inventory.push({ 
+        name: item.name, 
+        qty: 1, 
+        weight: item.weight || 0,
+        shopItemId: item.id
+    });
+    
+    // Update displays
     document.getElementById('charGold').textContent = `${char.currency.gp} gp`;
     renderShop();
-    renderMagicItems();
     renderInventory();
     
     await syncCharacterToFirebase(char);
