@@ -8,7 +8,7 @@
 // ===================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, onValue, set, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getDatabase, ref, onValue, set, get, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCAtLDqghTbYhyhwcoTsefTiMecC30RMuQ",
@@ -680,6 +680,241 @@ function closeModal() {
 // Make functions available globally for onclick handlers
 window.copyItemToClipboard = copyItemToClipboard;
 window.showPurchaseDialog = showPurchaseDialog;
+
+// ===================================
+// DM ADMIN PANEL
+// ===================================
+
+async function removePurchase(itemId) {
+    if (!firebaseEnabled) {
+        alert('Firebase is not connected. Cannot remove purchase.');
+        return;
+    }
+    
+    try {
+        await remove(ref(db, `purchased/${itemId}`));
+        console.log('Purchase removed:', itemId);
+        return true;
+    } catch (error) {
+        console.error('Failed to remove purchase:', error);
+        alert('Failed to remove purchase. Please try again.');
+        return false;
+    }
+}
+
+function showDMAdminPanel() {
+    // Create admin overlay if it doesn't exist
+    let adminOverlay = document.getElementById('adminOverlay');
+    if (!adminOverlay) {
+        adminOverlay = document.createElement('div');
+        adminOverlay.id = 'adminOverlay';
+        adminOverlay.className = 'modal-overlay';
+        adminOverlay.innerHTML = `
+            <div class="modal admin-modal">
+                <button class="modal-close" id="adminClose">&times;</button>
+                <div class="modal-header">
+                    <h2 class="modal-title">🏰 DM Admin Panel</h2>
+                </div>
+                <div class="modal-body" id="adminBody">
+                    Loading...
+                </div>
+            </div>
+        `;
+        document.body.appendChild(adminOverlay);
+        
+        // Add styles for admin panel
+        const style = document.createElement('style');
+        style.textContent = `
+            .admin-modal {
+                max-width: 600px;
+                max-height: 80vh;
+            }
+            .admin-section {
+                margin-bottom: 1.5rem;
+            }
+            .admin-section-title {
+                font-size: 1rem;
+                color: var(--gold);
+                margin-bottom: 0.75rem;
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 0.5rem;
+            }
+            .purchased-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.75rem;
+                background: rgba(0,0,0,0.3);
+                border-radius: 8px;
+                margin-bottom: 0.5rem;
+            }
+            .purchased-item-info {
+                flex: 1;
+            }
+            .purchased-item-name {
+                font-weight: 600;
+                color: var(--gold);
+            }
+            .purchased-item-details {
+                font-size: 0.8rem;
+                color: var(--text-secondary);
+                margin-top: 0.25rem;
+            }
+            .purchased-item.legendary .purchased-item-name {
+                color: #ff8c00;
+            }
+            .purchased-item.rare .purchased-item-name {
+                color: #a335ee;
+            }
+            .restore-btn {
+                background: linear-gradient(135deg, #4a9c4a, #2d5a2d);
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 0.85rem;
+                transition: all 0.2s;
+            }
+            .restore-btn:hover {
+                background: linear-gradient(135deg, #5cb85c, #3d7a3d);
+                transform: translateY(-1px);
+            }
+            .restore-all-btn {
+                background: linear-gradient(135deg, #c9302c, #8b1a1a);
+                color: white;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                width: 100%;
+                margin-top: 1rem;
+                transition: all 0.2s;
+            }
+            .restore-all-btn:hover {
+                background: linear-gradient(135deg, #d9534f, #a52a2a);
+            }
+            .admin-empty {
+                text-align: center;
+                padding: 2rem;
+                color: var(--text-secondary);
+            }
+            .admin-warning {
+                background: rgba(255, 140, 0, 0.1);
+                border: 1px solid rgba(255, 140, 0, 0.3);
+                border-radius: 8px;
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+                font-size: 0.85rem;
+                color: #ffaa44;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Close handlers
+        adminOverlay.addEventListener('click', (e) => {
+            if (e.target === adminOverlay) closeDMAdminPanel();
+        });
+        document.getElementById('adminClose').addEventListener('click', closeDMAdminPanel);
+    }
+    
+    renderAdminPanel();
+    adminOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function renderAdminPanel() {
+    const adminBody = document.getElementById('adminBody');
+    const purchasedList = Object.entries(purchasedItems);
+    
+    if (purchasedList.length === 0) {
+        adminBody.innerHTML = `
+            <div class="admin-empty">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">✨</div>
+                <p>No items have been purchased yet!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Sort by purchase date (newest first)
+    purchasedList.sort((a, b) => (b[1].purchasedAt || 0) - (a[1].purchasedAt || 0));
+    
+    adminBody.innerHTML = `
+        <div class="admin-warning">
+            ⚠️ <strong>DM Only:</strong> Restoring items will make them available in the shop again.
+        </div>
+        <div class="admin-section">
+            <h3 class="admin-section-title">Purchased Items (${purchasedList.length})</h3>
+            ${purchasedList.map(([itemId, data]) => {
+                const rarity = (data.rarity || 'rare').toLowerCase();
+                const purchaseDate = data.purchasedAt ? new Date(data.purchasedAt).toLocaleDateString() : 'Unknown';
+                return `
+                    <div class="purchased-item ${rarity}">
+                        <div class="purchased-item-info">
+                            <div class="purchased-item-name">${data.itemName || itemId}</div>
+                            <div class="purchased-item-details">
+                                Bought by ${data.purchasedBy || 'Unknown'} • Week ${data.week || '?'} • ${purchaseDate}
+                            </div>
+                        </div>
+                        <button class="restore-btn" onclick="restoreItem('${itemId}')">
+                            Restore
+                        </button>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+        <button class="restore-all-btn" onclick="restoreAllItems()">
+            ⚠️ Restore ALL Items
+        </button>
+    `;
+}
+
+async function restoreItem(itemId) {
+    const item = purchasedItems[itemId];
+    const itemName = item?.itemName || itemId;
+    
+    if (confirm(`Restore "${itemName}" to the shop?\n\nThis will make it available for purchase again.`)) {
+        const success = await removePurchase(itemId);
+        if (success) {
+            renderAdminPanel();
+        }
+    }
+}
+
+async function restoreAllItems() {
+    const count = Object.keys(purchasedItems).length;
+    
+    if (confirm(`⚠️ WARNING ⚠️\n\nThis will restore ALL ${count} purchased items to the shop!\n\nAre you sure?`)) {
+        if (confirm(`FINAL CONFIRMATION\n\nRestore all ${count} items?\n\nThis cannot be undone easily.`)) {
+            for (const itemId of Object.keys(purchasedItems)) {
+                await removePurchase(itemId);
+            }
+            renderAdminPanel();
+        }
+    }
+}
+
+function closeDMAdminPanel() {
+    const adminOverlay = document.getElementById('adminOverlay');
+    if (adminOverlay) {
+        adminOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Make admin functions globally available
+window.restoreItem = restoreItem;
+window.restoreAllItems = restoreAllItems;
+
+// Secret keyboard shortcut for DM panel: Ctrl+Shift+D
+document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+        e.preventDefault();
+        showDMAdminPanel();
+    }
+});
 
 // ===================================
 // START
