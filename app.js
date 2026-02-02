@@ -103,6 +103,7 @@ function formatPriceFull(price) {
 let allItems = [];
 let weeklyItems = [];
 let purchasedItems = {}; // { itemId: { purchasedBy: 'PlayerName', purchasedAt: timestamp, week: number } }
+let reservedItems = {}; // { itemId: { reservedBy: 'PlayerName', reservedAt: timestamp, depositPaid: number } }
 let currentCategory = 'all';
 let currentRarity = 'all';
 let favorites = JSON.parse(localStorage.getItem('tsi-favorites') || '[]');
@@ -152,6 +153,21 @@ function setupFirebaseListeners() {
     }, (error) => {
         console.warn('Firebase listener error:', error);
     });
+    
+    // Listen for reservation changes
+    const reservedRef = ref(db, 'reserved');
+    
+    onValue(reservedRef, (snapshot) => {
+        reservedItems = snapshot.val() || {};
+        console.log('Reserved items updated:', reservedItems);
+        
+        // Re-render to show reservation notes
+        if (allItems.length > 0) {
+            renderItems();
+        }
+    }, (error) => {
+        console.warn('Firebase reservation listener error:', error);
+    });
 }
 
 async function markAsPurchased(itemId, playerName) {
@@ -174,9 +190,66 @@ async function markAsPurchased(itemId, playerName) {
     try {
         await set(ref(db, `purchased/${itemId}`), purchaseData);
         console.log('Item marked as purchased:', itemId);
+        
+        // If item was reserved, remove the reservation
+        if (reservedItems[itemId]) {
+            await remove(ref(db, `reserved/${itemId}`));
+            console.log('Reservation cleared for purchased item:', itemId);
+        }
     } catch (error) {
         console.error('Failed to mark item as purchased:', error);
         alert('Failed to record purchase. Please try again.');
+    }
+}
+
+// ===================================
+// RESERVATIONS
+// ===================================
+
+async function reserveItem(itemId, playerName) {
+    if (!firebaseEnabled) {
+        alert('Reservations are offline. Please check Firebase connection.');
+        return;
+    }
+    
+    const item = weeklyItems.find(i => i.id === itemId);
+    if (!item) return;
+    
+    const deposit = Math.floor(item.price * 0.1);
+    
+    const reservationData = {
+        reservedBy: playerName,
+        reservedAt: Date.now(),
+        week: currentWeek,
+        itemName: item.name,
+        rarity: item.rarity,
+        depositPaid: deposit,
+        fullPrice: item.price
+    };
+    
+    try {
+        await set(ref(db, `reserved/${itemId}`), reservationData);
+        console.log('Item reserved:', itemId);
+    } catch (error) {
+        console.error('Failed to reserve item:', error);
+        alert('Failed to reserve item. Please try again.');
+    }
+}
+
+async function cancelReservation(itemId) {
+    if (!firebaseEnabled) {
+        alert('Cannot cancel reservation. Please check Firebase connection.');
+        return;
+    }
+    
+    try {
+        await remove(ref(db, `reserved/${itemId}`));
+        console.log('Reservation cancelled:', itemId);
+        return true;
+    } catch (error) {
+        console.error('Failed to cancel reservation:', error);
+        alert('Failed to cancel reservation. Please try again.');
+        return false;
     }
 }
 
@@ -260,12 +333,16 @@ async function init() {
         allItems = await response.json();
         console.log('Loaded', allItems.length, 'items');
         
-        // Try to get purchased items from Firebase
+        // Try to get purchased and reserved items from Firebase
         if (firebaseEnabled) {
             try {
                 const purchasedSnapshot = await get(ref(db, 'purchased'));
                 purchasedItems = purchasedSnapshot.val() || {};
                 console.log('Loaded purchased items from Firebase');
+                
+                const reservedSnapshot = await get(ref(db, 'reserved'));
+                reservedItems = reservedSnapshot.val() || {};
+                console.log('Loaded reserved items from Firebase');
                 
                 // Clean up any orphaned favourites
                 cleanupOrphanedFavorites(purchasedItems);
@@ -275,6 +352,7 @@ async function init() {
             } catch (fbError) {
                 console.warn('Firebase read failed, using empty purchased list:', fbError);
                 purchasedItems = {};
+                reservedItems = {};
             }
         }
         
@@ -339,9 +417,24 @@ function renderItems() {
         const rarity = item.rarity.toLowerCase();
         const isFavorite = favorites.includes(item.id);
         const iconUrl = getItemIcon(item);
+        const reservation = reservedItems[item.id];
+        const isLegendary = rarity === 'legendary';
+        
+        // Build reservation note HTML if item is reserved
+        let reservationNote = '';
+        if (reservation && isLegendary) {
+            reservationNote = `
+                <div class="reservation-note">
+                    <div class="reservation-scroll">
+                        <span class="reservation-icon">📜</span>
+                        <span class="reservation-text">Reserved by <strong>${reservation.reservedBy}</strong></span>
+                    </div>
+                </div>
+            `;
+        }
         
         return `
-            <div class="item-row ${rarity}" data-item-id="${item.id}">
+            <div class="item-row ${rarity} ${reservation ? 'reserved' : ''}" data-item-id="${item.id}">
                 <span class="item-star ${isFavorite ? 'favorited' : ''}" data-item-id="${item.id}">
                     ${isFavorite ? '★' : '☆'}
                 </span>
@@ -354,6 +447,7 @@ function renderItems() {
                     <div class="item-tags">
                         ${item.suitableFor.map(tag => `<span class="item-tag">${tag}</span>`).join('')}
                     </div>
+                    ${reservationNote}
                 </div>
                 <div class="item-price">
                     ${formatPrice(item.price)}<span class="currency"> GP</span>
@@ -574,6 +668,37 @@ function openItemModal(itemId) {
         </div>
     `;
     
+    // Check if item is legendary and show reservation info
+    const isLegendary = rarity === 'legendary';
+    const reservation = reservedItems[item.id];
+    const deposit = Math.floor(item.price * 0.1);
+    
+    if (isLegendary && reservation) {
+        // Show existing reservation info
+        bodyHTML += `
+            <div class="modal-section">
+                <div class="reservation-info-box">
+                    <div class="reservation-info-header">📜 This Item is Reserved</div>
+                    <div class="reservation-info-details">
+                        <p><strong>${reservation.reservedBy}</strong> has placed a hold on this item.</p>
+                        <p class="reservation-deposit">Deposit paid: <strong>${formatPriceFull(reservation.depositPaid)} GP</strong></p>
+                        <p class="reservation-remaining">Remaining balance: <strong>${formatPriceFull(item.price - reservation.depositPaid)} GP</strong></p>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else if (isLegendary) {
+        // Show reservation option
+        bodyHTML += `
+            <div class="modal-section">
+                <div class="reservation-offer-box">
+                    <div class="reservation-offer-header">📜 Reserve This Item</div>
+                    <p class="reservation-offer-text">Pay a <strong>${formatPriceFull(deposit)} GP</strong> deposit (10%) to reserve this legendary item. It will remain available only to you until purchased.</p>
+                </div>
+            </div>
+        `;
+    }
+    
     // Action buttons
     bodyHTML += `
         <div class="modal-section modal-actions">
@@ -583,8 +708,35 @@ function openItemModal(itemId) {
             </button>
     `;
     
-    // Purchase button for rare/legendary only
-    if (isRareOrBetter) {
+    // Reservation/Purchase buttons for legendary items
+    if (isLegendary) {
+        if (reservation) {
+            // Item is reserved - show complete purchase and cancel options
+            bodyHTML += `
+                <button class="purchase-btn" onclick="showPurchaseDialog()">
+                    <span class="purchase-btn-icon">💰</span>
+                    Complete Purchase (${formatPriceFull(item.price - reservation.depositPaid)} GP)
+                </button>
+                <button class="cancel-reservation-btn" onclick="showCancelReservationDialog()">
+                    <span class="cancel-btn-icon">❌</span>
+                    Cancel Reservation
+                </button>
+            `;
+        } else {
+            // Item not reserved - show reserve and purchase options
+            bodyHTML += `
+                <button class="reserve-btn" onclick="showReserveDialog()">
+                    <span class="reserve-btn-icon">📜</span>
+                    Reserve (${formatPriceFull(deposit)} GP deposit)
+                </button>
+                <button class="purchase-btn" onclick="showPurchaseDialog()">
+                    <span class="purchase-btn-icon">💰</span>
+                    Mark as Purchased
+                </button>
+            `;
+        }
+    } else if (isRareOrBetter) {
+        // Rare items - just purchase button
         bodyHTML += `
             <button class="purchase-btn" onclick="showPurchaseDialog()">
                 <span class="purchase-btn-icon">💰</span>
@@ -671,6 +823,36 @@ function showPurchaseDialog() {
     }
 }
 
+function showReserveDialog() {
+    if (!currentModalItem) return;
+    
+    const deposit = Math.floor(currentModalItem.price * 0.1);
+    const playerName = prompt(`Who is reserving the ${currentModalItem.name}?\n\nEnter player/character name:`);
+    
+    if (playerName && playerName.trim()) {
+        const confirmReserve = confirm(`📜 CONFIRM RESERVATION 📜\n\n${currentModalItem.name}\nReserved by: ${playerName.trim()}\nDeposit: ${formatPriceFull(deposit)} GP (10%)\n\nHave you paid the ${formatPriceFull(deposit)} GP deposit in D&D Beyond?\n\nThis item will be held for you until purchased.`);
+        
+        if (confirmReserve) {
+            reserveItem(currentModalItem.id, playerName.trim());
+            closeModal();
+        }
+    }
+}
+
+function showCancelReservationDialog() {
+    if (!currentModalItem) return;
+    
+    const reservation = reservedItems[currentModalItem.id];
+    if (!reservation) return;
+    
+    const confirmCancel = confirm(`❌ CANCEL RESERVATION ❌\n\n${currentModalItem.name}\nReserved by: ${reservation.reservedBy}\nDeposit paid: ${formatPriceFull(reservation.depositPaid)} GP\n\n⚠️ The deposit is NON-REFUNDABLE!\n\nAre you sure you want to cancel this reservation?`);
+    
+    if (confirmCancel) {
+        cancelReservation(currentModalItem.id);
+        closeModal();
+    }
+}
+
 function closeModal() {
     document.getElementById('modalOverlay').classList.remove('active');
     document.body.style.overflow = '';
@@ -680,6 +862,8 @@ function closeModal() {
 // Make functions available globally for onclick handlers
 window.copyItemToClipboard = copyItemToClipboard;
 window.showPurchaseDialog = showPurchaseDialog;
+window.showReserveDialog = showReserveDialog;
+window.showCancelReservationDialog = showCancelReservationDialog;
 
 // ===================================
 // DM ADMIN PANEL
@@ -827,48 +1011,95 @@ function showDMAdminPanel() {
 function renderAdminPanel() {
     const adminBody = document.getElementById('adminBody');
     const purchasedList = Object.entries(purchasedItems);
+    const reservedList = Object.entries(reservedItems);
     
-    if (purchasedList.length === 0) {
+    if (purchasedList.length === 0 && reservedList.length === 0) {
         adminBody.innerHTML = `
             <div class="admin-empty">
                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">✨</div>
-                <p>No items have been purchased yet!</p>
+                <p>No items have been purchased or reserved yet!</p>
             </div>
         `;
         return;
     }
     
-    // Sort by purchase date (newest first)
+    // Sort by date (newest first)
     purchasedList.sort((a, b) => (b[1].purchasedAt || 0) - (a[1].purchasedAt || 0));
+    reservedList.sort((a, b) => (b[1].reservedAt || 0) - (a[1].reservedAt || 0));
     
-    adminBody.innerHTML = `
+    let html = `
         <div class="admin-warning">
-            ⚠️ <strong>DM Only:</strong> Restoring items will make them available in the shop again.
+            ⚠️ <strong>DM Only:</strong> Manage purchases and reservations here.
         </div>
-        <div class="admin-section">
-            <h3 class="admin-section-title">Purchased Items (${purchasedList.length})</h3>
-            ${purchasedList.map(([itemId, data]) => {
-                const rarity = (data.rarity || 'rare').toLowerCase();
-                const purchaseDate = data.purchasedAt ? new Date(data.purchasedAt).toLocaleDateString() : 'Unknown';
-                return `
-                    <div class="purchased-item ${rarity}">
-                        <div class="purchased-item-info">
-                            <div class="purchased-item-name">${data.itemName || itemId}</div>
-                            <div class="purchased-item-details">
-                                Bought by ${data.purchasedBy || 'Unknown'} • Week ${data.week || '?'} • ${purchaseDate}
-                            </div>
-                        </div>
-                        <button class="restore-btn" onclick="restoreItem('${itemId}')">
-                            Restore
-                        </button>
-                    </div>
-                `;
-            }).join('')}
-        </div>
-        <button class="restore-all-btn" onclick="restoreAllItems()">
-            ⚠️ Restore ALL Items
-        </button>
     `;
+    
+    // Reservations section
+    if (reservedList.length > 0) {
+        html += `
+            <div class="admin-section">
+                <h3 class="admin-section-title">📜 Reserved Items (${reservedList.length})</h3>
+                ${reservedList.map(([itemId, data]) => {
+                    const reserveDate = data.reservedAt ? new Date(data.reservedAt).toLocaleDateString() : 'Unknown';
+                    return `
+                        <div class="purchased-item legendary">
+                            <div class="purchased-item-info">
+                                <div class="purchased-item-name">${data.itemName || itemId}</div>
+                                <div class="purchased-item-details">
+                                    Reserved by ${data.reservedBy || 'Unknown'} • Deposit: ${formatPriceFull(data.depositPaid || 0)} GP • ${reserveDate}
+                                </div>
+                            </div>
+                            <button class="restore-btn" style="background: linear-gradient(135deg, #8b4513, #5c3317);" onclick="adminCancelReservation('${itemId}')">
+                                Cancel
+                            </button>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+    
+    // Purchases section
+    if (purchasedList.length > 0) {
+        html += `
+            <div class="admin-section">
+                <h3 class="admin-section-title">💰 Purchased Items (${purchasedList.length})</h3>
+                ${purchasedList.map(([itemId, data]) => {
+                    const rarity = (data.rarity || 'rare').toLowerCase();
+                    const purchaseDate = data.purchasedAt ? new Date(data.purchasedAt).toLocaleDateString() : 'Unknown';
+                    return `
+                        <div class="purchased-item ${rarity}">
+                            <div class="purchased-item-info">
+                                <div class="purchased-item-name">${data.itemName || itemId}</div>
+                                <div class="purchased-item-details">
+                                    Bought by ${data.purchasedBy || 'Unknown'} • Week ${data.week || '?'} • ${purchaseDate}
+                                </div>
+                            </div>
+                            <button class="restore-btn" onclick="restoreItem('${itemId}')">
+                                Restore
+                            </button>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+            <button class="restore-all-btn" onclick="restoreAllItems()">
+                ⚠️ Restore ALL Purchased Items
+            </button>
+        `;
+    }
+    
+    adminBody.innerHTML = html;
+}
+
+async function adminCancelReservation(itemId) {
+    const reservation = reservedItems[itemId];
+    const itemName = reservation?.itemName || itemId;
+    
+    if (confirm(`Cancel reservation for "${itemName}"?\n\nReserved by: ${reservation?.reservedBy || 'Unknown'}\nDeposit: ${formatPriceFull(reservation?.depositPaid || 0)} GP\n\nThis will make the item available again.`)) {
+        const success = await cancelReservation(itemId);
+        if (success) {
+            renderAdminPanel();
+        }
+    }
 }
 
 async function restoreItem(itemId) {
@@ -907,6 +1138,7 @@ function closeDMAdminPanel() {
 // Make admin functions globally available
 window.restoreItem = restoreItem;
 window.restoreAllItems = restoreAllItems;
+window.adminCancelReservation = adminCancelReservation;
 
 // Secret keyboard shortcut for DM panel: Ctrl+Shift+D
 document.addEventListener('keydown', (e) => {
