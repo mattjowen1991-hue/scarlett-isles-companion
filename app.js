@@ -44,7 +44,9 @@ const CONFIG = {
     uncommonCount: 8,
     rareCount: 5,        // At least 1 per class
     legendaryPerClass: 1, // 1 per class (Fighter, Rogue, Ranger, Paladin)
-    classes: ['Fighter', 'Rogue', 'Ranger', 'Paladin']
+    classes: ['Fighter', 'Rogue', 'Ranger', 'Paladin'],
+    // Reservation settings
+    reservationDuration: 14 * 24 * 60 * 60 * 1000 // 2 weeks in milliseconds
 };
 
 function getWeekNumber() {
@@ -94,6 +96,57 @@ function formatPrice(price) {
 
 function formatPriceFull(price) {
     return price.toLocaleString();
+}
+
+// ===================================
+// RESERVATION TIMER HELPERS
+// ===================================
+
+function getReservationTimeRemaining(reservedAt) {
+    const expiresAt = reservedAt + CONFIG.reservationDuration;
+    const now = Date.now();
+    const remaining = expiresAt - now;
+    
+    if (remaining <= 0) {
+        return { expired: true, text: 'Expired', days: 0, hours: 0 };
+    }
+    
+    const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
+    const hours = Math.floor((remaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+    const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+    
+    let text;
+    if (days > 0) {
+        text = `${days}d ${hours}h`;
+    } else if (hours > 0) {
+        text = `${hours}h ${minutes}m`;
+    } else {
+        text = `${minutes}m`;
+    }
+    
+    return { expired: false, text, days, hours, minutes, remaining };
+}
+
+function isReservationExpired(reservation) {
+    if (!reservation || !reservation.reservedAt) return true;
+    const timeInfo = getReservationTimeRemaining(reservation.reservedAt);
+    return timeInfo.expired;
+}
+
+async function checkAndExpireReservations() {
+    if (!firebaseEnabled) return;
+    
+    for (const [itemId, reservation] of Object.entries(reservedItems)) {
+        if (isReservationExpired(reservation)) {
+            console.log(`Reservation expired for ${reservation.itemName || itemId}, removing...`);
+            try {
+                await remove(ref(db, `reserved/${itemId}`));
+                console.log(`Expired reservation removed: ${itemId}`);
+            } catch (error) {
+                console.error(`Failed to remove expired reservation: ${itemId}`, error);
+            }
+        }
+    }
 }
 
 // ===================================
@@ -344,6 +397,9 @@ async function init() {
                 reservedItems = reservedSnapshot.val() || {};
                 console.log('Loaded reserved items from Firebase');
                 
+                // Check and remove any expired reservations
+                await checkAndExpireReservations();
+                
                 // Clean up any orphaned favourites
                 cleanupOrphanedFavorites(purchasedItems);
                 
@@ -362,6 +418,13 @@ async function init() {
         
         renderItems();
         setupEventListeners();
+        
+        // Update reservation timers every minute
+        setInterval(() => {
+            checkAndExpireReservations();
+            renderItems();
+        }, 60000);
+        
     } catch (error) {
         console.error('Failed to load items:', error);
         const itemList = document.getElementById('itemList');
@@ -423,11 +486,18 @@ function renderItems() {
         // Build reservation note HTML if item is reserved
         let reservationNote = '';
         if (reservation && isLegendary) {
+            const timeRemaining = getReservationTimeRemaining(reservation.reservedAt);
+            const urgencyClass = timeRemaining.days <= 2 ? 'urgent' : (timeRemaining.days <= 5 ? 'warning' : '');
+            
             reservationNote = `
                 <div class="reservation-note">
                     <div class="reservation-scroll">
                         <span class="reservation-icon">📜</span>
                         <span class="reservation-text">Reserved by <strong>${reservation.reservedBy}</strong></span>
+                        <span class="reservation-timer ${urgencyClass}">
+                            <span class="timer-icon">⏳</span>
+                            <span class="timer-text">${timeRemaining.text}</span>
+                        </span>
                     </div>
                 </div>
             `;
@@ -674,7 +744,10 @@ function openItemModal(itemId) {
     const deposit = Math.floor(item.price * 0.1);
     
     if (isLegendary && reservation) {
-        // Show existing reservation info
+        // Show existing reservation info with timer
+        const timeRemaining = getReservationTimeRemaining(reservation.reservedAt);
+        const urgencyClass = timeRemaining.days <= 2 ? 'urgent' : (timeRemaining.days <= 5 ? 'warning' : '');
+        
         bodyHTML += `
             <div class="modal-section">
                 <div class="reservation-info-box">
@@ -683,6 +756,11 @@ function openItemModal(itemId) {
                         <p><strong>${reservation.reservedBy}</strong> has placed a hold on this item.</p>
                         <p class="reservation-deposit">Deposit paid: <strong>${formatPriceFull(reservation.depositPaid)} GP</strong></p>
                         <p class="reservation-remaining">Remaining balance: <strong>${formatPriceFull(item.price - reservation.depositPaid)} GP</strong></p>
+                        <div class="reservation-timer-box ${urgencyClass}">
+                            <span class="timer-icon">⏳</span>
+                            <span class="timer-label">Time remaining:</span>
+                            <span class="timer-value">${timeRemaining.text}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -693,7 +771,7 @@ function openItemModal(itemId) {
             <div class="modal-section">
                 <div class="reservation-offer-box">
                     <div class="reservation-offer-header">📜 Reserve This Item</div>
-                    <p class="reservation-offer-text">Pay a <strong>${formatPriceFull(deposit)} GP</strong> deposit (10%) to reserve this legendary item. It will remain available only to you until purchased.</p>
+                    <p class="reservation-offer-text">Pay a <strong>${formatPriceFull(deposit)} GP</strong> deposit (10%) to reserve this legendary item for <strong>2 weeks</strong>. If not purchased within that time, the deposit is forfeited and the item becomes available again.</p>
                 </div>
             </div>
         `;
@@ -1040,12 +1118,17 @@ function renderAdminPanel() {
                 <h3 class="admin-section-title">📜 Reserved Items (${reservedList.length})</h3>
                 ${reservedList.map(([itemId, data]) => {
                     const reserveDate = data.reservedAt ? new Date(data.reservedAt).toLocaleDateString() : 'Unknown';
+                    const timeRemaining = getReservationTimeRemaining(data.reservedAt);
+                    const urgencyClass = timeRemaining.days <= 2 ? 'color: #e07070;' : (timeRemaining.days <= 5 ? 'color: #d4b85a;' : 'color: #90c090;');
                     return `
                         <div class="purchased-item legendary">
                             <div class="purchased-item-info">
                                 <div class="purchased-item-name">${data.itemName || itemId}</div>
                                 <div class="purchased-item-details">
                                     Reserved by ${data.reservedBy || 'Unknown'} • Deposit: ${formatPriceFull(data.depositPaid || 0)} GP • ${reserveDate}
+                                </div>
+                                <div class="purchased-item-details" style="${urgencyClass} margin-top: 0.25rem;">
+                                    ⏳ ${timeRemaining.text} remaining
                                 </div>
                             </div>
                             <button class="restore-btn" style="background: linear-gradient(135deg, #8b4513, #5c3317);" onclick="adminCancelReservation('${itemId}')">

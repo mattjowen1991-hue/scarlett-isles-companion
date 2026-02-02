@@ -1108,3 +1108,97 @@ header {
 .cancel-btn-icon {
     font-size: 0.9rem;
 }
+
+/* Reservation Timer */
+.reservation-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    font-style: normal;
+    font-size: 0.75rem;
+    color: #a0c4a0;
+}
+
+.reservation-timer .timer-icon {
+    font-size: 0.7rem;
+}
+
+.reservation-timer .timer-text {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* Warning state - 5 days or less */
+.reservation-timer.warning {
+    background: rgba(180, 140, 0, 0.2);
+    color: #d4b85a;
+}
+
+/* Urgent state - 2 days or less */
+.reservation-timer.urgent {
+    background: rgba(180, 60, 60, 0.25);
+    color: #e07070;
+    animation: pulse-urgent 2s ease-in-out infinite;
+}
+
+@keyframes pulse-urgent {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Timer in modal */
+.reservation-timer-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    background: rgba(100, 160, 100, 0.1);
+    border: 1px solid rgba(100, 160, 100, 0.25);
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.reservation-timer-box .timer-icon {
+    font-size: 1rem;
+}
+
+.reservation-timer-box .timer-label {
+    color: var(--text-secondary);
+}
+
+.reservation-timer-box .timer-value {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: #90c090;
+    margin-left: auto;
+}
+
+.reservation-timer-box.warning {
+    background: rgba(180, 140, 0, 0.1);
+    border-color: rgba(180, 140, 0, 0.25);
+}
+
+.reservation-timer-box.warning .timer-value {
+    color: #d4b85a;
+}
+
+.reservation-timer-box.urgent {
+    background: rgba(180, 60, 60, 0.1);
+    border-color: rgba(180, 60, 60, 0.3);
+    animation: pulse-urgent-box 2s ease-in-out infinite;
+}
+
+.reservation-timer-box.urgent .timer-value {
+    color: #e07070;
+}
+
+@keyframes pulse-urgent-box {
+    0%, 100% { border-color: rgba(180, 60, 60, 0.3); }
+    50% { border-color: rgba(180, 60, 60, 0.6); }
+}
