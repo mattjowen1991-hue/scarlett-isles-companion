@@ -65,6 +65,26 @@
         <button class="filter-btn" data-rarity="legendary">Legendary</button>
     </div>
     
+    <!-- Location Selector (Honour System Integration) -->
+    <div class="location-bar">
+        <div class="location-selector">
+            <span class="location-label">📍 Shopping in:</span>
+            <select id="locationSelect" class="location-select">
+                <option value="neutral">Neutral Territory</option>
+                <option value="blackstone">Clan Blackstone</option>
+                <option value="bacca">Clan Bacca</option>
+                <option value="farmer">Clan Farmer</option>
+                <option value="slade">Clan Slade</option>
+                <option value="molten">Clan Molten</option>
+                <option value="karr">Clan Karr</option>
+                <option value="rowthorn">Clan Rowthorn</option>
+            </select>
+        </div>
+        <div class="location-status" id="locationStatus">
+            <!-- Status populated by JS -->
+        </div>
+    </div>
+    
     <!-- Item List -->
     <main class="item-list" id="itemList">
         <!-- Items populated by JavaScript -->
@@ -115,6 +135,17 @@
                 </div>
                 
                 <div class="help-section">
+                    <h3 class="help-heading">📜 Reserving Legendary Items</h3>
+                    <p>Can't afford that <span class="help-rarity legendary">Legendary</span> item just yet? Pay a <strong>10% deposit</strong> to reserve it!</p>
+                    <ul class="help-list">
+                        <li>Reserved items are held for <strong>2 weeks</strong> — a countdown timer shows time remaining</li>
+                        <li>Other adventurers can see the item is reserved but cannot claim it</li>
+                        <li>Complete your purchase within 2 weeks to claim the item</li>
+                        <li>If time runs out, the deposit is <strong>forfeited</strong> and the item becomes available again</li>
+                    </ul>
+                </div>
+                
+                <div class="help-section">
                     <h3 class="help-heading">💰 Making a Purchase</h3>
                     <ol class="help-list numbered">
                         <li>Tap any item to view its details and properties</li>
@@ -122,6 +153,17 @@
                         <li>Add the item to your D&D Beyond character inventory</li>
                         <li>For Rare/Legendary items, tap <strong>"Mark as Purchased"</strong> to remove it from the shop</li>
                     </ol>
+                </div>
+                
+                <div class="help-section">
+                    <h3 class="help-heading">📍 Location & Honour Prices</h3>
+                    <p>Prices change depending on where you're shopping and your standing with the local clan!</p>
+                    <ul class="help-list">
+                        <li><strong>Select your location</strong> from the dropdown to see adjusted prices</li>
+                        <li>Prices sync with the <strong>Honour Tracker</strong> — if you're trusted, enjoy discounts up to <span style="color: #7a9c5a;">−25%</span></li>
+                        <li>But beware! If you're distrusted, prices rise by up to <span style="color: #c45a5a;">+50%</span></li>
+                        <li>If you're <strong>HUNTED</strong>, the clan won't trade with you at all!</li>
+                    </ul>
                 </div>
                 
                 <div class="help-section">

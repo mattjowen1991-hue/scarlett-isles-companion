@@ -49,12 +49,79 @@ const CONFIG = {
     reservationDuration: 14 * 24 * 60 * 60 * 1000 // 2 weeks in milliseconds
 };
 
+// Honour system integration - matches tsi-honour-tracker
+const HONOUR_CONFIG = {
+    storageKey: 'scarlettHonourTracker.v1',
+    locations: [
+        { id: 'neutral', name: 'Neutral Territory', clanId: null },
+        { id: 'blackstone', name: 'Clan Blackstone', clanId: 'blackstone' },
+        { id: 'bacca', name: 'Clan Bacca', clanId: 'bacca' },
+        { id: 'farmer', name: 'Clan Farmer', clanId: 'farmer' },
+        { id: 'slade', name: 'Clan Slade', clanId: 'slade' },
+        { id: 'molten', name: 'Clan Molten', clanId: 'molten' },
+        { id: 'karr', name: 'Clan Karr', clanId: 'karr' },
+        { id: 'rowthorn', name: 'Clan Rowthorn', clanId: 'rowthorn' },
+    ],
+    // Price modifiers by honour band (from honour tracker rules)
+    priceModifiers: {
+        '-5': { modifier: null, label: 'No Trade', status: 'HUNTED' },      // -5 to -4: No trade allowed
+        '-3': { modifier: 0.50, label: '+50%', status: 'HOSTILE' },         // -3 to -2: +50% prices
+        '-1': { modifier: 0.20, label: '+20%', status: 'DISTRUSTED' },      // -1: +20% prices
+        '0':  { modifier: 0, label: 'Standard', status: 'NEUTRAL' },        // 0: Standard prices
+        '1':  { modifier: -0.10, label: '-10%', status: 'TRUSTED' },        // +1 to +2: -10% prices
+        '3':  { modifier: -0.25, label: '-25%', status: 'ALLIED' },         // +3 to +4: -25% prices
+        '5':  { modifier: -0.25, label: '-25%', status: 'SANCTUARY' },      // +5: Favours (treat as -25%)
+    }
+};
+
 function getWeekNumber() {
     const now = new Date();
     const diff = now - CONFIG.campaignStart;
     const oneWeek = 604800000;
     if (diff < 0) return 1;
     return Math.floor(diff / oneWeek) + 1;
+}
+
+// Get honour band from score (matches honour tracker logic)
+function getHonourBand(score) {
+    if (score <= -4) return -5;
+    if (score <= -2) return -3;
+    if (score === -1) return -1;
+    if (score === 0) return 0;
+    if (score <= 2) return 1;
+    if (score <= 4) return 3;
+    return 5;
+}
+
+// Get price modifier info for current location
+function getPriceModifier() {
+    const location = HONOUR_CONFIG.locations.find(l => l.id === currentLocation);
+    if (!location || !location.clanId) {
+        return { modifier: 0, label: 'Standard', status: 'NEUTRAL', score: 0 };
+    }
+    
+    // Try to read honour tracker data from localStorage
+    try {
+        const honourData = JSON.parse(localStorage.getItem(HONOUR_CONFIG.storageKey) || '{}');
+        const clanScores = honourData.clanScores || {};
+        const score = clanScores[location.clanId] ?? 0;
+        const band = getHonourBand(score);
+        const modInfo = HONOUR_CONFIG.priceModifiers[String(band)] || HONOUR_CONFIG.priceModifiers['0'];
+        return { ...modInfo, score };
+    } catch (e) {
+        console.warn('Could not read honour tracker data:', e);
+        return { modifier: 0, label: 'Standard', status: 'NEUTRAL', score: 0 };
+    }
+}
+
+// Calculate adjusted price
+function getAdjustedPrice(basePrice) {
+    const modInfo = getPriceModifier();
+    if (modInfo.modifier === null) {
+        return { price: basePrice, noTrade: true, modInfo };
+    }
+    const adjusted = Math.round(basePrice * (1 + modInfo.modifier));
+    return { price: adjusted, noTrade: false, modInfo };
 }
 
 // ===================================
@@ -161,6 +228,7 @@ let currentCategory = 'all';
 let currentRarity = 'all';
 let favorites = JSON.parse(localStorage.getItem('tsi-favorites') || '[]');
 let currentWeek = getWeekNumber();
+let currentLocation = localStorage.getItem('tsi-currentLocation') || 'neutral';
 
 // ===================================
 // FAVORITES CLEANUP
@@ -483,6 +551,9 @@ function renderItems() {
         const reservation = reservedItems[item.id];
         const isLegendary = rarity === 'legendary';
         
+        // Get adjusted price based on location/honour
+        const priceInfo = getAdjustedPrice(item.price);
+        
         // Build reservation note HTML if item is reserved
         let reservationNote = '';
         if (reservation && isLegendary) {
@@ -503,8 +574,22 @@ function renderItems() {
             `;
         }
         
+        // Build price display with modifier
+        let priceHTML;
+        if (priceInfo.noTrade) {
+            priceHTML = `<span class="no-trade">No Trade</span>`;
+        } else if (priceInfo.modInfo.modifier !== 0) {
+            const modClass = priceInfo.modInfo.modifier > 0 ? 'price-increase' : 'price-discount';
+            priceHTML = `
+                ${formatPrice(priceInfo.price)}<span class="currency"> GP</span>
+                <span class="price-modifier ${modClass}">${priceInfo.modInfo.label}</span>
+            `;
+        } else {
+            priceHTML = `${formatPrice(item.price)}<span class="currency"> GP</span>`;
+        }
+        
         return `
-            <div class="item-row ${rarity} ${reservation ? 'reserved' : ''}" data-item-id="${item.id}">
+            <div class="item-row ${rarity} ${reservation ? 'reserved' : ''} ${priceInfo.noTrade ? 'no-trade-item' : ''}" data-item-id="${item.id}">
                 <span class="item-star ${isFavorite ? 'favorited' : ''}" data-item-id="${item.id}">
                     ${isFavorite ? '★' : '☆'}
                 </span>
@@ -520,11 +605,44 @@ function renderItems() {
                     ${reservationNote}
                 </div>
                 <div class="item-price">
-                    ${formatPrice(item.price)}<span class="currency"> GP</span>
+                    ${priceHTML}
                 </div>
             </div>
         `;
     }).join('');
+}
+
+// Update the location status display
+function updateLocationStatus() {
+    const statusEl = document.getElementById('locationStatus');
+    if (!statusEl) return;
+    
+    const modInfo = getPriceModifier();
+    const location = HONOUR_CONFIG.locations.find(l => l.id === currentLocation);
+    
+    if (!location || !location.clanId) {
+        statusEl.innerHTML = `<span class="status-neutral">Standard prices</span>`;
+        return;
+    }
+    
+    if (modInfo.modifier === null) {
+        statusEl.innerHTML = `
+            <span class="status-hostile">
+                <strong>${modInfo.status}</strong> (Score: ${modInfo.score}) — No trade permitted!
+            </span>
+        `;
+        return;
+    }
+    
+    let statusClass = 'status-neutral';
+    if (modInfo.modifier > 0) statusClass = 'status-hostile';
+    else if (modInfo.modifier < 0) statusClass = 'status-friendly';
+    
+    statusEl.innerHTML = `
+        <span class="${statusClass}">
+            <strong>${modInfo.status}</strong> (Score: ${modInfo.score}) — ${modInfo.label} prices
+        </span>
+    `;
 }
 
 // ===================================
@@ -551,6 +669,21 @@ function setupEventListeners() {
             renderItems();
         });
     });
+    
+    // Location selector
+    const locationSelect = document.getElementById('locationSelect');
+    if (locationSelect) {
+        // Set initial value
+        locationSelect.value = currentLocation;
+        updateLocationStatus();
+        
+        locationSelect.addEventListener('change', () => {
+            currentLocation = locationSelect.value;
+            localStorage.setItem('tsi-currentLocation', currentLocation);
+            updateLocationStatus();
+            renderItems();
+        });
+    }
     
     // Item clicks (delegated)
     const itemList = document.getElementById('itemList');
@@ -728,20 +861,51 @@ function openItemModal(itemId) {
         </div>
     `;
     
-    // Price
-    bodyHTML += `
-        <div class="modal-section">
+    // Price with honour modifier
+    const priceInfo = getAdjustedPrice(item.price);
+    let priceDisplay;
+    
+    if (priceInfo.noTrade) {
+        priceDisplay = `
+            <div class="modal-price no-trade-price">
+                <span class="modal-price-label">Price</span>
+                <span class="modal-price-value no-trade-text">No Trade Permitted</span>
+            </div>
+            <div class="price-modifier-note hostile">
+                Your standing with this clan (${priceInfo.modInfo.status}) prevents any trade.
+            </div>
+        `;
+    } else if (priceInfo.modInfo.modifier !== 0) {
+        const modClass = priceInfo.modInfo.modifier > 0 ? 'hostile' : 'friendly';
+        priceDisplay = `
+            <div class="modal-price">
+                <span class="modal-price-label">Price</span>
+                <span class="modal-price-value">${formatPriceFull(priceInfo.price)} GP</span>
+            </div>
+            <div class="price-modifier-note ${modClass}">
+                ${priceInfo.modInfo.modifier > 0 ? '📈' : '📉'} ${priceInfo.modInfo.label} — ${priceInfo.modInfo.status} standing
+                <span class="original-price">(Base: ${formatPriceFull(item.price)} GP)</span>
+            </div>
+        `;
+    } else {
+        priceDisplay = `
             <div class="modal-price">
                 <span class="modal-price-label">Price</span>
                 <span class="modal-price-value">${formatPriceFull(item.price)} GP</span>
             </div>
+        `;
+    }
+    
+    bodyHTML += `
+        <div class="modal-section">
+            ${priceDisplay}
         </div>
     `;
     
     // Check if item is legendary and show reservation info
     const isLegendary = rarity === 'legendary';
     const reservation = reservedItems[item.id];
-    const deposit = Math.floor(item.price * 0.1);
+    const deposit = Math.floor(priceInfo.price * 0.1); // Use adjusted price for deposit
     
     if (isLegendary && reservation) {
         // Show existing reservation info with timer
