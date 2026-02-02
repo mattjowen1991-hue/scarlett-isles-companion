@@ -65,20 +65,11 @@
         <button class="filter-btn" data-rarity="legendary">Legendary</button>
     </div>
     
-    <!-- Location Selector (Honour System Integration) -->
+    <!-- Location Display (DM controls this via admin panel) -->
     <div class="location-bar">
-        <div class="location-selector">
+        <div class="location-display">
             <span class="location-label">📍 Shopping in:</span>
-            <select id="locationSelect" class="location-select">
-                <option value="neutral">Neutral Territory</option>
-                <option value="blackstone">Clan Blackstone</option>
-                <option value="bacca">Clan Bacca</option>
-                <option value="farmer">Clan Farmer</option>
-                <option value="slade">Clan Slade</option>
-                <option value="molten">Clan Molten</option>
-                <option value="karr">Clan Karr</option>
-                <option value="rowthorn">Clan Rowthorn</option>
-            </select>
+            <span class="location-name" id="locationName">Neutral Territory</span>
         </div>
         <div class="location-status" id="locationStatus">
             <!-- Status populated by JS -->
@@ -157,9 +148,9 @@
                 
                 <div class="help-section">
                     <h3 class="help-heading">📍 Location & Honour Prices</h3>
-                    <p>Prices change depending on where you're shopping and your standing with the local clan!</p>
+                    <p>Prices change depending on where the party is shopping and your standing with the local clan!</p>
                     <ul class="help-list">
-                        <li><strong>Select your location</strong> from the dropdown to see adjusted prices</li>
+                        <li>The <strong>DM controls</strong> your current location — it syncs for all players automatically</li>
                         <li>Prices sync with the <strong>Honour Tracker</strong> in real-time — changes update instantly across all devices!</li>
                         <li>If you're trusted, enjoy discounts up to <span style="color: #7a9c5a;">−25%</span></li>
                         <li>But beware! If you're distrusted, prices rise by up to <span style="color: #c45a5a;">+50%</span></li>

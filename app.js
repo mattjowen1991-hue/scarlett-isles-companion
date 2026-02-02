@@ -76,6 +76,9 @@ const HONOUR_CONFIG = {
 // Honour data from Firebase (synced in real-time)
 let honourData = { clanScores: {} };
 
+// Current location - now controlled by DM via Firebase
+let currentLocation = 'neutral';
+
 function getWeekNumber() {
     const now = new Date();
     const diff = now - CONFIG.campaignStart;
@@ -224,8 +227,6 @@ let currentCategory = 'all';
 let currentRarity = 'all';
 let favorites = JSON.parse(localStorage.getItem('tsi-favorites') || '[]');
 let currentWeek = getWeekNumber();
-let currentLocation = localStorage.getItem('tsi-currentLocation') || 'neutral';
-
 // ===================================
 // FAVORITES CLEANUP
 // ===================================
@@ -303,6 +304,25 @@ function setupFirebaseListeners() {
         }
     }, (error) => {
         console.warn('Firebase honour listener error:', error);
+    });
+    
+    // Listen for party location changes (controlled by DM)
+    const locationRef = ref(db, 'partyLocation');
+    
+    onValue(locationRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data && data.locationId) {
+            currentLocation = data.locationId;
+            console.log('Party location updated:', currentLocation);
+            
+            // Update the display (but not the selector - that's DM only now)
+            if (allItems.length > 0) {
+                updateLocationStatus();
+                renderItems();
+            }
+        }
+    }, (error) => {
+        console.warn('Firebase location listener error:', error);
     });
 }
 
@@ -487,6 +507,16 @@ async function init() {
                     console.log('Loaded honour data from Firebase');
                 }
                 
+                // Load party location (set by DM)
+                const locationSnapshot = await get(ref(db, 'partyLocation'));
+                if (locationSnapshot.exists()) {
+                    const locData = locationSnapshot.val();
+                    if (locData && locData.locationId) {
+                        currentLocation = locData.locationId;
+                        console.log('Loaded party location from Firebase:', currentLocation);
+                    }
+                }
+                
                 // Check and remove any expired reservations
                 await checkAndExpireReservations();
                 
@@ -634,10 +664,22 @@ function renderItems() {
     }).join('');
 }
 
+// Update the location name display
+function updateLocationDisplay() {
+    const nameEl = document.getElementById('locationName');
+    if (!nameEl) return;
+    
+    const location = HONOUR_CONFIG.locations.find(l => l.id === currentLocation);
+    nameEl.textContent = location ? location.name : 'Neutral Territory';
+}
+
 // Update the location status display
 function updateLocationStatus() {
     const statusEl = document.getElementById('locationStatus');
     if (!statusEl) return;
+    
+    // Also update the location name
+    updateLocationDisplay();
     
     const modInfo = getPriceModifier();
     const location = HONOUR_CONFIG.locations.find(l => l.id === currentLocation);
@@ -692,20 +734,9 @@ function setupEventListeners() {
         });
     });
     
-    // Location selector
-    const locationSelect = document.getElementById('locationSelect');
-    if (locationSelect) {
-        // Set initial value
-        locationSelect.value = currentLocation;
-        updateLocationStatus();
-        
-        locationSelect.addEventListener('change', () => {
-            currentLocation = locationSelect.value;
-            localStorage.setItem('tsi-currentLocation', currentLocation);
-            updateLocationStatus();
-            renderItems();
-        });
-    }
+    // Update location display (DM controls location via admin panel)
+    updateLocationDisplay();
+    updateLocationStatus();
     
     // Item clicks (delegated)
     const itemList = document.getElementById('itemList');
@@ -1257,6 +1288,40 @@ function showDMAdminPanel() {
                 font-size: 0.85rem;
                 color: #ffaa44;
             }
+            .admin-location-section {
+                background: rgba(100, 140, 180, 0.1);
+                border: 1px solid rgba(100, 140, 180, 0.3);
+                border-radius: 8px;
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .admin-location-title {
+                font-size: 1rem;
+                color: #8bb8d8;
+                margin-bottom: 0.75rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .admin-location-select {
+                width: 100%;
+                padding: 0.75rem;
+                font-size: 1rem;
+                background: rgba(0,0,0,0.3);
+                border: 1px solid rgba(100, 140, 180, 0.4);
+                border-radius: 6px;
+                color: var(--text-primary);
+                cursor: pointer;
+            }
+            .admin-location-select:focus {
+                outline: none;
+                border-color: #8bb8d8;
+            }
+            .admin-location-status {
+                margin-top: 0.75rem;
+                font-size: 0.85rem;
+                color: var(--text-secondary);
+            }
         `;
         document.head.appendChild(style);
         
@@ -1277,13 +1342,36 @@ function renderAdminPanel() {
     const purchasedList = Object.entries(purchasedItems);
     const reservedList = Object.entries(reservedItems);
     
+    // Get current location info
+    const currentLoc = HONOUR_CONFIG.locations.find(l => l.id === currentLocation);
+    const modInfo = getPriceModifier();
+    
+    // Build location selector options
+    const locationOptions = HONOUR_CONFIG.locations.map(loc => 
+        `<option value="${loc.id}" ${loc.id === currentLocation ? 'selected' : ''}>${loc.name}</option>`
+    ).join('');
+    
+    // Start building HTML with location control at the top
+    let html = `
+        <div class="admin-location-section">
+            <div class="admin-location-title">📍 Party Location</div>
+            <select class="admin-location-select" id="adminLocationSelect" onchange="updatePartyLocation(this.value)">
+                ${locationOptions}
+            </select>
+            <div class="admin-location-status">
+                Current status: <strong>${modInfo.status}</strong> — ${modInfo.label} prices
+            </div>
+        </div>
+    `;
+    
     if (purchasedList.length === 0 && reservedList.length === 0) {
-        adminBody.innerHTML = `
+        html += `
             <div class="admin-empty">
                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">✨</div>
                 <p>No items have been purchased or reserved yet!</p>
             </div>
         `;
+        adminBody.innerHTML = html;
         return;
     }
     
@@ -1291,7 +1379,7 @@ function renderAdminPanel() {
     purchasedList.sort((a, b) => (b[1].purchasedAt || 0) - (a[1].purchasedAt || 0));
     reservedList.sort((a, b) => (b[1].reservedAt || 0) - (a[1].reservedAt || 0));
     
-    let html = `
+    html += `
         <div class="admin-warning">
             ⚠️ <strong>DM Only:</strong> Manage purchases and reservations here.
         </div>
@@ -1404,10 +1492,41 @@ function closeDMAdminPanel() {
     }
 }
 
+// Update party location in Firebase (DM only)
+async function updatePartyLocation(locationId) {
+    if (!firebaseEnabled) {
+        alert('Firebase is not connected. Cannot update location.');
+        return;
+    }
+    
+    const location = HONOUR_CONFIG.locations.find(l => l.id === locationId);
+    if (!location) return;
+    
+    try {
+        await set(ref(db, 'partyLocation'), {
+            locationId: locationId,
+            locationName: location.name,
+            updatedAt: Date.now()
+        });
+        console.log('Party location updated to:', location.name);
+        
+        // Update local state immediately
+        currentLocation = locationId;
+        updateLocationDisplay();
+        updateLocationStatus();
+        renderItems();
+        renderAdminPanel();
+    } catch (error) {
+        console.error('Failed to update party location:', error);
+        alert('Failed to update location. Please try again.');
+    }
+}
+
 // Make admin functions globally available
 window.restoreItem = restoreItem;
 window.restoreAllItems = restoreAllItems;
 window.adminCancelReservation = adminCancelReservation;
+window.updatePartyLocation = updatePartyLocation;
 
 // Secret keyboard shortcut for DM panel: Ctrl+Shift+D
 document.addEventListener('keydown', (e) => {
