@@ -51,7 +51,6 @@ const CONFIG = {
 
 // Honour system integration - matches tsi-honour-tracker
 const HONOUR_CONFIG = {
-    storageKey: 'scarlettHonourTracker.v1',
     locations: [
         { id: 'neutral', name: 'Neutral Territory', clanId: null },
         { id: 'blackstone', name: 'Clan Blackstone', clanId: 'blackstone' },
@@ -73,6 +72,9 @@ const HONOUR_CONFIG = {
         '5':  { modifier: -0.25, label: '-25%', status: 'SANCTUARY' },      // +5: Favours (treat as -25%)
     }
 };
+
+// Honour data from Firebase (synced in real-time)
+let honourData = { clanScores: {} };
 
 function getWeekNumber() {
     const now = new Date();
@@ -100,18 +102,12 @@ function getPriceModifier() {
         return { modifier: 0, label: 'Standard', status: 'NEUTRAL', score: 0 };
     }
     
-    // Try to read honour tracker data from localStorage
-    try {
-        const honourData = JSON.parse(localStorage.getItem(HONOUR_CONFIG.storageKey) || '{}');
-        const clanScores = honourData.clanScores || {};
-        const score = clanScores[location.clanId] ?? 0;
-        const band = getHonourBand(score);
-        const modInfo = HONOUR_CONFIG.priceModifiers[String(band)] || HONOUR_CONFIG.priceModifiers['0'];
-        return { ...modInfo, score };
-    } catch (e) {
-        console.warn('Could not read honour tracker data:', e);
-        return { modifier: 0, label: 'Standard', status: 'NEUTRAL', score: 0 };
-    }
+    // Use honour data from Firebase
+    const clanScores = honourData.clanScores || {};
+    const score = clanScores[location.clanId] ?? 0;
+    const band = getHonourBand(score);
+    const modInfo = HONOUR_CONFIG.priceModifiers[String(band)] || HONOUR_CONFIG.priceModifiers['0'];
+    return { ...modInfo, score };
 }
 
 // Calculate adjusted price
@@ -289,6 +285,25 @@ function setupFirebaseListeners() {
     }, (error) => {
         console.warn('Firebase reservation listener error:', error);
     });
+    
+    // Listen for honour data changes (from the Honour Tracker app)
+    const honourRef = ref(db, 'honour');
+    
+    onValue(honourRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            honourData = data;
+            console.log('Honour data updated:', honourData.clanScores);
+            
+            // Re-render to update prices
+            if (allItems.length > 0) {
+                updateLocationStatus();
+                renderItems();
+            }
+        }
+    }, (error) => {
+        console.warn('Firebase honour listener error:', error);
+    });
 }
 
 async function markAsPurchased(itemId, playerName) {
@@ -464,6 +479,13 @@ async function init() {
                 const reservedSnapshot = await get(ref(db, 'reserved'));
                 reservedItems = reservedSnapshot.val() || {};
                 console.log('Loaded reserved items from Firebase');
+                
+                // Load honour data for price adjustments
+                const honourSnapshot = await get(ref(db, 'honour'));
+                if (honourSnapshot.exists()) {
+                    honourData = honourSnapshot.val();
+                    console.log('Loaded honour data from Firebase');
+                }
                 
                 // Check and remove any expired reservations
                 await checkAndExpireReservations();
