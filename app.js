@@ -61,15 +61,19 @@ const HONOUR_CONFIG = {
         { id: 'karr', name: 'Clan Karr', clanId: 'karr' },
         { id: 'rowthorn', name: 'Clan Rowthorn', clanId: 'rowthorn' },
     ],
-    // Price modifiers by honour band (from honour tracker rules)
+    // Price modifiers by exact honour score (linear scale)
     priceModifiers: {
-        '-5': { modifier: null, label: 'No Trade', status: 'HUNTED' },      // -5 to -4: No trade allowed
-        '-3': { modifier: 0.50, label: '+50%', status: 'HOSTILE' },         // -3 to -2: +50% prices
-        '-1': { modifier: 0.20, label: '+20%', status: 'DISTRUSTED' },      // -1: +20% prices
-        '0':  { modifier: 0, label: 'Standard', status: 'NEUTRAL' },        // 0: Standard prices
-        '1':  { modifier: -0.10, label: '-10%', status: 'TRUSTED' },        // +1 to +2: -10% prices
-        '3':  { modifier: -0.25, label: '-25%', status: 'ALLIED' },         // +3 to +4: -25% prices
-        '5':  { modifier: -0.25, label: '-25%', status: 'SANCTUARY' },      // +5: Favours (treat as -25%)
+        '-5': { modifier: null, label: 'No Trade', status: 'HUNTED' },
+        '-4': { modifier: 0.50, label: '+50%', status: 'HOSTILE' },
+        '-3': { modifier: 0.40, label: '+40%', status: 'HOSTILE' },
+        '-2': { modifier: 0.30, label: '+30%', status: 'DISTRUSTED' },
+        '-1': { modifier: 0.20, label: '+20%', status: 'DISTRUSTED' },
+        '0':  { modifier: 0, label: 'Standard', status: 'NEUTRAL' },
+        '1':  { modifier: -0.05, label: '-5%', status: 'TRUSTED' },
+        '2':  { modifier: -0.10, label: '-10%', status: 'TRUSTED' },
+        '3':  { modifier: -0.15, label: '-15%', status: 'ALLIED' },
+        '4':  { modifier: -0.20, label: '-20%', status: 'ALLIED' },
+        '5':  { modifier: -0.25, label: '-25%', status: 'SANCTUARY' },
     }
 };
 
@@ -108,8 +112,9 @@ function getPriceModifier() {
     // Use honour data from Firebase
     const clanScores = honourData.clanScores || {};
     const score = clanScores[location.clanId] ?? 0;
-    const band = getHonourBand(score);
-    const modInfo = HONOUR_CONFIG.priceModifiers[String(band)] || HONOUR_CONFIG.priceModifiers['0'];
+    
+    // Use exact score for lookup (no banding)
+    const modInfo = HONOUR_CONFIG.priceModifiers[String(score)] || HONOUR_CONFIG.priceModifiers['0'];
     return { ...modInfo, score };
 }
 
