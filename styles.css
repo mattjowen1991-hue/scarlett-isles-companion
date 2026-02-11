@@ -1332,3 +1332,115 @@ header {
     color: #c45a5a !important;
     font-size: 1.1rem !important;
 }
+
+/* ===================================
+   QUEST INTEGRATION STYLES
+   =================================== */
+
+/* Active quest display in header */
+.active-quest-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.active-quest-display.has-quest {
+    background: rgba(180, 140, 80, 0.15);
+    border: 1px solid rgba(180, 140, 80, 0.3);
+}
+
+.active-quest-display .quest-icon {
+    font-size: 1rem;
+}
+
+.active-quest-display .quest-title {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.active-quest-display .quest-type {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    background: rgba(180, 140, 80, 0.2);
+    border-radius: 4px;
+    color: var(--text-secondary);
+}
+
+.active-quest-display .no-quest {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Quest-relevant item highlighting */
+.item-row.quest-relevant {
+    border-left: 3px solid #b4944e;
+    background: linear-gradient(90deg, rgba(180, 148, 78, 0.08) 0%, transparent 50%);
+}
+
+.item-row.quest-relevant::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #d4b85a, #8a6914);
+}
+
+/* Quest relevant badge */
+.quest-relevant-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    background: linear-gradient(135deg, rgba(180, 148, 78, 0.25), rgba(140, 105, 20, 0.25));
+    border: 1px solid rgba(180, 148, 78, 0.4);
+    border-radius: 4px;
+    color: #d4b85a;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    font-weight: 500;
+}
+
+/* Quest section in location bar */
+.quest-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1.25rem;
+    background: linear-gradient(180deg, rgba(42, 36, 32, 0.6) 0%, rgba(42, 36, 32, 0.4) 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.85rem;
+}
+
+.quest-label {
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+}
+
+.quest-name {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.quest-tags {
+    display: flex;
+    gap: 0.35rem;
+    margin-left: auto;
+}
+
+.quest-tag {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    background: rgba(180, 148, 78, 0.15);
+    border: 1px solid rgba(180, 148, 78, 0.25);
+    border-radius: 3px;
+    color: var(--text-secondary);
+}

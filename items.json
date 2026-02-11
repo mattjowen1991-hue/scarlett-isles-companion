@@ -1,81 +1,2432 @@
 [
-  {"id":"vorpal-sword","name":"Vorpal Sword","type":"Weapon (Greatsword)","category":"weapons","rarity":"Legendary","price":50000,"icon":"https://api.iconify.design/game-icons/bloody-sword.svg?color=%23ffffff","properties":"Heavy, two-handed","attunement":"Yes","damage":"2d6+3 slashing","suitableFor":["Fighter"],"questTags":["Monster","Military"],"flavour":"The blade hums with an eager, almost hungry resonance. Its edge exists in a state of impossible sharpness.","description":"You gain a +3 bonus to attack and damage rolls. Ignores resistance to slashing damage.\n\n**Vorpal Strike**: On a natural 20, cut off one head. Creature dies if it can't survive without the head.\n\n**Severing Edge**: Critical hits deal an extra 6d8 slashing damage.","stats":{"Damage":"2d6+3 slashing","Critical":"Decapitate","Bonus":"+3 to hit/damage"}},
-  {"id":"holy-avenger","name":"Holy Avenger","type":"Weapon (Longsword)","category":"weapons","rarity":"Legendary","price":45000,"icon":"https://api.iconify.design/game-icons/winged-sword.svg?color=%23ffffff","properties":"Versatile (1d10)","attunement":"Yes (Paladin)","damage":"1d8+3 radiant","suitableFor":["Fighter","Paladin"],"questTags":["Temple","Monster"],"flavour":"The blade radiates warmth that speaks of dawn breaking over ancient battlefields.","description":"You gain a +3 bonus to attack and damage rolls. Extra 2d10 radiant damage vs fiends/undead.\n\n**Aura of Protection**: 10ft radius, allies have advantage on saves vs spells and magic.","stats":{"Damage":"1d8+3 radiant","vs Fiend/Undead":"+2d10 radiant","Aura":"10-30 ft protection"}},
-  {"id":"staff-power","name":"Staff of Power","type":"Staff","category":"weapons","rarity":"Legendary","price":40000,"icon":"https://api.iconify.design/game-icons/wizard-staff.svg?color=%23ffffff","properties":"Versatile (1d8)","attunement":"Yes (Sorcerer, Warlock, or Wizard)","damage":"1d6+2 bludgeoning","suitableFor":["Ranger"],"questTags":[],"flavour":"Crystalline veins pulse with arcane energy along the staff's length.","description":"Grants +2 to AC, saves, and spell attacks. 20 charges for spells including fireball, lightning bolt, wall of force.\n\n**Retributive Strike**: Break the staff to release magic in an explosion.","stats":{"Charges":"20","Bonus":"+2 AC/Saves/Spell attacks","Damage":"1d6+2 bludgeoning"}},
-  {"id":"cloak-invisibility","name":"Cloak of Invisibility","type":"Wondrous Item","category":"gear","rarity":"Legendary","price":30000,"icon":"https://api.iconify.design/game-icons/cloak-dagger.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Rogue","Ranger"],"questTags":["Stealth","Intrigue","Bounty"],"flavour":"The fabric seems woven from twilight itself—neither fully present nor absent.","description":"Pull hood up to become invisible for up to 2 hours total. Regains 1 hour per 12 hours unused.","stats":{"Duration":"2 hours total","Recharge":"1 hour per 12 hours unused"}},
-  {"id":"oathbow","name":"Oathbow","type":"Weapon (Longbow)","category":"weapons","rarity":"Legendary","price":35000,"icon":"https://api.iconify.design/game-icons/bow-arrow.svg?color=%23ffffff","properties":"Ammunition (range 150/600), heavy, two-handed","attunement":"Yes","damage":"1d8 piercing + 3d6 vs sworn enemy","suitableFor":["Ranger","Fighter"],"questTags":["Bounty","Manhunt","Wanted"],"flavour":"Carved from heartwood of a tree that witnessed an ancient betrayal. It hungers to see vows fulfilled.","description":"Speak command to mark a sworn enemy for 7 days. Advantage on attacks, ignore cover, +3d6 damage vs sworn enemy. Disadvantage vs all others.","stats":{"Damage":"1d8 + 3d6 piercing","vs Sworn":"Advantage, ignore cover","Duration":"7 days or death"}},
-  {"id":"bow-warning","name":"Bow of Warning","type":"Weapon (Longbow)","category":"weapons","rarity":"Legendary","price":32000,"icon":"https://api.iconify.design/game-icons/high-shot.svg?color=%23ffffff","properties":"Ammunition (range 150/600), heavy, two-handed","attunement":"Yes","damage":"1d8+2 piercing","suitableFor":["Ranger","Fighter"],"questTags":["Escort","Investigation"],"flavour":"The bowstring hums with constant vigilance that seeps into your bones.","description":"+2 to attack and damage. Advantage on initiative. You and companions within 30ft can't be surprised. Awakens sleepers when combat begins.","stats":{"Damage":"1d8+2 piercing","Initiative":"Advantage","Special":"Can't be surprised"}},
-  {"id":"sunblade","name":"Sun Blade","type":"Weapon (Longsword)","category":"weapons","rarity":"Legendary","price":48000,"icon":"https://api.iconify.design/game-icons/sun-radiations.svg?color=%23ffffff","properties":"Versatile (1d10), finesse","attunement":"Yes","damage":"1d8+2 radiant","suitableFor":["Paladin","Fighter"],"questTags":["Monster","Temple"],"flavour":"A blade of pure sunlight springs forth from the hilt. Undead recoil from its brilliance.","description":"+2 to attack and damage. Deals radiant damage. Emits 15ft sunlight. Extra 1d8 radiant vs undead.","stats":{"Damage":"1d8+2 radiant","vs Undead":"+1d8 radiant","Light":"15ft sunlight"}},
-  {"id":"luck-blade","name":"Luck Blade","type":"Weapon (Shortsword)","category":"weapons","rarity":"Legendary","price":42000,"icon":"https://api.iconify.design/game-icons/clover.svg?color=%23ffffff","properties":"Finesse, light","attunement":"Yes","damage":"1d6+1 piercing","suitableFor":["Rogue","Fighter"],"questTags":[],"flavour":"Fortune favours those who carry this blade. Fate itself bends in your favour.","description":"+1 to attack, damage, and saves. Once per dawn, reroll any attack, check, or save. Has 1d4-1 Wish charges.","stats":{"Damage":"1d6+1 piercing","Bonus":"+1 saves","Special":"Reroll 1/day, Wish charges"}},
-  {"id":"robe-archmagi","name":"Robe of the Archmagi","type":"Wondrous Item","category":"armor","rarity":"Legendary","price":55000,"icon":"https://api.iconify.design/game-icons/robe.svg?color=%23ffffff","properties":"Wondrous item (requires attunement by a sorcerer, warlock, or wizard)","attunement":"Yes (Sorcerer, Warlock, or Wizard)","suitableFor":["Ranger"],"questTags":[],"flavour":"Woven from threads of pure magic, shimmering with arcane symbols.","description":"AC 15 + Dex (no armor). Advantage on saves vs spells/magic. +2 to spell save DC and spell attack.","stats":{"AC":"15 + Dex","Spell DC":"+2","Spell Attack":"+2"}},
-  {"id":"dancing-sword","name":"Dancing Sword","type":"Weapon (Longsword)","category":"weapons","rarity":"Legendary","price":38000,"icon":"https://api.iconify.design/game-icons/spinning-sword.svg?color=%23ffffff","properties":"Versatile (1d10)","attunement":"Yes","damage":"1d8 slashing","suitableFor":["Fighter","Paladin","Rogue"],"questTags":["Military"],"flavour":"Release the blade and it fights on its own, spinning and slashing through the air.","description":"Bonus action to release. Hovers up to 30ft, attacks one creature within 5ft using your stats. Attacks 4 times then returns.","stats":{"Damage":"1d8 slashing","Range":"30 ft hover","Duration":"4 attacks"}},
-  {"id":"belt-giant-strength-fire","name":"Belt of Fire Giant Strength","type":"Wondrous Item","category":"armor","rarity":"Legendary","price":45000,"icon":"https://api.iconify.design/game-icons/belt.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Fighter","Paladin"],"questTags":["Military","Monster"],"flavour":"Forged in volcanic fire. Feel the unstoppable strength of the fire giants.","description":"Your Strength score becomes 25.","stats":{"Strength":"Set to 25"}},
-  {"id":"cloak-arachnida","name":"Cloak of Arachnida","type":"Wondrous Item","category":"gear","rarity":"Legendary","price":35000,"icon":"https://api.iconify.design/game-icons/spider-web.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Rogue","Ranger"],"questTags":["Exploration","Stealth"],"flavour":"Spun from phase spider silk. Walls become floors, webs become pathways.","description":"Climb speed equal to walk speed (including ceilings). Move through webs freely. Can't be caught in webs. Resistance to poison.","stats":{"Climb":"Equal to walk speed","Immunity":"Webs","Resistance":"Poison"}},
-
-  {"id":"longbow-plus2","name":"Longbow +2","type":"Weapon (Longbow)","category":"weapons","rarity":"Rare","price":4500,"icon":"https://api.iconify.design/game-icons/pocket-bow.svg?color=%23ffffff","properties":"Ammunition (range 150/600), heavy, two-handed","attunement":"No","damage":"1d8+2 piercing","suitableFor":["Ranger"],"questTags":["Bounty","Military","Manhunt"],"flavour":"Masterfully crafted with enchanted limbs that add power to every shot.","description":"You gain a +2 bonus to attack and damage rolls made with this magic weapon.","stats":{"Damage":"1d8+2 piercing","Bonus":"+2 to hit/damage"}},
-  {"id":"longbow-plus1","name":"Longbow +1","type":"Weapon (Longbow)","category":"weapons","rarity":"Uncommon","price":1500,"icon":"https://api.iconify.design/game-icons/pocket-bow.svg?color=%23ffffff","properties":"Ammunition (range 150/600), heavy, two-handed","attunement":"No","damage":"1d8+1 piercing","suitableFor":["Ranger"],"questTags":["Bounty","Military"],"flavour":"A well-balanced bow with minor enchantments.","description":"You gain a +1 bonus to attack and damage rolls made with this magic weapon.","stats":{"Damage":"1d8+1 piercing","Bonus":"+1 to hit/damage"}},
-  {"id":"shortbow-swift","name":"Swiftshot Shortbow","type":"Weapon (Shortbow)","category":"weapons","rarity":"Rare","price":3200,"icon":"https://api.iconify.design/game-icons/high-shot.svg?color=%23ffffff","properties":"Ammunition (range 80/320), two-handed","attunement":"Yes","damage":"1d6+1 piercing","suitableFor":["Ranger","Rogue"],"questTags":["Bounty","Stealth"],"flavour":"A compact bow that seems to nock arrows of its own accord.","description":"+1 to attack and damage. Once per turn when you hit, you can immediately make another attack as part of the same action.","stats":{"Damage":"1d6+1 piercing","Bonus":"+1 to hit/damage","Special":"Extra attack on hit 1/turn"}},
-  {"id":"arrows-slaying-humanoid","name":"Arrows of Humanoid Slaying (5)","type":"Ammunition","category":"weapons","rarity":"Rare","price":500,"icon":"https://api.iconify.design/game-icons/arrow-cluster.svg?color=%23ffffff","properties":"Ammunition","attunement":"No","suitableFor":["Ranger"],"questTags":["Bounty","Manhunt","Wanted","Outlaw"],"flavour":"Black-fletched arrows that seek the hearts of men.","description":"If a humanoid takes damage from one of these arrows, it must make a DC 17 Constitution save or take an extra 6d10 piercing damage.","stats":{"Extra Damage":"6d10 on failed save","Save DC":"17 Con","Quantity":"5"}},
-  {"id":"quiver-ehlonna","name":"Quiver of Ehlonna","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":450,"icon":"https://api.iconify.design/game-icons/quiver.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Ranger"],"questTags":["Military","Escort"],"flavour":"This quiver has three compartments that seem impossibly deep.","description":"Holds 60 arrows, 18 javelins, and 6 long items like bows. Retrieving items is easy.","stats":{"Arrows":"60","Javelins":"18","Long Items":"6"}},
-  {"id":"bracers-archery","name":"Bracers of Archery","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":600,"icon":"https://api.iconify.design/game-icons/bracers.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Ranger"],"questTags":["Bounty","Military"],"flavour":"Leather bracers etched with images of arrows in flight.","description":"You gain proficiency with longbows and shortbows, and +2 bonus to damage rolls on ranged attacks with such weapons.","stats":{"Damage":"+2 with bows","Proficiency":"Longbow, Shortbow"}},
-  {"id":"cloak-elvenkind","name":"Cloak of Elvenkind","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":800,"icon":"https://api.iconify.design/game-icons/cloak.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Rogue","Ranger"],"questTags":["Stealth","Investigation","Intrigue","Bounty"],"flavour":"Woven from spider silk and shadow, this cloak shifts colours to match surroundings.","description":"With hood up, Perception checks to see you have disadvantage, and you have advantage on Stealth checks to hide.","stats":{"Stealth":"Advantage","Enemies":"Disadvantage to spot"}},
-  {"id":"boots-elvenkind","name":"Boots of Elvenkind","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":600,"icon":"https://api.iconify.design/game-icons/leather-boot.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Rogue","Ranger"],"questTags":["Stealth","Investigation","Intrigue"],"flavour":"Soft leather boots that absorb sound.","description":"Your steps make no sound. Advantage on Stealth checks that rely on moving silently.","stats":{"Stealth":"Advantage (silent movement)","Sound":"None"}},
-  {"id":"eyes-eagle","name":"Eyes of the Eagle","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":500,"icon":"https://api.iconify.design/game-icons/steampunk-goggles.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Ranger","Rogue"],"questTags":["Investigation","Bounty","Coast","Sea"],"flavour":"Crystal lenses that pull distant objects closer to the eye.","description":"Advantage on Perception checks that rely on sight. See details of distant objects up to 2 feet across.","stats":{"Perception":"Advantage (sight)","Range":"Extreme distance clarity"}},
-
-  {"id":"shortsword-venom","name":"Venom Fang","type":"Weapon (Shortsword)","category":"weapons","rarity":"Rare","price":2800,"icon":"https://api.iconify.design/game-icons/plain-dagger.svg?color=%23ffffff","properties":"Finesse, light","attunement":"No","damage":"1d6+1 piercing + 2d10 poison","suitableFor":["Rogue"],"questTags":["Bounty","Manhunt","Intrigue"],"flavour":"A wicked blade with channels that weep deadly green ichor.","description":"+1 to attack and damage. On hit, extra 2d10 poison damage. Can be recoated during short rest.","stats":{"Damage":"1d6+1 + 2d10 poison","Bonus":"+1 to hit/damage","Recoat":"Short rest"}},
-  {"id":"rapier-plus2","name":"Rapier +2","type":"Weapon (Rapier)","category":"weapons","rarity":"Rare","price":3500,"icon":"https://api.iconify.design/game-icons/sword-brandish.svg?color=%23ffffff","properties":"Finesse","attunement":"No","damage":"1d8+2 piercing","suitableFor":["Rogue","Fighter"],"questTags":["Diplomacy","Intrigue","City"],"flavour":"An elegant weapon, perfectly balanced for precise strikes.","description":"You gain a +2 bonus to attack and damage rolls made with this magic weapon.","stats":{"Damage":"1d8+2 piercing","Bonus":"+2 to hit/damage"}},
-  {"id":"shortsword-plus1","name":"Shortsword +1","type":"Weapon (Shortsword)","category":"weapons","rarity":"Uncommon","price":1000,"icon":"https://api.iconify.design/game-icons/plain-dagger.svg?color=%23ffffff","properties":"Finesse, light","attunement":"No","damage":"1d6+1 piercing","suitableFor":["Rogue"],"questTags":[],"flavour":"A well-made blade with minor enchantments.","description":"You gain a +1 bonus to attack and damage rolls made with this magic weapon.","stats":{"Damage":"1d6+1 piercing","Bonus":"+1 to hit/damage"}},
-  {"id":"daggers-returning","name":"Daggers of Returning (Pair)","type":"Weapon (Dagger)","category":"weapons","rarity":"Uncommon","price":900,"icon":"https://api.iconify.design/game-icons/thrown-daggers.svg?color=%23ffffff","properties":"Finesse, light, thrown (20/60)","attunement":"Yes","damage":"1d4+1 piercing","suitableFor":["Rogue","Ranger"],"questTags":["Bounty","Stealth","Manhunt"],"flavour":"Twin blades forged from the same ore, forever drawn back to each other.","description":"+1 to attack and damage. Returns to your hand immediately after thrown.","stats":{"Damage":"1d4+1 piercing","Bonus":"+1 to hit/damage","Special":"Returns after thrown"}},
-  {"id":"gloves-thievery","name":"Gloves of Thievery","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":750,"icon":"https://api.iconify.design/game-icons/gloves.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Rogue"],"questTags":["Theft","Stealth","Retrieval","Intrigue"],"flavour":"Thin as a second skin, these gloves enhance dexterity while leaving no fingerprints.","description":"Invisible while worn. +5 bonus to Sleight of Hand checks and lockpicking.","stats":{"Sleight of Hand":"+5","Lockpicking":"+5","Visibility":"Invisible"}},
-  {"id":"hat-disguise","name":"Hat of Disguise","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":450,"icon":"https://api.iconify.design/game-icons/top-hat.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Rogue"],"questTags":["Intrigue","Stealth","Investigation","Bounty"],"flavour":"A fashionable hat that shifts and changes to suit any disguise.","description":"Cast disguise self at will while wearing. Spell ends if hat is removed.","stats":{"Spell":"Disguise Self (at will)","Duration":"Until removed"}},
-  {"id":"thieves-tools-masterwork","name":"Masterwork Thieves' Tools","type":"Tools","category":"gear","rarity":"Uncommon","price":250,"icon":"https://api.iconify.design/game-icons/lockpicks.svg?color=%23ffffff","properties":"Tools","attunement":"No","suitableFor":["Rogue"],"questTags":["Theft","Retrieval","Stealth","Intrigue"],"flavour":"Picks, files, and probes made from the finest materials.","description":"+2 bonus to checks to pick locks or disarm traps.","stats":{"Bonus":"+2 to lockpicking/trap disarming"}},
-  {"id":"cloak-displacement","name":"Cloak of Displacement","type":"Wondrous Item","category":"gear","rarity":"Rare","price":3000,"icon":"https://api.iconify.design/game-icons/cloak.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Rogue","Ranger"],"questTags":["Stealth","Bounty","Military"],"flavour":"Projects an illusion making you appear slightly away from your actual position.","description":"Creatures have disadvantage on attack rolls against you. Resets at start of your turn if you take damage.","stats":{"Defense":"Disadvantage on attacks against you","Resets":"Start of your turn"}},
-
-  {"id":"longsword-plus2","name":"Longsword +2","type":"Weapon (Longsword)","category":"weapons","rarity":"Rare","price":4000,"icon":"https://api.iconify.design/game-icons/crossed-swords.svg?color=%23ffffff","properties":"Versatile (1d10)","attunement":"No","damage":"1d8+2 slashing","suitableFor":["Fighter"],"questTags":["Military","Escort"],"flavour":"A masterfully forged blade that seems to guide itself toward enemies.","description":"You gain a +2 bonus to attack and damage rolls made with this magic weapon.","stats":{"Damage":"1d8+2 slashing","Bonus":"+2 to hit/damage"}},
-  {"id":"longsword-plus1","name":"Longsword +1","type":"Weapon (Longsword)","category":"weapons","rarity":"Uncommon","price":1500,"icon":"https://api.iconify.design/game-icons/crossed-swords.svg?color=%23ffffff","properties":"Versatile (1d10)","attunement":"No","damage":"1d8+1 slashing","suitableFor":["Fighter"],"questTags":[],"flavour":"A reliable blade with minor enchantments.","description":"You gain a +1 bonus to attack and damage rolls made with this magic weapon.","stats":{"Damage":"1d8+1 slashing","Bonus":"+1 to hit/damage"}},
-  {"id":"greatsword-plus2","name":"Greatsword +2","type":"Weapon (Greatsword)","category":"weapons","rarity":"Rare","price":4500,"icon":"https://api.iconify.design/game-icons/bloody-sword.svg?color=%23ffffff","properties":"Heavy, two-handed","attunement":"No","damage":"2d6+2 slashing","suitableFor":["Fighter"],"questTags":["Military","Monster"],"flavour":"A massive blade that cleaves through armor like parchment.","description":"You gain a +2 bonus to attack and damage rolls made with this magic weapon.","stats":{"Damage":"2d6+2 slashing","Bonus":"+2 to hit/damage"}},
-  {"id":"battleaxe-plus2","name":"Battleaxe +2","type":"Weapon (Battleaxe)","category":"weapons","rarity":"Rare","price":4000,"icon":"https://api.iconify.design/game-icons/sharp-axe.svg?color=%23ffffff","properties":"Versatile (1d10)","attunement":"No","damage":"1d8+2 slashing","suitableFor":["Fighter"],"questTags":["Military","Monster"],"flavour":"Runes of battle are carved into the axe head.","description":"You gain a +2 bonus to attack and damage rolls made with this magic weapon.","stats":{"Damage":"1d8+2 slashing","Bonus":"+2 to hit/damage"}},
-  {"id":"flame-tongue","name":"Flame Tongue Longsword","type":"Weapon (Longsword)","category":"weapons","rarity":"Rare","price":5000,"icon":"https://api.iconify.design/game-icons/flaming-trident.svg?color=%23ffffff","properties":"Versatile (1d10)","attunement":"Yes","damage":"1d8 slashing + 2d6 fire","suitableFor":["Fighter"],"questTags":["Military","Monster"],"flavour":"The steel carries an inner fire that never dies—even sheathed, the blade is warm.","description":"Bonus action to ignite. While ablaze, deals extra 2d6 fire damage and sheds 40ft bright light.","stats":{"Damage":"1d8 + 2d6 fire","Light":"40ft bright / 40ft dim","Activation":"Bonus action"}},
-  {"id":"frost-brand","name":"Frost Brand Longsword","type":"Weapon (Longsword)","category":"weapons","rarity":"Rare","price":5500,"icon":"https://api.iconify.design/game-icons/ice-bolt.svg?color=%23ffffff","properties":"Versatile (1d10)","attunement":"Yes","damage":"1d8 slashing + 1d6 cold","suitableFor":["Fighter"],"questTags":["Military","Monster"],"flavour":"Ice crystals form along the blade's edge. The air grows cold when drawn.","description":"Deals extra 1d6 cold damage. Fire resistance while held. In freezing temps, sheds 10ft bright light.","stats":{"Damage":"1d8 + 1d6 cold","Resistance":"Fire","Light":"10ft in cold"}},
-  {"id":"shield-plus2","name":"Shield +2","type":"Armor (Shield)","category":"armor","rarity":"Rare","price":3000,"icon":"https://api.iconify.design/game-icons/shield.svg?color=%23ffffff","properties":"Shield","attunement":"No","suitableFor":["Fighter"],"questTags":["Escort","Military"],"flavour":"A sturdy shield reinforced with protective enchantments.","description":"While holding this shield, you have a +2 bonus to AC in addition to the shield's normal AC bonus.","stats":{"AC":"+2 (total +4 with shield)"}},
-  {"id":"shield-plus1","name":"Shield +1","type":"Armor (Shield)","category":"armor","rarity":"Uncommon","price":1200,"icon":"https://api.iconify.design/game-icons/shield.svg?color=%23ffffff","properties":"Shield","attunement":"No","suitableFor":["Fighter"],"questTags":["Escort"],"flavour":"A well-made shield with minor protective enchantments.","description":"While holding this shield, you have a +1 bonus to AC in addition to the shield's normal AC bonus.","stats":{"AC":"+1 (total +3 with shield)"}},
-  {"id":"sentinel-shield","name":"Sentinel Shield","type":"Armor (Shield)","category":"armor","rarity":"Uncommon","price":650,"icon":"https://api.iconify.design/game-icons/shield.svg?color=%23ffffff","properties":"Shield (+2 AC)","attunement":"No","suitableFor":["Fighter"],"questTags":["Escort","Military","Investigation"],"flavour":"An eye is emblazoned on the shield's face, always alert for danger.","description":"Advantage on initiative rolls and Perception checks.","stats":{"AC":"+2","Initiative":"Advantage","Perception":"Advantage"}},
-  {"id":"plate-plus1","name":"Plate Armor +1","type":"Armor (Plate)","category":"armor","rarity":"Rare","price":5500,"icon":"https://api.iconify.design/game-icons/chest-armor.svg?color=%23ffffff","properties":"Heavy armor","attunement":"No","suitableFor":["Fighter"],"questTags":["Military"],"flavour":"Masterwork plate armor with magical reinforcement.","description":"AC 18 + 1 bonus. Requires Strength 15.","stats":{"AC":"19","Stealth":"Disadvantage","Str Required":"15"}},
-  {"id":"half-plate-plus1","name":"Half Plate +1","type":"Armor (Half Plate)","category":"armor","rarity":"Rare","price":3500,"icon":"https://api.iconify.design/game-icons/chest-armor.svg?color=%23ffffff","properties":"Medium armor","attunement":"No","suitableFor":["Fighter","Ranger"],"questTags":["Military"],"flavour":"Reinforced half plate with enchanted joints.","description":"AC 15 + Dex (max 2) + 1 bonus.","stats":{"AC":"16 + Dex (max 2)","Stealth":"Disadvantage"}},
-  {"id":"chain-mail-plus1","name":"Chain Mail +1","type":"Armor (Chain Mail)","category":"armor","rarity":"Rare","price":2000,"icon":"https://api.iconify.design/game-icons/chain-mail.svg?color=%23ffffff","properties":"Heavy armor","attunement":"No","suitableFor":["Fighter"],"questTags":["Military","Escort"],"flavour":"Expertly forged links that turn aside blows.","description":"AC 16 + 1 bonus. Requires Strength 13.","stats":{"AC":"17","Stealth":"Disadvantage","Str Required":"13"}},
-  {"id":"gauntlets-ogre","name":"Gauntlets of Ogre Power","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":700,"icon":"https://api.iconify.design/game-icons/gauntlet.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Fighter"],"questTags":["Military","Escort"],"flavour":"Heavy iron gauntlets that pulse with bestial strength.","description":"Your Strength score becomes 19.","stats":{"Strength":"Set to 19"}},
-  {"id":"boots-speed","name":"Boots of Speed","type":"Wondrous Item","category":"gear","rarity":"Rare","price":2800,"icon":"https://api.iconify.design/game-icons/wing-foot.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Rogue","Ranger","Fighter"],"questTags":["Bounty","Manhunt","Escort","Time"],"flavour":"Winged designs on the heels glow when activated.","description":"Bonus action to double walking speed for 10 minutes. 1/long rest.","stats":{"Speed":"Doubled","Duration":"10 minutes","Uses":"1/long rest"}},
-
-  {"id":"studded-leather-plus1","name":"Studded Leather +1","type":"Armor (Studded Leather)","category":"armor","rarity":"Rare","price":1500,"icon":"https://api.iconify.design/game-icons/leather-vest.svg?color=%23ffffff","properties":"Light armor","attunement":"No","suitableFor":["Rogue","Ranger"],"questTags":["Stealth","Bounty"],"flavour":"Supple leather enchanted to turn aside weapons.","description":"AC 12 + Dex + 1 bonus. No stealth penalty.","stats":{"AC":"13 + Dex","Stealth":"No penalty"}},
-  {"id":"bracers-defense","name":"Bracers of Defense","type":"Wondrous Item","category":"armor","rarity":"Rare","price":2500,"icon":"https://api.iconify.design/game-icons/bracers.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Rogue","Ranger"],"questTags":[],"flavour":"Etched with protective runes that shimmer with defensive magic.","description":"+2 bonus to AC if wearing no armor and using no shield.","stats":{"AC":"+2 (no armor/shield)"}},
-  {"id":"ring-protection","name":"Ring of Protection","type":"Ring","category":"gear","rarity":"Rare","price":1800,"icon":"https://api.iconify.design/game-icons/ring.svg?color=%23ffffff","properties":"Ring","attunement":"Yes","suitableFor":["Rogue","Ranger","Fighter"],"questTags":[],"flavour":"Silver bands interweave in an endless knot, shifting when danger approaches.","description":"+1 bonus to AC and saving throws.","stats":{"AC":"+1","Saves":"+1"}},
-  {"id":"amulet-health","name":"Amulet of Health","type":"Wondrous Item","category":"gear","rarity":"Rare","price":2000,"icon":"https://api.iconify.design/game-icons/gem-pendant.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Fighter","Rogue","Ranger"],"questTags":[],"flavour":"A deep red gem pulses with a rhythm that steadies your heartbeat.","description":"Your Constitution score becomes 19.","stats":{"Constitution":"Set to 19"}},
-
-  {"id":"potion-healing-greater","name":"Potion of Greater Healing","type":"Potion","category":"gear","rarity":"Uncommon","price":150,"icon":"https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff","properties":"Consumable","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Military","Monster","Bounty"],"flavour":"A swirling red liquid that glows from within.","description":"Regain 4d4 + 4 hit points.","stats":{"Healing":"4d4+4 HP"}},
-  {"id":"potion-healing-superior","name":"Potion of Superior Healing","type":"Potion","category":"gear","rarity":"Rare","price":450,"icon":"https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff","properties":"Consumable","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Military","Monster","Bounty"],"flavour":"A brilliant crimson potion that pulses with healing magic.","description":"Regain 8d4 + 8 hit points.","stats":{"Healing":"8d4+8 HP"}},
-  {"id":"potion-invisibility","name":"Potion of Invisibility","type":"Potion","category":"gear","rarity":"Rare","price":400,"icon":"https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff","properties":"Consumable","attunement":"No","suitableFor":["Rogue","Ranger"],"questTags":["Stealth","Intrigue","Investigation","Bounty"],"flavour":"This potion's container looks empty but feels full.","description":"Invisible for 1 hour. Ends early if you attack or cast a spell.","stats":{"Duration":"1 hour","Ends":"On attack or spell"}},
-  {"id":"potion-water-breathing","name":"Potion of Water Breathing","type":"Potion","category":"gear","rarity":"Uncommon","price":180,"icon":"https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff","properties":"Consumable","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Sea","Coast","Harbour","Pirates"],"flavour":"Cloudy green fluid that smells of the sea.","description":"Breathe underwater for 1 hour.","stats":{"Duration":"1 hour","Effect":"Breathe underwater"}},
-  {"id":"potion-climbing","name":"Potion of Climbing","type":"Potion","category":"gear","rarity":"Common","price":75,"icon":"https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff","properties":"Consumable","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Exploration","Retrieval"],"flavour":"Brown, muddy liquid that smells of moss.","description":"Climbing speed equal to walking speed for 1 hour. Advantage on Strength (Athletics) checks to climb.","stats":{"Duration":"1 hour","Effect":"Climbing speed, advantage"}},
-
-  {"id":"bag-holding","name":"Bag of Holding","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":500,"icon":"https://api.iconify.design/game-icons/swap-bag.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Retrieval","Trade","Escort"],"flavour":"Interior is much larger than outside dimensions.","description":"Holds 500 lbs / 64 cu ft. Always weighs 15 lbs.","stats":{"Capacity":"500 lbs / 64 cu ft","Weight":"15 lbs always"}},
-  {"id":"sending-stones","name":"Sending Stones","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":350,"icon":"https://api.iconify.design/game-icons/stone-pile.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Escort","Military","Diplomacy","Intrigue"],"flavour":"Smooth stones with matching runes that pulse when a message is sent.","description":"Cast sending 1/day. Works across any distance on same plane.","stats":{"Range":"Unlimited","Uses":"1/day per stone","Duration":"25 words"}},
-  {"id":"lantern-revealing","name":"Lantern of Revealing","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":450,"icon":"https://api.iconify.design/game-icons/lantern-flame.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Investigation","Missing","Stealth"],"flavour":"The flame burns with an otherworldly blue light.","description":"30ft bright light, 30ft dim. Invisible creatures are visible in bright light.","stats":{"Light":"30ft bright / 30ft dim","Special":"Reveals invisible","Duration":"6 hours"}},
-  {"id":"rope-climbing","name":"Rope of Climbing","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":400,"icon":"https://api.iconify.design/game-icons/rope-coil.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Rogue","Ranger","Fighter"],"questTags":["Exploration","Retrieval","Stealth"],"flavour":"Silk rope that responds to whispered commands.","description":"60ft rope, holds 3000 lbs. Command word animates it to fasten/unfasten.","stats":{"Length":"60 ft","Capacity":"3,000 lbs","Speed":"10 ft/round"}},
-  {"id":"medallion-thoughts","name":"Medallion of Thoughts","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":550,"icon":"https://api.iconify.design/game-icons/meditation.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Rogue","Ranger"],"questTags":["Intrigue","Investigation","Diplomacy"],"flavour":"A silver medallion inscribed with a stylized eye.","description":"3 charges. Cast detect thoughts (DC 13). Regains 1d3 charges at dawn.","stats":{"Charges":"3","Spell":"Detect Thoughts (DC 13)","Recharge":"1d3 at dawn"}},
-  {"id":"ring-mind-shielding","name":"Ring of Mind Shielding","type":"Ring","category":"gear","rarity":"Uncommon","price":600,"icon":"https://api.iconify.design/game-icons/ring.svg?color=%23ffffff","properties":"Ring","attunement":"Yes","suitableFor":["Rogue","Ranger","Fighter"],"questTags":["Intrigue","Diplomacy","Secrets"],"flavour":"A plain silver band that grows warm when mental intrusion is attempted.","description":"Immune to magic that reads thoughts, detects lies, or knows alignment/type.","stats":{"Protection":"Immune to mind reading","Special":"Lies undetectable"}},
-  {"id":"dimensional-shackles","name":"Dimensional Shackles","type":"Wondrous Item","category":"gear","rarity":"Rare","price":3000,"icon":"https://api.iconify.design/game-icons/handcuffs.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Bounty","Manhunt","Wanted","Outlaw"],"flavour":"Heavy iron shackles with runes that glow when securing a creature.","description":"Place on incapacitated creature. Prevents teleportation and extradimensional travel. Size Small to Large.","stats":{"Size":"Small to Large","Effect":"Prevents teleportation"}},
-  {"id":"net-snaring","name":"Net of Snaring","type":"Weapon (Net)","category":"weapons","rarity":"Uncommon","price":350,"icon":"https://api.iconify.design/game-icons/fishing-net.svg?color=%23ffffff","properties":"Thrown (5/15), special","attunement":"No","damage":"None","suitableFor":["Fighter","Ranger"],"questTags":["Bounty","Manhunt","Wanted"],"flavour":"Enchanted fibers that tighten when struggling.","description":"+2 to attack. Restrained creature has disadvantage on escape (DC 15 Strength).","stats":{"Attack":"+2 to hit","Escape DC":"15 (Str)","Special":"Disadvantage to escape"}},
-  {"id":"manacles-mithral","name":"Mithral Manacles","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":200,"icon":"https://api.iconify.design/game-icons/handcuffs.svg?color=%23ffffff","properties":"Adventuring gear","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Bounty","Manhunt","Wanted","Outlaw"],"flavour":"Lightweight but incredibly strong manacles.","description":"DC 25 to break, DC 20 to escape. Weighs only 1 lb.","stats":{"Break DC":"25","Escape DC":"20","Weight":"1 lb"}},
-
-  {"id":"torch-everburning","name":"Everburning Torch","type":"Adventuring Gear","category":"gear","rarity":"Common","price":25,"icon":"https://api.iconify.design/game-icons/torch.svg?color=%23ffffff","properties":"Adventuring gear","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Exploration","Missing","Investigation"],"flavour":"A torch enchanted with continual flame.","description":"20ft bright light, 20ft dim. Never burns out, no heat.","stats":{"Light":"20ft bright / 20ft dim","Duration":"Permanent"}},
-  {"id":"compass-wayfinder","name":"Wayfinder's Compass","type":"Wondrous Item","category":"gear","rarity":"Common","price":50,"icon":"https://api.iconify.design/game-icons/compass.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Ranger","Fighter"],"questTags":["Exploration","Sea","Road","Missing"],"flavour":"A brass compass whose needle always points true.","description":"Points to nearest settlement (100+ people) or named location you've visited.","stats":{"Function":"Points to settlements or named locations"}},
-  {"id":"spyglass-enhanced","name":"Enhanced Spyglass","type":"Adventuring Gear","category":"gear","rarity":"Common","price":100,"icon":"https://api.iconify.design/game-icons/telescope.svg?color=%23ffffff","properties":"Adventuring gear","attunement":"No","suitableFor":["Ranger","Rogue"],"questTags":["Sea","Coast","Bounty","Investigation"],"flavour":"Brass spyglass with enchanted lenses.","description":"2x magnification, see clearly up to 1 mile.","stats":{"Magnification":"2x","Range":"1 mile clarity"}},
-  {"id":"whistle-warning","name":"Whistle of Warning","type":"Wondrous Item","category":"gear","rarity":"Common","price":35,"icon":"https://api.iconify.design/game-icons/whistle.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Escort","Military","Investigation"],"flavour":"Silver whistle with selective sound.","description":"Sound only heard by up to 6 designated creatures within 1 mile.","stats":{"Range":"1 mile","Targets":"Up to 6 designated creatures"}},
-  {"id":"sailors-charm","name":"Sailor's Charm","type":"Wondrous Item","category":"gear","rarity":"Common","price":45,"icon":"https://api.iconify.design/game-icons/anchor.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Sea","Coast","Pirates","Harbour"],"flavour":"Anchor pendant carved from driftwood.","description":"Hold breath 2x longer. Advantage on swimming checks.","stats":{"Breath":"2x duration","Swimming":"Advantage"}},
-  {"id":"investigators-lens","name":"Investigator's Lens","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":275,"icon":"https://api.iconify.design/game-icons/magnifying-glass.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Rogue","Ranger"],"questTags":["Investigation","Missing","Proof","Forgery"],"flavour":"Magnifying glass that reveals hidden details.","description":"Advantage on Investigation checks to find hidden details, secret compartments, or forgeries. Reads invisible ink.","stats":{"Investigation":"Advantage","Special":"Reveals invisible ink"}},
-  {"id":"diplomats-pouch","name":"Diplomat's Pouch","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":300,"icon":"https://api.iconify.design/game-icons/scroll-unfurled.svg?color=%23ffffff","properties":"Wondrous item","attunement":"No","suitableFor":["Fighter","Rogue","Ranger"],"questTags":["Diplomacy","Clan","Temple","Politics"],"flavour":"Leather case that protects contents from all harm.","description":"Documents inside protected from water, fire, damage. Hidden compartment (DC 20 to find).","stats":{"Protection":"Fire/water/damage proof","Hidden":"DC 20 to find compartment"}},
-  {"id":"bounty-hunters-brand","name":"Bounty Hunter's Brand","type":"Wondrous Item","category":"gear","rarity":"Uncommon","price":400,"icon":"https://api.iconify.design/game-icons/branding-iron.svg?color=%23ffffff","properties":"Wondrous item","attunement":"Yes","suitableFor":["Fighter","Ranger"],"questTags":["Bounty","Manhunt","Wanted","Outlaw"],"flavour":"An iron brand that marks your quarry.","description":"Action to mark creature for 24 hours. Know direction and distance while on same plane. 1/long rest.","stats":{"Duration":"24 hours","Range":"Same plane","Uses":"1/long rest"}},
-  {"id":"grappling-hook","name":"Grappling Hook of Sure Grip","type":"Adventuring Gear","category":"gear","rarity":"Common","price":75,"icon":"https://api.iconify.design/game-icons/grappling-hook.svg?color=%23ffffff","properties":"Adventuring gear","attunement":"No","suitableFor":["Rogue","Ranger","Fighter"],"questTags":["Exploration","Retrieval","Stealth"],"flavour":"Enchanted hook that bites deep into any surface.","description":"Advantage to secure. Holds up to 1,000 lbs.","stats":{"Advantage":"To secure","Capacity":"1,000 lbs"}},
-  {"id":"caltrops-persistent","name":"Persistent Caltrops","type":"Adventuring Gear","category":"gear","rarity":"Common","price":30,"icon":"https://api.iconify.design/game-icons/caltrops.svg?color=%23ffffff","properties":"Adventuring gear","attunement":"No","suitableFor":["Rogue","Ranger"],"questTags":["Bounty","Manhunt","Escort"],"flavour":"Caltrops that phase slightly, hard to spot.","description":"DC 18 Perception to notice. Standard caltrop effects (stop movement, 1 piercing damage).","stats":{"Perception DC":"18","Damage":"1 piercing","Effect":"Stop movement"}},
-  {"id":"smoke-pellets","name":"Smoke Pellets (5)","type":"Adventuring Gear","category":"gear","rarity":"Common","price":25,"icon":"https://api.iconify.design/game-icons/smoke-bomb.svg?color=%23ffffff","properties":"Adventuring gear, consumable","attunement":"No","suitableFor":["Rogue","Ranger"],"questTags":["Stealth","Escape","Intrigue"],"flavour":"Small pellets that burst into obscuring smoke.","description":"Throw as action. 10ft radius heavily obscured for 1 minute or until dispersed.","stats":{"Radius":"10 ft","Duration":"1 minute","Quantity":"5"}}
+  {
+    "id": "vorpal-sword",
+    "name": "Vorpal Sword",
+    "type": "Weapon (Greatsword)",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 50000,
+    "icon": "https://api.iconify.design/game-icons/bloody-sword.svg?color=%23ffffff",
+    "properties": "Heavy, two-handed",
+    "attunement": "Yes",
+    "damage": "2d6+3 slashing",
+    "suitableFor": [
+      "Fighter"
+    ],
+    "flavour": "The blade hums with an eager, almost hungry resonance. Its edge exists in a state of impossible sharpness\u2014legends say it was folded in the space between moments, tempered in the silence before thunder.",
+    "description": "You gain a +3 bonus to attack and damage rolls made with this magic weapon. In addition, the weapon ignores resistance to slashing damage.\n\n**Vorpal Strike**\nWhen you attack a creature that has at least one head with this weapon and roll a 20 on the attack roll, you cut off one of the creature's heads. The creature dies if it can't survive without the lost head. A creature is immune to this effect if it is immune to slashing damage, doesn't have or need a head, has legendary actions, or the DM decides that the creature is too big for its head to be cut off with this weapon.\n\n**Severing Edge**\nCritical hits with this weapon deal an additional 6d8 slashing damage.",
+    "stats": {
+      "Damage": "2d6+3 slashing",
+      "Critical": "Decapitate",
+      "Bonus": "+3 to hit/damage"
+    }
+  },
+  {
+    "id": "holy-avenger",
+    "name": "Holy Avenger",
+    "type": "Weapon (Longsword)",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 45000,
+    "icon": "https://api.iconify.design/game-icons/winged-sword.svg?color=%23ffffff",
+    "properties": "Versatile (1d10)",
+    "attunement": "Yes (Paladin)",
+    "damage": "1d8+3 radiant",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "flavour": "The blade radiates a warmth that speaks of dawn breaking over ancient battlefields. Its crossguard bears the wings of celestial messengers, and when drawn in righteous cause, it blazes with holy fire.",
+    "description": "You gain a +3 bonus to attack and damage rolls made with this magic weapon. When you hit a fiend or an undead with it, that creature takes an extra 2d10 radiant damage.\n\n**Aura of Protection**\nWhile you hold the drawn sword, it creates an aura in a 10-foot radius around you. You and all creatures friendly to you in the aura have advantage on saving throws against spells and other magical effects.\n\n**Divine Conduit**\nIf you have 17 or more levels in the paladin class, the radius of the aura increases to 30 feet.",
+    "stats": {
+      "Damage": "1d8+3 radiant",
+      "vs Fiend/Undead": "+2d10 radiant",
+      "Aura": "10-30 ft protection"
+    }
+  },
+  {
+    "id": "staff-power",
+    "name": "Staff of Power",
+    "type": "Staff",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 40000,
+    "icon": "https://api.iconify.design/game-icons/wizard-staff.svg?color=%23ffffff",
+    "properties": "Versatile (1d8), requires attunement by a sorcerer, warlock, or wizard",
+    "attunement": "Yes (Sorcerer, Warlock, or Wizard)",
+    "damage": "1d6+2 bludgeoning",
+    "suitableFor": [
+      "Ranger"
+    ],
+    "flavour": "Crystalline veins pulse with arcane energy along the staff's length, converging at a headpiece that seems to drink in ambient light. The wood itself is warm to the touch, thrumming with barely contained power.",
+    "description": "This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls made with it. While holding it, you gain a +2 bonus to Armor Class, saving throws, and spell attack rolls.\n\n**Power Strike**\nWhen you hit with a melee attack using the staff, you can expend 1 charge to deal an extra 1d6 force damage to the target.\n\n**Spells**\nThe staff has 20 charges. While holding it, you can use an action to expend 1 or more charges to cast one of the following spells: cone of cold (5 charges), fireball (5th-level, 5 charges), globe of invulnerability (6 charges), hold monster (5 charges), levitate (2 charges), lightning bolt (5th-level, 5 charges), magic missile (1 charge), ray of enfeeblement (1 charge), or wall of force (5 charges).\n\n**Retributive Strike**\nYou can break the staff as an action, releasing its magic in an explosion.",
+    "stats": {
+      "Charges": "20",
+      "Bonus": "+2 AC/Saves/Spell attacks",
+      "Damage": "1d6+2 bludgeoning"
+    }
+  },
+  {
+    "id": "cloak-invisibility",
+    "name": "Cloak of Invisibility",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Legendary",
+    "price": 30000,
+    "icon": "https://api.iconify.design/game-icons/cloak-dagger.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "flavour": "The fabric seems woven from twilight itself\u2014neither fully present nor absent. When still, it might be mistaken for a shadow; when moving, it bends light around itself like water around a stone.",
+    "description": "While wearing this cloak, you can pull its hood over your head to cause yourself to become invisible. While you are invisible, anything you are carrying or wearing is invisible with you. You become visible when you cease wearing the hood. Pulling the hood up or down requires an action.\n\n**Deduct Time**\nThe cloak can be used for a total of 2 hours, all at once or in increments of 1 minute. After 2 hours of use, the cloak ceases to function. For every uninterrupted period of 12 hours the cloak goes unused, it regains 1 hour of duration.",
+    "stats": {
+      "Duration": "2 hours total",
+      "Recharge": "1 hour per 12 hours unused"
+    }
+  },
+  {
+    "id": "flame-tongue-longsword",
+    "name": "Flame Tongue Longsword",
+    "type": "Weapon (Longsword)",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 5000,
+    "icon": "https://api.iconify.design/game-icons/flaming-trident.svg?color=%23ffffff",
+    "properties": "Versatile (1d10)",
+    "attunement": "Yes",
+    "damage": "1d8 slashing + 2d6 fire",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "flavour": "The steel carries an inner fire that never quite dies\u2014even sheathed, the blade is warm to the touch. When the command word is spoken, flames race along its edge like eager hounds released from a leash.",
+    "description": "You can use a bonus action to speak this magic sword's command word, causing flames to erupt from the blade. These flames shed bright light in a 40-foot radius and dim light for an additional 40 feet. While the sword is ablaze, it deals an extra 2d6 fire damage to any target it hits. The flames last until you use a bonus action to speak the command word again or until you drop or sheathe the sword.\n\n**Illumination**\nThe flames provide both tactical advantage and practical light source, revealing hidden enemies and dark passages alike.",
+    "stats": {
+      "Damage": "1d8 + 2d6 fire",
+      "Light": "40ft bright / 40ft dim",
+      "Activation": "Bonus action"
+    }
+  },
+  {
+    "id": "amulet-health",
+    "name": "Amulet of Health",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 2000,
+    "icon": "https://api.iconify.design/game-icons/gem-pendant.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Rogue"
+    ],
+    "flavour": "A deep red gem pulses with a rhythm that matches\u2014then steadies\u2014your heartbeat. Ancient healers called these 'vitality stones,' claiming they anchor the soul more firmly to the body.",
+    "description": "Your Constitution score is 19 while you wear this amulet. It has no effect on you if your Constitution is already 19 or higher without it.\n\n**Fortified Vitality**\nThe amulet's magic reinforces your physical resilience, granting the Constitution of a trained warrior regardless of your natural constitution.",
+    "stats": {
+      "Constitution": "Set to 19",
+      "Requires": "Attunement"
+    }
+  },
+  {
+    "id": "ioun-stone-protection",
+    "name": "Ioun Stone (Protection)",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 1800,
+    "icon": "https://api.iconify.design/game-icons/floating-crystal.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "flavour": "This dusty rose prism orbits your head in slow, deliberate circuits. It seems almost aware\u2014dodging grasping hands and weaving between sword strokes as if it shares your survival instinct.",
+    "description": "An Ioun stone is named after Ioun, a god of knowledge and prophecy. When you use an action to toss one of these stones into the air, the stone orbits your head at a distance of 1d3 feet and confers a benefit to you.\n\n**Protection**\nYou gain a +1 bonus to AC while this dusty rose prism orbits your head.\n\n**Vulnerability**\nAnother creature can use an action to grasp or net the stone to separate it from you, either by making a successful attack roll against AC 24 or a successful DC 24 Dexterity (Acrobatics) check.",
+    "stats": {
+      "AC Bonus": "+1",
+      "Orbit": "1d3 feet from head"
+    }
+  },
+  {
+    "id": "ring-protection",
+    "name": "Ring of Protection",
+    "type": "Ring",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 1500,
+    "icon": "https://api.iconify.design/game-icons/ring.svg?color=%23ffffff",
+    "properties": "Ring",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "flavour": "Delicate silver bands interweave in an endless knot, the pattern shifting subtly when danger approaches. Those who wear it speak of a constant, gentle pressure\u2014like an unseen hand ready to deflect.",
+    "description": "You gain a +1 bonus to AC and saving throws while wearing this ring.\n\n**Warding Magic**\nThe ring's protective enchantment extends beyond mere physical defence, bolstering your resistance to magical effects and environmental hazards alike.",
+    "stats": {
+      "AC Bonus": "+1",
+      "Saving Throws": "+1"
+    }
+  },
+  {
+    "id": "dagger-venom",
+    "name": "Dagger of Venom",
+    "type": "Weapon (Dagger)",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 1200,
+    "icon": "https://api.iconify.design/game-icons/dripping-blade.svg?color=%23ffffff",
+    "properties": "Finesse, light, thrown (range 20/60)",
+    "attunement": "No",
+    "damage": "1d4+1 piercing + poison",
+    "suitableFor": [
+      "Rogue"
+    ],
+    "flavour": "The blade weeps a single black tear that never quite falls. Serpentine patterns etched into the steel seem to writhe in torchlight, and the handle is wrapped in snakeskin that's cool to the touch.",
+    "description": "You gain a +1 bonus to attack and damage rolls made with this magic weapon.\n\n**Poison**\nYou can use an action to cause thick, black poison to coat the blade. The poison remains for 1 minute or until an attack using this weapon hits a creature. That creature must succeed on a DC 15 Constitution saving throw or take 2d10 poison damage and become poisoned for 1 minute. The dagger can't be used this way again until the next dawn.",
+    "stats": {
+      "Damage": "1d4+1 piercing",
+      "Poison": "2d10 (DC 15 Con)",
+      "Recharge": "Dawn"
+    }
+  },
+  {
+    "id": "potion-invisibility",
+    "name": "Potion of Invisibility",
+    "type": "Potion",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 900,
+    "icon": "https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff",
+    "properties": "Potion (consumable)",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "flavour": "The liquid inside this vial is perfectly clear\u2014so clear that the vial appears empty until tilted. It tastes of nothing and leaves no sensation, as if you'd swallowed pure absence.",
+    "description": "This potion's container looks empty but feels as though it holds liquid. When you drink it, you become invisible for 1 hour. Anything you wear or carry is invisible with you. The effect ends early if you attack or cast a spell.",
+    "stats": {
+      "Duration": "1 hour",
+      "Ends": "On attack or spell"
+    }
+  },
+  {
+    "id": "wand-magic-missiles",
+    "name": "Wand of Magic Missiles",
+    "type": "Wand",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 800,
+    "icon": "https://api.iconify.design/game-icons/fairy-wand.svg?color=%23ffffff",
+    "properties": "Wand",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "This wand has 7 charges. While holding it, you can use an action to expend 1 or more of its charges to cast the magic missile spell from it. For 1 charge, you cast the 1st-level version of the spell. You can increase the spell slot level by one for each additional charge you expend.\n\nThe wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll a d20. On a 1, the wand crumbles into ashes and is destroyed.",
+    "stats": {
+      "Charges": "7",
+      "Recharge": "1d6+1 at dawn"
+    }
+  },
+  {
+    "id": "helm-telepathy",
+    "name": "Helm of Telepathy",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 750,
+    "icon": "https://api.iconify.design/game-icons/visored-helm.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "While wearing this helm, you can use an action to cast the detect thoughts spell (save DC 13) from it. As long as you maintain concentration on the spell, you can use a bonus action to send a telepathic message to a creature you are focused on.\n\nThe creature can reply telepathically. While focusing on a creature with detect thoughts, you can use an action to cast the suggestion spell (save DC 13) from the helm on that creature. Once used, the suggestion property can't be used again until the next dawn.",
+    "stats": {
+      "Spell DC": "13",
+      "Spells": "Detect Thoughts, Suggestion"
+    }
+  },
+  {
+    "id": "gauntlets-ogre-power",
+    "name": "Gauntlets of Ogre Power",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 600,
+    "icon": "https://api.iconify.design/game-icons/gauntlet.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter"
+    ],
+    "description": "Your Strength score is 19 while you wear these gauntlets. They have no effect on you if your Strength is already 19 or higher without them.",
+    "stats": {
+      "Strength": "Set to 19"
+    }
+  },
+  {
+    "id": "cloak-protection",
+    "name": "Cloak of Protection",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 550,
+    "icon": "https://api.iconify.design/game-icons/cape.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "You gain a +1 bonus to AC and saving throws while you wear this cloak.",
+    "stats": {
+      "AC Bonus": "+1",
+      "Saving Throws": "+1"
+    }
+  },
+  {
+    "id": "cloak-elvenkind",
+    "name": "Cloak of Elvenkind",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/cape.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "While you wear this cloak with its hood up, Wisdom (Perception) checks made to see you have disadvantage, and you have advantage on Dexterity (Stealth) checks made to hide, as the cloak's color shifts to camouflage you. Pulling the hood up or down requires an action.",
+    "stats": {
+      "Stealth": "Advantage",
+      "vs Perception": "Disadvantage"
+    }
+  },
+  {
+    "id": "bag-holding",
+    "name": "Bag of Holding",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/swap-bag.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "This bag has an interior space considerably larger than its outside dimensions, roughly 2 feet in diameter at the mouth and 4 feet deep. The bag can hold up to 500 pounds, not exceeding a volume of 64 cubic feet. The bag weighs 15 pounds, regardless of its contents.\n\nRetrieving an item from the bag requires an action. If the bag is overloaded, pierced, or torn, it ruptures and is destroyed, and its contents are scattered in the Astral Plane.",
+    "stats": {
+      "Capacity": "500 lb / 64 cu ft",
+      "Weight": "15 lb"
+    }
+  },
+  {
+    "id": "greatsword-plus-one",
+    "name": "Greatsword +1",
+    "type": "Weapon (Greatsword)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/broadsword.svg?color=%23ffffff",
+    "properties": "Heavy, two-handed",
+    "attunement": "No",
+    "damage": "2d6+1 slashing",
+    "suitableFor": [
+      "Fighter"
+    ],
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "stats": {
+      "Damage": "2d6+1 slashing",
+      "Bonus": "+1 to hit/damage"
+    }
+  },
+  {
+    "id": "decanter-endless-water",
+    "name": "Decanter of Endless Water",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/drink-me.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "description": "This stoppered flask sloshes when shaken, as if it contains water. The decanter weighs 2 pounds.\n\nYou can use an action to remove the stopper and speak one of three command words:\n- **Stream**: 1 gallon of water per round\n- **Fountain**: 5 gallons of water per round\n- **Geyser**: 30 gallons of water per round (can push creatures)",
+    "stats": {
+      "Stream": "1 gal/round",
+      "Fountain": "5 gal/round",
+      "Geyser": "30 gal/round"
+    }
+  },
+  {
+    "id": "bracers-archery",
+    "name": "Bracers of Archery",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "https://api.iconify.design/game-icons/bracer.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "While wearing these bracers, you have proficiency with the longbow and shortbow, and you gain a +2 bonus to damage rolls on ranged attacks made with such weapons.",
+    "stats": {
+      "Damage Bonus": "+2 with bows",
+      "Grants": "Bow proficiency"
+    }
+  },
+  {
+    "id": "longbow-plus-one",
+    "name": "Longbow +1",
+    "type": "Weapon (Longbow)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "https://api.iconify.design/game-icons/pocket-bow.svg?color=%23ffffff",
+    "properties": "Ammunition (range 150/600), heavy, two-handed",
+    "attunement": "No",
+    "damage": "1d8+1 piercing",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "stats": {
+      "Damage": "1d8+1 piercing",
+      "Range": "150/600 ft"
+    }
+  },
+  {
+    "id": "battleaxe-plus-one",
+    "name": "Battleaxe +1",
+    "type": "Weapon (Battleaxe)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/battle-axe.svg?color=%23ffffff",
+    "properties": "Versatile (1d10)",
+    "attunement": "No",
+    "damage": "1d8+1 slashing",
+    "suitableFor": [
+      "Fighter"
+    ],
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "stats": {
+      "Damage": "1d8+1 slashing",
+      "Bonus": "+1 to hit/damage"
+    }
+  },
+  {
+    "id": "studded-leather-plus-one",
+    "name": "Studded Leather +1",
+    "type": "Armor (Studded Leather)",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/leather-armor.svg?color=%23ffffff",
+    "properties": "Light armor",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "You have a +1 bonus to AC while wearing this armor. Studded leather armor is made from tough but flexible leather, reinforced with close-set rivets or spikes.",
+    "stats": {
+      "AC": "12 + Dex + 1",
+      "Weight": "13 lb"
+    }
+  },
+  {
+    "id": "rapier-plus-one",
+    "name": "Rapier +1",
+    "type": "Weapon (Rapier)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/stiletto.svg?color=%23ffffff",
+    "properties": "Finesse",
+    "attunement": "No",
+    "damage": "1d8+1 piercing",
+    "suitableFor": [
+      "Rogue",
+      "Fighter"
+    ],
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "stats": {
+      "Damage": "1d8+1 piercing",
+      "Bonus": "+1 to hit/damage"
+    }
+  },
+  {
+    "id": "boots-elvenkind",
+    "name": "Boots of Elvenkind",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/boots.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "While you wear these boots, your steps make no sound, regardless of the surface you are moving across. You also have advantage on Dexterity (Stealth) checks that rely on moving silently.",
+    "stats": {
+      "Stealth": "Advantage (silent movement)",
+      "Sound": "None"
+    }
+  },
+  {
+    "id": "lantern-revealing",
+    "name": "Lantern of Revealing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/lantern-flame.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "While lit, this hooded lantern burns for 6 hours on 1 pint of oil, shedding bright light in a 30-foot radius and dim light for an additional 30 feet. Invisible creatures and objects are visible as long as they are in the lantern's bright light. You can use an action to lower the hood, reducing the light to dim light in a 5-foot radius.",
+    "stats": {
+      "Light": "30 ft bright / 30 ft dim",
+      "Duration": "6 hours",
+      "Special": "Reveals invisible"
+    }
+  },
+  {
+    "id": "goggles-night",
+    "name": "Goggles of Night",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/sunglasses.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Fighter",
+      "Ranger"
+    ],
+    "description": "While wearing these dark lenses, you have darkvision out to a range of 60 feet. If you already have darkvision, wearing the goggles increases its range by 60 feet.",
+    "stats": {
+      "Darkvision": "60 ft (or +60 ft)"
+    }
+  },
+  {
+    "id": "chain-shirt-plus-one",
+    "name": "Chain Shirt +1",
+    "type": "Armor (Chain Shirt)",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/chain-mail.svg?color=%23ffffff",
+    "properties": "Medium armor",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "description": "You have a +1 bonus to AC while wearing this armor. Made of interlocking metal rings, a chain shirt is worn between layers of clothing or leather.",
+    "stats": {
+      "AC": "13 + Dex (max 2) + 1",
+      "Weight": "20 lb"
+    }
+  },
+  {
+    "id": "shortsword-plus-one",
+    "name": "Shortsword +1",
+    "type": "Weapon (Shortsword)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/gladius.svg?color=%23ffffff",
+    "properties": "Finesse, light",
+    "attunement": "No",
+    "damage": "1d6+1 piercing",
+    "suitableFor": [
+      "Rogue",
+      "Fighter"
+    ],
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "stats": {
+      "Damage": "1d6+1 piercing",
+      "Bonus": "+1 to hit/damage"
+    }
+  },
+  {
+    "id": "shield-plus-one",
+    "name": "Shield +1",
+    "type": "Armor (Shield)",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/shield.svg?color=%23ffffff",
+    "properties": "Shield",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "description": "While holding this shield, you have a +1 bonus to AC. This bonus is in addition to the shield's normal bonus to AC.",
+    "stats": {
+      "AC Bonus": "+3 total (+2 base, +1 magic)"
+    }
+  },
+  {
+    "id": "rope-climbing",
+    "name": "Rope of Climbing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/rope-coil.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "This 60-foot length of silk rope weighs 3 pounds and can hold up to 3,000 pounds. If you hold one end of the rope and use an action to speak the command word, the rope animates. As a bonus action, you can command the other end to move toward a destination you choose. That end moves 10 feet on your turn when you first command it and 10 feet on each of your turns until reaching its destination, up to its maximum length away, or until you tell it to stop.",
+    "stats": {
+      "Length": "60 ft",
+      "Capacity": "3,000 lb",
+      "Movement": "10 ft/turn"
+    }
+  },
+  {
+    "id": "potion-greater-healing",
+    "name": "Potion of Greater Healing",
+    "type": "Potion",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 150,
+    "icon": "https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff",
+    "properties": "Potion (consumable)",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "You regain 4d4 + 4 hit points when you drink this potion. The potion's red liquid glimmers when agitated.",
+    "stats": {
+      "Healing": "4d4+4 HP"
+    }
+  },
+  {
+    "id": "potion-healing",
+    "name": "Potion of Healing",
+    "type": "Potion",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 50,
+    "icon": "https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff",
+    "properties": "Potion (consumable)",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "You regain 2d4 + 2 hit points when you drink this potion. The potion's red liquid glimmers when agitated.",
+    "stats": {
+      "Healing": "2d4+2 HP"
+    }
+  },
+  {
+    "id": "ball-bearings",
+    "name": "Ball Bearings (Bag of 1000)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 10,
+    "icon": "https://api.iconify.design/game-icons/stone-pile.svg?color=%23ffffff",
+    "properties": "Adventuring gear",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "As an action, you can spill these tiny metal balls from their pouch to cover a level, square area that is 10 feet on a side. A creature moving across the covered area must succeed on a DC 10 Dexterity saving throw or fall prone. A creature moving through the area at half speed doesn't need to make the save.",
+    "stats": {
+      "Area": "10 ft square",
+      "Save": "DC 10 Dex or prone"
+    }
+  },
+  {
+    "id": "oathbow",
+    "name": "Oathbow",
+    "type": "Weapon (Longbow)",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 35000,
+    "icon": "https://api.iconify.design/game-icons/bow-arrow.svg?color=%23ffffff",
+    "properties": "Ammunition (range 150/600), heavy, two-handed",
+    "attunement": "Yes",
+    "damage": "1d8 piercing + 3d6 vs sworn enemy",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "flavour": "Carved from the heartwood of a tree that witnessed an ancient betrayal, this bow remembers every broken promise. When you speak your oath against a foe, the wood creaks with anticipation\u2014it hungers to see vows fulfilled.",
+    "description": "When you nock an arrow on this bow, it whispers in Elvish, 'Swift defeat to my enemies.' When you use this weapon to make a ranged attack, you can, as a command phrase, say, 'Swift death to you who have wronged me.' The target of your attack becomes your sworn enemy until it dies or until dawn seven days later.\n\n**Sworn Enemy**\nYou have advantage on attack rolls against your sworn enemy, and your sworn enemy gains no benefit from cover (other than total cover). When you hit your sworn enemy with this weapon, it takes an extra 3d6 piercing damage.\n\n**Single Focus**\nWhile your sworn enemy lives, you have disadvantage on attack rolls with all other weapons.",
+    "stats": {
+      "Damage": "1d8 + 3d6 piercing",
+      "vs Sworn": "Advantage, ignore cover",
+      "Duration": "7 days or death"
+    }
+  },
+  {
+    "id": "bow-warning",
+    "name": "Bow of Warning",
+    "type": "Weapon (Longbow)",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 32000,
+    "icon": "https://api.iconify.design/game-icons/high-shot.svg?color=%23ffffff",
+    "properties": "Ammunition (range 150/600), heavy, two-handed",
+    "attunement": "Yes",
+    "damage": "1d8+2 piercing",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "flavour": "The bowstring hums with a frequency just below hearing\u2014a constant vigilance that seeps into your bones. Those who carry it sleep lighter, dream sharper, and are never truly caught unaware.",
+    "description": "You gain a +2 bonus to attack and damage rolls made with this magic weapon.\n\n**Warning**\nWhile this weapon is on your person, you have advantage on initiative rolls. In addition, you and any of your companions within 30 feet of you can't be surprised, except when incapacitated by something other than nonmagical sleep. The weapon magically awakens you and your companions within range if any of you are sleeping naturally when combat begins.\n\n**Sentinel's Instinct**\nOnce per long rest, when you would be hit by an attack you cannot see, you can use your reaction to impose disadvantage on that attack roll.",
+    "stats": {
+      "Damage": "1d8+2 piercing",
+      "Initiative": "Advantage",
+      "Special": "Can't be surprised"
+    }
+  },
+  {
+    "id": "bracers-archery-greater",
+    "name": "Greater Bracers of Archery",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Rare",
+    "price": 1500,
+    "icon": "https://api.iconify.design/game-icons/bracer.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "flavour": "These leather bracers are tooled with images of hawks in flight, their eyes inlaid with tiny amber stones that catch the light. When you draw a bow, you feel the phantom grip of master archers guiding your aim.",
+    "description": "While wearing these bracers, you have proficiency with the longbow and shortbow, and you gain a +2 bonus to damage rolls on ranged attacks made with such weapons.\n\n**Steady Aim**\nOnce per turn, when you miss with a ranged weapon attack using a bow, you can reroll the attack roll. You must use the new roll.\n\n**Eagle's Eye**\nYou can see clearly up to 1 mile away, suffering no disadvantage on Perception checks due to distance.",
+    "stats": {
+      "Damage Bonus": "+2 with bows",
+      "Special": "Reroll 1 miss/turn",
+      "Vision": "1 mile clarity"
+    }
+  },
+  {
+    "id": "quiver-ehlonna",
+    "name": "Quiver of Ehlonna",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 1800,
+    "icon": "https://api.iconify.design/game-icons/quiver.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "flavour": "Blessed by the goddess of forests, this quiver's interior holds far more than physics should allow. Reaching in, your fingers always find exactly what you need\u2014as if the quiver itself anticipates the hunt.",
+    "description": "Each of the quiver's three compartments connects to an extradimensional space:\n\n**Compartments**\n\u2022 The shortest compartment can hold up to sixty arrows, bolts, or similar objects\n\u2022 The midsize compartment holds up to eighteen javelins or similar objects\n\u2022 The longest compartment holds up to six long objects, such as bows, quarterstaffs, or spears\n\nYou can draw any item the quiver contains as if doing so from a regular quiver or scabbard.",
+    "stats": {
+      "Arrows": "60",
+      "Javelins": "18",
+      "Long Items": "6"
+    }
+  },
+  {
+    "id": "arrow-slaying-dragon",
+    "name": "Arrow of Dragon Slaying",
+    "type": "Ammunition",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 600,
+    "icon": "https://api.iconify.design/game-icons/arrow-cluster.svg?color=%23ffffff",
+    "properties": "Ammunition (single use)",
+    "attunement": "No",
+    "damage": "Normal + 6d10 vs dragons",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "flavour": "The arrowhead is forged from a dragon's own shed scale, turned against its kind. Faint draconic runes along the shaft pulse with barely contained fury\u2014this arrow remembers what it once was, and seeks vengeance.",
+    "description": "An arrow of slaying is a magic weapon meant to slay a particular kind of creature. If a creature belonging to the type associated with an arrow of slaying takes damage from the arrow, the creature must make a DC 17 Constitution saving throw, taking an extra 6d10 piercing damage on a failed save, or half as much extra damage on a successful one.\n\n**Dragon Slayer**\nThis arrow is designed to kill dragons. Once it deals its extra damage, it becomes a nonmagical arrow.",
+    "stats": {
+      "Damage": "+6d10 vs dragons",
+      "Save": "DC 17 Con",
+      "Uses": "Single use"
+    }
+  },
+  {
+    "id": "arrows-plus-two",
+    "name": "Arrows +2 (Bundle of 10)",
+    "type": "Ammunition",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/arrow-cluster.svg?color=%23ffffff",
+    "properties": "Ammunition",
+    "attunement": "No",
+    "damage": "+2 to hit and damage",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "flavour": "Each arrow is perfectly balanced, fletched with griffin feathers that self-correct in flight. The steel heads hold an edge that seems sharper than the smith's tools should have allowed.",
+    "description": "You have a +2 bonus to attack and damage rolls made with these magic arrows. Once an arrow hits or misses its target, the magic fades and it becomes a mundane arrow.\n\n**Bundle**\nThis bundle contains 10 arrows.",
+    "stats": {
+      "Bonus": "+2 to hit/damage",
+      "Quantity": "10 arrows"
+    }
+  },
+  {
+    "id": "cloak-ranger",
+    "name": "Cloak of the Forest Guardian",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 2500,
+    "icon": "https://api.iconify.design/game-icons/cape.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Ranger"
+    ],
+    "flavour": "Woven from leaves that never wither and dyed with moss that still grows, this cloak shifts its pattern with the seasons. In winter, it's bark and snow; in summer, dappled green light.",
+    "description": "While wearing this cloak, you have advantage on Dexterity (Stealth) checks made to hide in natural terrain. The cloak's color shifts to camouflage you.\n\n**Nature's Embrace**\nYou can move through nonmagical difficult terrain without expending extra movement. You can also pass through nonmagical plants without being slowed by them and without taking damage from them if they have thorns, spines, or similar hazards.\n\n**Woodland Stride**\nOnce per long rest, you can cast Pass Without Trace without expending a spell slot.",
+    "stats": {
+      "Stealth": "Advantage (natural terrain)",
+      "Movement": "Ignore difficult terrain",
+      "Spell": "Pass Without Trace 1/day"
+    }
+  },
+  {
+    "id": "boots-tracker",
+    "name": "Boots of the Tireless Tracker",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 1200,
+    "icon": "https://api.iconify.design/game-icons/boots.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Ranger",
+      "Rogue"
+    ],
+    "flavour": "The leather of these boots was cured in the footprints of a legendary huntsman who tracked his quarry across three continents. They carry echoes of that relentless pursuit.",
+    "description": "While wearing these boots, your walking speed increases by 10 feet.\n\n**Tireless Pursuit**\nYou have advantage on Wisdom (Survival) checks made to track creatures. Additionally, you can travel at a fast pace without suffering the normal -5 penalty to passive Wisdom (Perception).\n\n**Endurance**\nYou can march for up to 12 hours before requiring a Constitution saving throw to avoid exhaustion.",
+    "stats": {
+      "Speed": "+10 ft",
+      "Tracking": "Advantage",
+      "March": "12 hours without exhaustion check"
+    }
+  },
+  {
+    "id": "shortbow-vines",
+    "name": "Vineshot Bow",
+    "type": "Weapon (Shortbow)",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 2000,
+    "icon": "https://api.iconify.design/game-icons/pocket-bow.svg?color=%23ffffff",
+    "properties": "Ammunition (range 80/320), two-handed",
+    "attunement": "Yes",
+    "damage": "1d6+1 piercing",
+    "suitableFor": [
+      "Ranger",
+      "Rogue"
+    ],
+    "flavour": "Living vines twist around the bow's limbs, flowering briefly each time you draw. The arrows it looses trail seeds that root on impact\u2014nature claiming what was taken.",
+    "description": "You gain a +1 bonus to attack and damage rolls made with this magic weapon.\n\n**Entangling Shot**\nOnce per short rest, when you hit a creature with an arrow from this bow, you can cause grasping vines to erupt around the target. The target must succeed on a DC 14 Strength saving throw or be restrained until the end of your next turn.\n\n**Nature's Quiver**\nWhile holding this bow, you can use a bonus action to magically create one piece of ammunition. Arrows created this way vanish after 1 minute if not used.",
+    "stats": {
+      "Damage": "1d6+1 piercing",
+      "Entangle": "DC 14 Str, 1/short rest",
+      "Ammo": "Create arrows (bonus action)"
+    }
+  },
+  {
+    "id": "arrows-plus-one",
+    "name": "Arrows +1 (Bundle of 20)",
+    "type": "Ammunition",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 100,
+    "icon": "https://api.iconify.design/game-icons/arrow-cluster.svg?color=%23ffffff",
+    "properties": "Ammunition",
+    "attunement": "No",
+    "damage": "+1 to hit and damage",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "You have a +1 bonus to attack and damage rolls made with these magic arrows. Once an arrow hits or misses its target, the magic fades and it becomes a mundane arrow.\n\n**Bundle**\nThis bundle contains 20 arrows.",
+    "stats": {
+      "Bonus": "+1 to hit/damage",
+      "Quantity": "20 arrows"
+    }
+  },
+  {
+    "id": "hunters-snare-kit",
+    "name": "Hunter's Snare Kit",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 250,
+    "icon": "https://api.iconify.design/game-icons/hunting-bolas.svg?color=%23ffffff",
+    "properties": "Adventuring gear",
+    "attunement": "No",
+    "suitableFor": [
+      "Ranger",
+      "Rogue"
+    ],
+    "description": "This leather satchel contains materials to create 5 magical snare traps. As an action, you can set a snare in an unoccupied 5-foot square within 5 feet of you.\n\n**Trigger**\nThe first creature that steps into the space must succeed on a DC 13 Dexterity saving throw or be restrained for 1 minute. The creature can repeat the saving throw at the end of each of its turns.\n\n**Camouflage**\nSnares are nearly invisible, requiring a DC 15 Perception check to spot.",
+    "stats": {
+      "Traps": "5 uses",
+      "Save": "DC 13 Dex",
+      "Duration": "1 minute restrained"
+    }
+  },
+  {
+    "id": "whistle-beast",
+    "name": "Beast Caller's Whistle",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/hunting-horn.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Ranger"
+    ],
+    "description": "This carved bone whistle produces a sound only beasts can hear. You can use an action to blow the whistle and cast Animal Friendship (save DC 13) without expending a spell slot.\n\n**Uses**\nThe whistle has 3 charges and regains all expended charges daily at dawn.\n\n**Wild Empathy**\nWhile the whistle is on your person, you have advantage on Wisdom (Animal Handling) checks.",
+    "stats": {
+      "Charges": "3/day",
+      "Spell": "Animal Friendship DC 13",
+      "Bonus": "Advantage on Animal Handling"
+    }
+  },
+  {
+    "id": "arrows-standard",
+    "name": "Arrows (Quiver of 20)",
+    "type": "Ammunition",
+    "category": "weapons",
+    "rarity": "Common",
+    "price": 1,
+    "icon": "https://api.iconify.design/game-icons/arrow-cluster.svg?color=%23ffffff",
+    "properties": "Ammunition",
+    "attunement": "No",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "A leather quiver containing 20 standard arrows with steel broadheads.",
+    "stats": {
+      "Quantity": "20 arrows"
+    }
+  },
+  {
+    "id": "rations-trail",
+    "name": "Trail Rations (10 days)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 5,
+    "icon": "https://api.iconify.design/game-icons/meat.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "Dried meat, hardtack, and nuts. Enough to sustain one person for 10 days.",
+    "stats": {
+      "Duration": "10 days"
+    }
+  },
+  {
+    "id": "torch-bundle",
+    "name": "Torches (Bundle of 10)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 1,
+    "icon": "https://api.iconify.design/game-icons/torch.svg?color=%23ffffff",
+    "properties": "Light source",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "Wooden torches wrapped in oil-soaked cloth. Each burns for 1 hour, providing bright light in a 20-foot radius.",
+    "stats": {
+      "Light": "20 ft bright",
+      "Duration": "1 hour each"
+    }
+  },
+  {
+    "id": "rope-hempen",
+    "name": "Hempen Rope (50 feet)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 1,
+    "icon": "https://api.iconify.design/game-icons/rope-coil.svg?color=%23ffffff",
+    "properties": "Utility",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "Strong hemp rope, useful for climbing, binding, or rescue operations. Can support up to 500 pounds.",
+    "stats": {
+      "Length": "50 ft",
+      "Capacity": "500 lb"
+    }
+  },
+  {
+    "id": "caltrops",
+    "name": "Caltrops (Bag of 20)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 1,
+    "icon": "https://api.iconify.design/game-icons/caltrops.svg?color=%23ffffff",
+    "properties": "Trap",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "Four-pronged metal spikes. Scatter them to cover a 5-foot square. Creatures entering must succeed on DC 15 Dex save or stop and take 1 piercing damage.",
+    "stats": {
+      "Area": "5 ft square",
+      "Save": "DC 15 Dex",
+      "Damage": "1 piercing"
+    }
+  },
+  {
+    "id": "oil-flask",
+    "name": "Oil Flask (5 flasks)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 1,
+    "icon": "https://api.iconify.design/game-icons/oil-drum.svg?color=%23ffffff",
+    "properties": "Consumable, improvised weapon",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "Flammable oil in ceramic flasks. Can fuel a lantern for 6 hours or be thrown as an improvised weapon (5 fire damage over 2 rounds if ignited).",
+    "stats": {
+      "Quantity": "5 flasks",
+      "Burn": "5 fire damage/2 rounds"
+    }
+  },
+  {
+    "id": "thieves-tools",
+    "name": "Thieves' Tools",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 25,
+    "icon": "https://api.iconify.design/game-icons/lockpicks.svg?color=%23ffffff",
+    "properties": "Tool",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue"
+    ],
+    "description": "A set of lockpicks, a small mirror, narrow-bladed scissors, and a pair of pliers. Required for picking locks and disabling traps.",
+    "stats": {
+      "Proficiency": "Required for use"
+    }
+  },
+  {
+    "id": "healers-kit",
+    "name": "Healer's Kit",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 5,
+    "icon": "https://api.iconify.design/game-icons/first-aid-kit.svg?color=%23ffffff",
+    "properties": "Medical supplies",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "Bandages, salves, and splints. Has 10 uses. Can stabilize a dying creature without needing a Wisdom (Medicine) check.",
+    "stats": {
+      "Uses": "10",
+      "Effect": "Stabilize dying creature"
+    }
+  },
+  {
+    "id": "climbers-kit",
+    "name": "Climber's Kit",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 25,
+    "icon": "https://api.iconify.design/game-icons/mountain-climbing.svg?color=%23ffffff",
+    "properties": "Utility",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "Pitons, boot tips, gloves, and a harness. When anchored, you can't fall more than 25 feet and can't fall to the bottom.",
+    "stats": {
+      "Fall Protection": "25 ft max"
+    }
+  },
+  {
+    "id": "grappling-hook",
+    "name": "Grappling Hook",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 2,
+    "icon": "https://api.iconify.design/game-icons/grapple.svg?color=%23ffffff",
+    "properties": "Utility",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "A four-pronged iron hook attached to a rope. Can be thrown to anchor to ledges, windows, or battlements.",
+    "stats": {
+      "Range": "30 ft throw"
+    }
+  },
+  {
+    "id": "manacles",
+    "name": "Manacles",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 2,
+    "icon": "https://api.iconify.design/game-icons/handcuffs.svg?color=%23ffffff",
+    "properties": "Restraint",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Paladin",
+      "Ranger"
+    ],
+    "description": "Iron restraints that bind a creature's wrists or ankles. Escaping requires DC 20 Dexterity check or DC 26 Strength check. Unlocking requires thieves' tools and DC 15 check.",
+    "stats": {
+      "Escape DC": "20 Dex / 26 Str",
+      "Lock DC": "15"
+    }
+  },
+  {
+    "id": "antitoxin",
+    "name": "Antitoxin (vial)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 50,
+    "icon": "https://api.iconify.design/game-icons/drink-me.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "Drinking this grants advantage on saving throws against poison for 1 hour. Does not cure existing poisoned condition.",
+    "stats": {
+      "Duration": "1 hour",
+      "Effect": "Advantage vs poison saves"
+    }
+  },
+  {
+    "id": "sunblade",
+    "name": "Sun Blade",
+    "type": "Weapon (Longsword)",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 48000,
+    "icon": "https://api.iconify.design/game-icons/sun-radiations.svg?color=%23ffffff",
+    "properties": "Versatile (1d10), finesse",
+    "attunement": "Yes",
+    "damage": "1d8+2 radiant",
+    "suitableFor": [
+      "Paladin",
+      "Fighter"
+    ],
+    "flavour": "The hilt alone remains until you grasp it\u2014then a blade of pure sunlight springs forth, humming with radiant energy. Undead creatures recoil from its brilliance as shadows flee before dawn.",
+    "description": "This item appears to be a longsword hilt. While grasping the hilt, you can use a bonus action to cause a blade of pure radiance to spring into existence, or make the blade disappear.\n\n**Radiant Blade**\nWhile the blade exists, this magic longsword has the finesse property. You gain a +2 bonus to attack and damage rolls made with this weapon, which deals radiant damage instead of slashing damage.\n\n**Sunlight**\nThe sword's luminous blade emits bright light in a 15-foot radius and dim light for an additional 15 feet. The light is sunlight. You can extinguish or restore the light as a bonus action.\n\n**Bane of Undead**\nWhen you hit an undead with it, that target takes an extra 1d8 radiant damage.",
+    "stats": {
+      "Damage": "1d8+2 radiant",
+      "vs Undead": "+1d8 radiant",
+      "Light": "15ft sunlight"
+    }
+  },
+  {
+    "id": "luck-blade",
+    "name": "Luck Blade",
+    "type": "Weapon (Shortsword)",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 42000,
+    "icon": "https://api.iconify.design/game-icons/clover.svg?color=%23ffffff",
+    "properties": "Finesse, light",
+    "attunement": "Yes",
+    "damage": "1d6+1 piercing",
+    "suitableFor": [
+      "Rogue",
+      "Fighter"
+    ],
+    "flavour": "Fortune favours those who carry this blade. Its edge gleams with an otherworldly sheen, and those who wield it swear they can feel fate itself bending in their favour.",
+    "description": "You gain a +1 bonus to attack and damage rolls made with this magic weapon. While the sword is on your person, you also gain a +1 bonus to saving throws.\n\n**Luck**\nIf the sword is on your person, you can call on its luck (no action required) to reroll one attack roll, ability check, or saving throw you dislike. You must use the second roll. This property can't be used again until the next dawn.\n\n**Wish**\nThe sword has 1d4-1 charges. While holding it, you can use an action to expend 1 charge and cast the Wish spell from it. This property can't be used again until the next dawn.",
+    "stats": {
+      "Damage": "1d6+1 piercing",
+      "Bonus": "+1 saves",
+      "Special": "Reroll 1/day, Wish charges"
+    }
+  },
+  {
+    "id": "robe-archmagi",
+    "name": "Robe of the Archmagi",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Legendary",
+    "price": 55000,
+    "icon": "https://api.iconify.design/game-icons/robe.svg?color=%23ffffff",
+    "properties": "Wondrous item (requires attunement by a sorcerer, warlock, or wizard)",
+    "attunement": "Yes (Sorcerer, Warlock, or Wizard)",
+    "suitableFor": [
+      "Ranger"
+    ],
+    "flavour": "Woven from threads of pure magic, this robe shimmers with arcane symbols that rearrange themselves when observed. It carries the weight of centuries of accumulated magical knowledge.",
+    "description": "This elegant garment is made from exquisite cloth and adorned with silvery runes.\n\n**Armor Class**\nYou gain these benefits while wearing the robe:\n\u2022 Your base AC is 15 + your Dexterity modifier if you aren't wearing armor\n\u2022 You have advantage on saving throws against spells and other magical effects\n\u2022 Your spell save DC and spell attack bonus each increase by 2",
+    "stats": {
+      "AC": "15 + Dex",
+      "Spell DC": "+2",
+      "Spell Attack": "+2"
+    }
+  },
+  {
+    "id": "dancing-sword",
+    "name": "Dancing Sword",
+    "type": "Weapon (Longsword)",
+    "category": "weapons",
+    "rarity": "Legendary",
+    "price": 38000,
+    "icon": "https://api.iconify.design/game-icons/spinning-sword.svg?color=%23ffffff",
+    "properties": "Versatile (1d10)",
+    "attunement": "Yes",
+    "damage": "1d8 slashing",
+    "suitableFor": [
+      "Fighter",
+      "Paladin",
+      "Rogue"
+    ],
+    "flavour": "Release the blade and it continues fighting on its own, spinning and slashing through the air with a warrior's grace. Some say a master swordsman's spirit is bound within.",
+    "description": "You can use a bonus action to toss this magic sword into the air and speak the command word. When you do so, the sword begins to hover, flies up to 30 feet, and attacks one creature of your choice within 5 feet of it.\n\n**Dancing**\nThe sword uses your attack roll and ability score modifier to damage rolls. While the sword hovers, you can use a bonus action to cause it to fly up to 30 feet to another spot within 30 feet of you. On your turn, the sword attacks once. After the hovering sword attacks for the fourth time, it flies up to 30 feet and tries to return to your hand.",
+    "stats": {
+      "Damage": "1d8 slashing",
+      "Range": "30 ft hover",
+      "Duration": "4 attacks"
+    }
+  },
+  {
+    "id": "belt-giant-strength-fire",
+    "name": "Belt of Fire Giant Strength",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Legendary",
+    "price": 45000,
+    "icon": "https://api.iconify.design/game-icons/belt.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "flavour": "Forged in volcanic fire and quenched in giant's blood, this belt radiates intense heat. Those who wear it feel the unstoppable strength of the fire giants coursing through their limbs.",
+    "description": "While wearing this belt, your Strength score changes to 25. If your Strength is already equal to or greater than 25, the belt has no effect on you.",
+    "stats": {
+      "Strength": "Set to 25"
+    }
+  },
+  {
+    "id": "cloak-arachnida",
+    "name": "Cloak of Arachnida",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Legendary",
+    "price": 35000,
+    "icon": "https://api.iconify.design/game-icons/spider-web.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "flavour": "Spun from the silk of phase spiders, this cloak grants its wearer the predatory gifts of arachnids. Walls become floors, and webs become pathways.",
+    "description": "This fine garment is made of black silk interwoven with faint silvery threads. While wearing it, you gain the following benefits:\n\n**Spider Climb**\nYou have a climbing speed equal to your walking speed, and can climb difficult surfaces including ceilings.\n\n**Web Walker**\nYou can move through webs as if they were difficult terrain.\n\n**Web Immunity**\nYou can't be caught in webs of any sort and have resistance to poison damage.\n\n**Web Sense**\nYou have advantage on saving throws against being restrained by webs.",
+    "stats": {
+      "Climb": "Equal to walk speed",
+      "Immunity": "Webs",
+      "Resistance": "Poison"
+    }
+  },
+  {
+    "id": "armor-invulnerability",
+    "name": "Armor of Invulnerability",
+    "type": "Armor (Plate)",
+    "category": "armor",
+    "rarity": "Rare",
+    "price": 8000,
+    "icon": "https://api.iconify.design/game-icons/breastplate.svg?color=%23ffffff",
+    "properties": "Heavy armor, AC 18",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "flavour": "This gleaming plate armor has never known a dent or scratch. Its metal holds an inner resilience that turns aside blows that would shatter lesser armor.",
+    "description": "You have resistance to nonmagical damage while you wear this armor.\n\n**Invulnerability**\nAs an action, you can make yourself immune to nonmagical damage for 10 minutes or until you are no longer wearing the armor. Once this special action is used, it can't be used again until the next dawn.",
+    "stats": {
+      "AC": "18",
+      "Resistance": "Nonmagical damage",
+      "Immunity": "10 min/day"
+    }
+  },
+  {
+    "id": "mantle-spell-resistance",
+    "name": "Mantle of Spell Resistance",
+    "type": "Wondrous Item",
+    "category": "armor",
+    "rarity": "Rare",
+    "price": 6000,
+    "icon": "https://api.iconify.design/game-icons/cape.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "flavour": "Woven with threads of nullifying silver, this mantle disrupts magical energies. Spells seem to slide off its surface like water off oil.",
+    "description": "You have advantage on saving throws against spells while you wear this cloak.",
+    "stats": {
+      "Saves vs Spells": "Advantage"
+    }
+  },
+  {
+    "id": "periapt-wound-closure",
+    "name": "Periapt of Wound Closure",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 5000,
+    "icon": "https://api.iconify.design/game-icons/gem-pendant.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "flavour": "This blood-red gemstone pulses with a warm glow when its wearer is injured. The magic within accelerates healing and staunches even the most grievous wounds.",
+    "description": "While you wear this pendant, you stabilize whenever you are dying at the start of your turn. In addition, whenever you roll a Hit Die to regain hit points, double the number of hit points it restores.",
+    "stats": {
+      "Stabilize": "Automatic",
+      "Hit Dice": "Double healing"
+    }
+  },
+  {
+    "id": "sword-wounding",
+    "name": "Sword of Wounding",
+    "type": "Weapon (Longsword)",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 4500,
+    "icon": "https://api.iconify.design/game-icons/bloody-sword.svg?color=%23ffffff",
+    "properties": "Versatile (1d10)",
+    "attunement": "Yes",
+    "damage": "1d8 slashing",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "flavour": "The blade's edge is impossibly thin, and wounds it inflicts refuse to close properly. Blood continues to flow long after the strike, as if the sword remembers each cut.",
+    "description": "Hit points lost to this weapon's damage can be regained only through a short or long rest, rather than by regeneration, magic, or any other means.\n\n**Wounding**\nOnce per turn, when you hit a creature with an attack using this magic weapon, you can wound the target. At the start of each of the wounded creature's turns, it takes 1d4 necrotic damage for each time you've wounded it, and it can then make a DC 15 Constitution saving throw, ending the effect on a success.",
+    "stats": {
+      "Damage": "1d8 slashing",
+      "Wound": "1d4 necrotic/turn",
+      "Save": "DC 15 Con"
+    }
+  },
+  {
+    "id": "mace-disruption",
+    "name": "Mace of Disruption",
+    "type": "Weapon (Mace)",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 4000,
+    "icon": "https://api.iconify.design/game-icons/mace-head.svg?color=%23ffffff",
+    "properties": "Simple weapon",
+    "attunement": "Yes",
+    "damage": "1d6 bludgeoning",
+    "suitableFor": [
+      "Paladin",
+      "Fighter"
+    ],
+    "flavour": "Holy symbols are etched into this mace's head, and it radiates a soft golden light. Undead and fiends instinctively fear it, for it carries the power to unmake them.",
+    "description": "When you hit a fiend or an undead with this magic weapon, that creature takes an extra 2d6 radiant damage. If the target has 25 hit points or fewer after taking this damage, it must succeed on a DC 15 Wisdom saving throw or be destroyed. On a successful save, the creature becomes frightened of you until the end of your next turn.\n\n**Light**\nWhile you hold this weapon, it sheds bright light in a 20-foot radius and dim light for an additional 20 feet.",
+    "stats": {
+      "Damage": "1d6 + 2d6 radiant",
+      "Destroy": "\u226425 HP (DC 15)",
+      "Light": "20 ft"
+    }
+  },
+  {
+    "id": "sword-life-stealing",
+    "name": "Sword of Life Stealing",
+    "type": "Weapon (Longsword)",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 3800,
+    "icon": "https://api.iconify.design/game-icons/bloody-sword.svg?color=%23ffffff",
+    "properties": "Versatile (1d10)",
+    "attunement": "Yes",
+    "damage": "1d8 slashing",
+    "suitableFor": [
+      "Fighter",
+      "Rogue"
+    ],
+    "flavour": "Dark runes pulse along the blade when it draws blood. Each kill feeds the sword, and in turn, it feeds its wielder\u2014a hungry partnership of death.",
+    "description": "When you attack a creature with this magic weapon and roll a 20 on the attack roll, that target takes an extra 3d6 necrotic damage, provided that the target isn't a construct or an undead. You gain temporary hit points equal to the extra damage dealt.",
+    "stats": {
+      "Damage": "1d8 slashing",
+      "On Crit": "+3d6 necrotic",
+      "Healing": "Temp HP on crit"
+    }
+  },
+  {
+    "id": "rod-pact-keeper-plus-two",
+    "name": "Rod of the Pact Keeper +2",
+    "type": "Rod",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 3500,
+    "icon": "https://api.iconify.design/game-icons/orb-wand.svg?color=%23ffffff",
+    "properties": "Rod (requires attunement by a warlock)",
+    "attunement": "Yes (Warlock)",
+    "suitableFor": [
+      "Ranger"
+    ],
+    "flavour": "This obsidian rod thrums with the power of otherworldly pacts. It strengthens the bond between warlock and patron, amplifying eldritch energies.",
+    "description": "While holding this rod, you gain a +2 bonus to spell attack rolls and to the saving throw DCs of your warlock spells.\n\n**Pact Slot Recovery**\nIn addition, you can regain one warlock spell slot as an action while holding the rod. You can't use this property again until you finish a long rest.",
+    "stats": {
+      "Spell Attack": "+2",
+      "Spell DC": "+2",
+      "Recovery": "1 slot/long rest"
+    }
+  },
+  {
+    "id": "cape-mountebank",
+    "name": "Cape of the Mountebank",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 3200,
+    "icon": "https://api.iconify.design/game-icons/cape.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "flavour": "This cape smells faintly of brimstone\u2014a reminder of its teleportation magic. Con artists and escape artists alike prize these capes for their dramatic exits.",
+    "description": "This cape smells faintly of brimstone. While wearing it, you can use it to cast the Dimension Door spell as an action. This property of the cape can't be used again until the next dawn.\n\n**Dramatic Exit**\nWhen you disappear, you leave behind a cloud of smoke, and you appear in a similar cloud of smoke at your destination. The smoke lightly obscures the space you left and the space you appear in, and it dissipates at the end of your next turn.",
+    "stats": {
+      "Spell": "Dimension Door 1/day",
+      "Range": "500 ft teleport"
+    }
+  },
+  {
+    "id": "boots-speed",
+    "name": "Boots of Speed",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 3000,
+    "icon": "https://api.iconify.design/game-icons/boots.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "flavour": "Lightning-bolt patterns trace along these boots, crackling with contained energy. When activated, the world seems to slow around you as you move with impossible swiftness.",
+    "description": "While you wear these boots, you can use a bonus action and click the boots' heels together. If you do, the boots double your walking speed, and any creature that makes an opportunity attack against you has disadvantage on the attack roll. If you click your heels together again, you end the effect.\n\n**Duration**\nWhen the boots' property has been used for a total of 10 minutes, the magic ceases to function until you finish a long rest.",
+    "stats": {
+      "Speed": "Double",
+      "Duration": "10 min/day",
+      "Opportunity Attacks": "Disadvantage against you"
+    }
+  },
+  {
+    "id": "hat-disguise",
+    "name": "Hat of Disguise",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 2800,
+    "icon": "https://api.iconify.design/game-icons/wizard-face.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "flavour": "This unassuming hat holds powerful illusion magic. A perfect tool for spies, thieves, and anyone who needs to become someone else entirely.",
+    "description": "While wearing this hat, you can use an action to cast the Disguise Self spell from it at will. The spell ends if the hat is removed.",
+    "stats": {
+      "Spell": "Disguise Self (at will)"
+    }
+  },
+  {
+    "id": "winged-boots",
+    "name": "Winged Boots",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 4200,
+    "icon": "https://api.iconify.design/game-icons/wing-foot.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "flavour": "Delicate wings sprout from the heels of these boots, fluttering eagerly. They grant the freedom of the skies to those bound to the earth.",
+    "description": "While you wear these boots, you have a flying speed equal to your walking speed. You can use the boots to fly for up to 4 hours, all at once or in several shorter flights, each one using a minimum of 1 minute from the duration.\n\n**Recharge**\nIf you are flying when the duration expires, you descend at a rate of 30 feet per round until you land. The boots regain 2 hours of flying capability for every 12 hours they aren't in use.",
+    "stats": {
+      "Fly Speed": "Equal to walk",
+      "Duration": "4 hours",
+      "Recharge": "2hr per 12hr rest"
+    }
+  },
+  {
+    "id": "eyes-eagle",
+    "name": "Eyes of the Eagle",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 2500,
+    "icon": "https://api.iconify.design/game-icons/sunglasses.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Ranger",
+      "Fighter",
+      "Rogue"
+    ],
+    "flavour": "These crystal lenses are carved to mimic the eyes of an eagle. When worn, distant objects snap into sharp focus, and hidden details become clear.",
+    "description": "These crystal lenses fit over the eyes. While wearing them, you have advantage on Wisdom (Perception) checks that rely on sight. In conditions of clear visibility, you can make out details of even extremely distant creatures and objects as small as 2 feet across.",
+    "stats": {
+      "Perception": "Advantage (sight)",
+      "Vision": "See 2ft details at any distance"
+    }
+  },
+  {
+    "id": "gloves-thievery",
+    "name": "Gloves of Thievery",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 2400,
+    "icon": "https://api.iconify.design/game-icons/gloves.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue"
+    ],
+    "flavour": "These gloves are invisible while worn\u2014perfect for activities best done unseen. They enhance dexterity and leave no fingerprints behind.",
+    "description": "These gloves are invisible while worn. While wearing them, you gain a +5 bonus to Dexterity (Sleight of Hand) checks and Dexterity checks made to pick locks.",
+    "stats": {
+      "Sleight of Hand": "+5",
+      "Lock Picking": "+5",
+      "Special": "Invisible"
+    }
+  },
+  {
+    "id": "scimitar-speed",
+    "name": "Scimitar of Speed",
+    "type": "Weapon (Scimitar)",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 4800,
+    "icon": "https://api.iconify.design/game-icons/scimitar.svg?color=%23ffffff",
+    "properties": "Finesse, light",
+    "attunement": "Yes",
+    "damage": "1d6+2 slashing",
+    "suitableFor": [
+      "Rogue",
+      "Fighter"
+    ],
+    "flavour": "This curved blade seems to anticipate your movements, guiding your hand through strikes faster than thought. It hungers for battle and rewards speed.",
+    "description": "You gain a +2 bonus to attack and damage rolls made with this magic weapon. In addition, you can make one attack with it as a bonus action on each of your turns.",
+    "stats": {
+      "Damage": "1d6+2 slashing",
+      "Bonus": "+2",
+      "Extra Attack": "Bonus action"
+    }
+  },
+  {
+    "id": "necklace-fireballs",
+    "name": "Necklace of Fireballs",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 3600,
+    "icon": "https://api.iconify.design/game-icons/fire-ring.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Ranger",
+      "Fighter"
+    ],
+    "flavour": "Beads of condensed fire hang from this necklace, warm to the touch. Each bead contains an explosive spell waiting to be unleashed.",
+    "description": "This necklace has 1d6 + 3 beads hanging from it. You can use an action to detach a bead and throw it up to 60 feet away. When it reaches the end of its trajectory, the bead detonates as a 3rd-level Fireball spell (save DC 15).\n\n**Multiple Beads**\nYou can throw multiple beads as one action. For each bead beyond the first, the level of the Fireball increases by 1.",
+    "stats": {
+      "Beads": "1d6+3",
+      "Damage": "8d6 fire",
+      "Save": "DC 15 Dex"
+    }
+  },
+  {
+    "id": "plate-plus-one",
+    "name": "Plate Armor +1",
+    "type": "Armor (Plate)",
+    "category": "armor",
+    "rarity": "Rare",
+    "price": 5500,
+    "icon": "https://api.iconify.design/game-icons/breastplate.svg?color=%23ffffff",
+    "properties": "Heavy armor, Str 15 required",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "flavour": "This masterwork plate armor gleams with magical reinforcement. Every joint and plate has been enchanted for superior protection.",
+    "description": "You have a +1 bonus to AC while wearing this armor.\n\nPlate consists of shaped, interlocking metal plates to cover the entire body. A suit of plate includes gauntlets, heavy leather boots, a visored helmet, and thick layers of padding underneath the armor. Buckles and straps distribute the weight over the body.",
+    "stats": {
+      "AC": "18 + 1 = 19",
+      "Strength": "15 required",
+      "Stealth": "Disadvantage"
+    }
+  },
+  {
+    "id": "half-plate-plus-one",
+    "name": "Half Plate +1",
+    "type": "Armor (Half Plate)",
+    "category": "armor",
+    "rarity": "Rare",
+    "price": 4000,
+    "icon": "https://api.iconify.design/game-icons/breastplate.svg?color=%23ffffff",
+    "properties": "Medium armor",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger",
+      "Paladin"
+    ],
+    "flavour": "Enchanted half plate that offers excellent protection while maintaining mobility. Popular among rangers and knights who value both.",
+    "description": "You have a +1 bonus to AC while wearing this armor.\n\nHalf plate consists of shaped metal plates that cover most of the wearer's body. It includes a helmet and greaves. It doesn't include leg protection beyond simple greaves attached with leather straps.",
+    "stats": {
+      "AC": "15 + Dex (max 2) + 1",
+      "Stealth": "Disadvantage"
+    }
+  },
+  {
+    "id": "dimensional-shackles",
+    "name": "Dimensional Shackles",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 2000,
+    "icon": "https://api.iconify.design/game-icons/handcuffs.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Paladin",
+      "Ranger"
+    ],
+    "flavour": "These adamantine shackles prevent not just physical escape but magical as well. Creatures bound within cannot teleport, plane shift, or otherwise flee through magical means.",
+    "description": "You can use an action to place these shackles on an incapacitated creature. The shackles adjust to fit a creature of Small to Large size.\n\n**Dimensional Lock**\nIn addition to serving as mundane manacles, the shackles prevent a creature bound by them from using any method of extradimensional movement. The creature can't teleport or travel to a different plane of existence.\n\n**Escape**\nEscaping requires DC 30 Strength or DC 30 Dexterity check. A creature can make such a check every 30 days.",
+    "stats": {
+      "Size": "Small to Large",
+      "Block": "Teleport/Plane Shift",
+      "Escape DC": "30"
+    }
+  },
+  {
+    "id": "immovable-rod",
+    "name": "Immovable Rod",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 600,
+    "icon": "https://api.iconify.design/game-icons/metal-bar.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "This flat iron rod has a button on one end. You can use an action to press the button, which causes the rod to become magically fixed in place. Until you or another creature uses an action to push the button again, the rod doesn't move, even if it is defying gravity.\n\n**Capacity**\nThe rod can hold up to 8,000 pounds of weight. More weight causes the rod to deactivate and fall.",
+    "stats": {
+      "Capacity": "8,000 lb",
+      "Activation": "Action"
+    }
+  },
+  {
+    "id": "sending-stones",
+    "name": "Sending Stones",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/stone-pile.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "Sending stones come in pairs, with each smooth stone carved to match the other so the pairing is easily recognized.\n\n**Sending**\nWhile you touch one stone, you can use an action to cast the Sending spell from it. The target is the bearer of the other stone. If no creature bears the other stone, you know that fact as soon as you use the stone and don't cast the spell.\n\nOnce Sending is cast through the stones, they can't be used again until the next dawn.",
+    "stats": {
+      "Spell": "Sending 1/day",
+      "Range": "Any distance, same plane"
+    }
+  },
+  {
+    "id": "eyes-minute-seeing",
+    "name": "Eyes of Minute Seeing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/sunglasses.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "These crystal lenses fit over the eyes. While wearing them, you can see much better than normal out to a range of 1 foot. You have advantage on Intelligence (Investigation) checks that rely on sight while searching an area or studying an object within that range.",
+    "stats": {
+      "Investigation": "Advantage (within 1 ft)"
+    }
+  },
+  {
+    "id": "dust-disappearance",
+    "name": "Dust of Disappearance",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/powder.svg?color=%23ffffff",
+    "properties": "Wondrous item (consumable)",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "Found in a small packet, this powder resembles very fine sand. There is enough of it for one use.\n\n**Invisibility**\nWhen you use an action to throw the dust into the air, you and each creature and object within 10 feet of you become invisible for 2d4 minutes. The duration is the same for all subjects, and the dust is consumed when its magic takes effect. If a creature affected by the dust attacks or casts a spell, the invisibility ends for that creature.",
+    "stats": {
+      "Area": "10 ft radius",
+      "Duration": "2d4 minutes",
+      "Uses": "Single use"
+    }
+  },
+  {
+    "id": "gloves-missile-snaring",
+    "name": "Gloves of Missile Snaring",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/gloves.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "These gloves seem to almost anticipate incoming projectiles. When a ranged weapon attack hits you while you're wearing them, you can use your reaction to reduce the damage by 1d10 + your Dexterity modifier, provided that you have a free hand.\n\n**Catch**\nIf you reduce the damage to 0, you can catch the missile if it is small enough for you to hold in that hand.",
+    "stats": {
+      "Reduction": "1d10 + Dex",
+      "Catch": "If reduced to 0"
+    }
+  },
+  {
+    "id": "ring-jumping",
+    "name": "Ring of Jumping",
+    "type": "Ring",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/ring.svg?color=%23ffffff",
+    "properties": "Ring",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "While wearing this ring, you can cast the Jump spell from it as a bonus action at will, but can target only yourself when you do so.",
+    "stats": {
+      "Spell": "Jump (at will, self only)",
+      "Effect": "Triple jump distance"
+    }
+  },
+  {
+    "id": "ring-swimming",
+    "name": "Ring of Swimming",
+    "type": "Ring",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 250,
+    "icon": "https://api.iconify.design/game-icons/ring.svg?color=%23ffffff",
+    "properties": "Ring",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "You have a swimming speed of 40 feet while wearing this ring.",
+    "stats": {
+      "Swim Speed": "40 ft"
+    }
+  },
+  {
+    "id": "ring-warmth",
+    "name": "Ring of Warmth",
+    "type": "Ring",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/ring.svg?color=%23ffffff",
+    "properties": "Ring",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "While wearing this ring, you have resistance to cold damage. In addition, you and everything you wear and carry are unharmed by temperatures as low as -50 degrees Fahrenheit.",
+    "stats": {
+      "Resistance": "Cold",
+      "Temperature": "Immune to -50\u00b0F"
+    }
+  },
+  {
+    "id": "pearl-power",
+    "name": "Pearl of Power",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 550,
+    "icon": "https://api.iconify.design/game-icons/pearl.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes (Spellcaster)",
+    "suitableFor": [
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "While this pearl is on your person, you can use an action to speak its command word and regain one expended spell slot. If the expended slot was of 4th level or higher, the new slot is 3rd level. Once you use the pearl, it can't be used again until the next dawn.",
+    "stats": {
+      "Recovery": "1 spell slot (\u22643rd level)",
+      "Recharge": "Dawn"
+    }
+  },
+  {
+    "id": "driftglobe",
+    "name": "Driftglobe",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "https://api.iconify.design/game-icons/crystal-ball.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "This small sphere of thick glass weighs 1 pound. If you are within 60 feet of it, you can speak its command word and cause it to emanate Light or Daylight. Once used, the Daylight effect can't be used again until the next dawn.\n\n**Hovering**\nYou can speak another command word as an action to make the illuminated globe rise into the air and float no more than 5 feet off the ground. The globe hovers in this way until you or another creature grasps it.",
+    "stats": {
+      "Light": "At will",
+      "Daylight": "1/day",
+      "Hover": "5 ft"
+    }
+  },
+  {
+    "id": "cloak-manta-ray",
+    "name": "Cloak of the Manta Ray",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/cape.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "While wearing this cloak with its hood up, you can breathe underwater, and you have a swimming speed of 60 feet. Pulling the hood up or down requires an action.",
+    "stats": {
+      "Swim Speed": "60 ft",
+      "Breathing": "Underwater"
+    }
+  },
+  {
+    "id": "slippers-spider-climbing",
+    "name": "Slippers of Spider Climbing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/boots.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "While you wear these light shoes, you can move up, down, and across vertical surfaces and upside down along ceilings, while leaving your hands free. You have a climbing speed equal to your walking speed.\n\n**Limitation**\nThe slippers don't allow you to move this way on a slippery surface, such as one covered by ice or oil.",
+    "stats": {
+      "Climb Speed": "Equal to walk",
+      "Surfaces": "Walls and ceilings"
+    }
+  },
+  {
+    "id": "circlet-blasting",
+    "name": "Circlet of Blasting",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/crown.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "While wearing this circlet, you can use an action to cast the Scorching Ray spell with it. When you make the spell's attacks, you do so with an attack bonus of +5.\n\n**Recharge**\nThe circlet can't be used this way again until the next dawn.",
+    "stats": {
+      "Spell": "Scorching Ray 1/day",
+      "Attack": "+5",
+      "Damage": "3x 2d6 fire"
+    }
+  },
+  {
+    "id": "medallion-thoughts",
+    "name": "Medallion of Thoughts",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "https://api.iconify.design/game-icons/gem-pendant.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "The medallion has 3 charges. While wearing it, you can use an action and expend 1 charge to cast the Detect Thoughts spell (save DC 13) from it.\n\n**Recharge**\nThe medallion regains 1d3 expended charges daily at dawn.",
+    "stats": {
+      "Charges": "3",
+      "Spell": "Detect Thoughts DC 13",
+      "Recharge": "1d3 at dawn"
+    }
+  },
+  {
+    "id": "ring-mind-shielding",
+    "name": "Ring of Mind Shielding",
+    "type": "Ring",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/ring.svg?color=%23ffffff",
+    "properties": "Ring",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "While wearing this ring, you are immune to magic that allows other creatures to read your thoughts, determine whether you are lying, know your alignment, or know your creature type. Creatures can telepathically communicate with you only if you allow it.\n\n**Soul Storage**\nIf you die while wearing the ring, your soul enters it, unless it already houses a soul. You can remain in the ring or depart for the afterlife.",
+    "stats": {
+      "Immunity": "Mind reading",
+      "Telepathy": "You control",
+      "Death": "Soul storage"
+    }
+  },
+  {
+    "id": "stone-good-luck",
+    "name": "Stone of Good Luck (Luckstone)",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/rock.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "While this polished agate is on your person, you gain a +1 bonus to ability checks and saving throws.",
+    "stats": {
+      "Ability Checks": "+1",
+      "Saving Throws": "+1"
+    }
+  },
+  {
+    "id": "weapon-warning",
+    "name": "Weapon of Warning (Shortsword)",
+    "type": "Weapon (Shortsword)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 550,
+    "icon": "https://api.iconify.design/game-icons/gladius.svg?color=%23ffffff",
+    "properties": "Finesse, light",
+    "attunement": "Yes",
+    "damage": "1d6 piercing",
+    "suitableFor": [
+      "Rogue",
+      "Fighter"
+    ],
+    "description": "This magic weapon warns you of danger. While the weapon is on your person, you have advantage on initiative rolls. In addition, you and any of your companions within 30 feet of you can't be surprised, except when incapacitated by something other than nonmagical sleep. The weapon magically awakens you and your companions within range if any of you are sleeping naturally when combat begins.",
+    "stats": {
+      "Damage": "1d6 piercing",
+      "Initiative": "Advantage",
+      "Surprise": "Immune (30ft)"
+    }
+  },
+  {
+    "id": "javelin-lightning",
+    "name": "Javelin of Lightning",
+    "type": "Weapon (Javelin)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/thrown-spear.svg?color=%23ffffff",
+    "properties": "Thrown (range 30/120)",
+    "attunement": "No",
+    "damage": "1d6 piercing + 4d6 lightning",
+    "suitableFor": [
+      "Fighter",
+      "Paladin",
+      "Ranger"
+    ],
+    "description": "This javelin is a magic weapon. When you hurl it and speak its command word, it transforms into a bolt of lightning, forming a line 5 feet wide that extends out from you to a target within 120 feet.\n\n**Lightning Bolt**\nEach creature in the line excluding you and the target must make a DC 13 Dexterity saving throw, taking 4d6 lightning damage on a failed save, and half as much damage on a successful one. The lightning bolt turns back into a javelin when it reaches the target.\n\nThis property can't be used again until the next dawn.",
+    "stats": {
+      "Damage": "1d6 + 4d6 lightning",
+      "Area": "5ft wide line",
+      "Save": "DC 13 Dex"
+    }
+  },
+  {
+    "id": "trident-fish-command",
+    "name": "Trident of Fish Command",
+    "type": "Weapon (Trident)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/trident.svg?color=%23ffffff",
+    "properties": "Versatile (1d8), thrown (range 20/60)",
+    "attunement": "Yes",
+    "damage": "1d6 piercing",
+    "suitableFor": [
+      "Fighter",
+      "Paladin",
+      "Ranger"
+    ],
+    "description": "This trident is a magic weapon. It has 3 charges. While you carry it, you can use an action and expend 1 charge to cast Dominate Beast (save DC 15) from it on a beast that has an innate swimming speed.\n\n**Recharge**\nThe trident regains 1d3 expended charges daily at dawn.",
+    "stats": {
+      "Damage": "1d6 piercing",
+      "Charges": "3",
+      "Spell": "Dominate Beast DC 15"
+    }
+  },
+  {
+    "id": "wand-web",
+    "name": "Wand of Web",
+    "type": "Wand",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/fairy-wand.svg?color=%23ffffff",
+    "properties": "Wand",
+    "attunement": "Yes (Spellcaster)",
+    "suitableFor": [
+      "Ranger"
+    ],
+    "description": "This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cast the Web spell (save DC 15) from it.\n\n**Recharge**\nThe wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll a d20. On a 1, the wand crumbles into ashes and is destroyed.",
+    "stats": {
+      "Charges": "7",
+      "Spell": "Web DC 15",
+      "Recharge": "1d6+1 at dawn"
+    }
+  },
+  {
+    "id": "wand-enemy-detection",
+    "name": "Wand of Enemy Detection",
+    "type": "Wand",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "https://api.iconify.design/game-icons/fairy-wand.svg?color=%23ffffff",
+    "properties": "Wand",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "This wand has 7 charges. While holding it, you can use an action and expend 1 charge to speak its command word. For the next minute, you know the direction of the nearest creature hostile to you within 60 feet, but not its distance from you.\n\n**Recharge**\nThe wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll a d20. On a 1, the wand crumbles into ashes and is destroyed.",
+    "stats": {
+      "Charges": "7",
+      "Range": "60 ft",
+      "Duration": "1 minute"
+    }
+  },
+  {
+    "id": "sentinel-shield",
+    "name": "Sentinel Shield",
+    "type": "Armor (Shield)",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "https://api.iconify.design/game-icons/shield.svg?color=%23ffffff",
+    "properties": "Shield",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "description": "While holding this shield, you have advantage on initiative rolls and Wisdom (Perception) checks. The shield is emblazoned with a symbol of an eye.",
+    "stats": {
+      "AC": "+2",
+      "Initiative": "Advantage",
+      "Perception": "Advantage"
+    }
+  },
+  {
+    "id": "mithral-chain-shirt",
+    "name": "Mithral Chain Shirt",
+    "type": "Armor (Chain Shirt)",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/chain-mail.svg?color=%23ffffff",
+    "properties": "Medium armor",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger",
+      "Rogue"
+    ],
+    "description": "Mithral is a light, flexible metal. A mithral chain shirt can be worn under normal clothes.\n\n**No Strength Requirement**\nIf the armor normally has a Strength requirement, the mithral version of it doesn't.\n\n**No Stealth Penalty**\nIf the armor normally imposes disadvantage on Dexterity (Stealth) checks, the mithral version of it doesn't.",
+    "stats": {
+      "AC": "13 + Dex (max 2)",
+      "Stealth": "No penalty",
+      "Concealed": "Under clothes"
+    }
+  },
+  {
+    "id": "adamantine-chain-mail",
+    "name": "Adamantine Chain Mail",
+    "type": "Armor (Chain Mail)",
+    "category": "armor",
+    "rarity": "Uncommon",
+    "price": 550,
+    "icon": "https://api.iconify.design/game-icons/chain-mail.svg?color=%23ffffff",
+    "properties": "Heavy armor, Str 13 required",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "description": "This suit of armor is reinforced with adamantine, one of the hardest substances in existence.\n\n**Critical Hit Immunity**\nWhile you're wearing it, any critical hit against you becomes a normal hit.",
+    "stats": {
+      "AC": "16",
+      "Special": "Crits become normal hits",
+      "Stealth": "Disadvantage"
+    }
+  },
+  {
+    "id": "crossbow-bolts-plus-one",
+    "name": "Crossbow Bolts +1 (Bundle of 20)",
+    "type": "Ammunition",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 100,
+    "icon": "https://api.iconify.design/game-icons/arrow-cluster.svg?color=%23ffffff",
+    "properties": "Ammunition",
+    "attunement": "No",
+    "damage": "+1 to hit and damage",
+    "suitableFor": [
+      "Fighter",
+      "Rogue"
+    ],
+    "description": "You have a +1 bonus to attack and damage rolls made with these magic bolts. Once a bolt hits or misses its target, the magic fades and it becomes a mundane bolt.\n\n**Bundle**\nThis bundle contains 20 bolts.",
+    "stats": {
+      "Bonus": "+1 to hit/damage",
+      "Quantity": "20 bolts"
+    }
+  },
+  {
+    "id": "horn-silent-alarm",
+    "name": "Horn of Silent Alarm",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 40,
+    "icon": "https://api.iconify.design/game-icons/hunting-horn.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "This horn has 4 charges. When you use an action to blow it, one creature of your choice can hear the horn's blare, provided the creature is within 600 feet of the horn and not deafened. No other creature hears sound coming from the horn. The horn regains 1d4 expended charges daily at dawn.",
+    "stats": {
+      "Charges": "4",
+      "Range": "600 ft",
+      "Target": "1 creature only"
+    }
+  },
+  {
+    "id": "candle-deep",
+    "name": "Candle of the Deep",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 20,
+    "icon": "https://api.iconify.design/game-icons/candle-light.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "The flame of this candle is not extinguished when immersed in water. It gives off light and heat like a normal candle.",
+    "stats": {
+      "Light": "5 ft bright",
+      "Special": "Burns underwater"
+    }
+  },
+  {
+    "id": "charlatan-dice",
+    "name": "Charlatan's Dice",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 30,
+    "icon": "https://api.iconify.design/game-icons/dice-six-faces-six.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue"
+    ],
+    "description": "Whenever you roll these dice, you can control which faces come up. This allows you to cheat at any dice game.",
+    "stats": {
+      "Effect": "Control dice results"
+    }
+  },
+  {
+    "id": "hat-vermin",
+    "name": "Hat of Vermin",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 30,
+    "icon": "https://api.iconify.design/game-icons/top-hat.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "description": "This hat has 3 charges. While holding the hat, you can use an action to expend 1 of its charges and speak a command word that summons your choice of a bat, a frog, or a rat. The summoned creature appears in the hat and tries to get away from you as quickly as possible. It is neither combative nor friendly, and behaves like an ordinary creature of its kind. The hat regains all expended charges daily at dawn.",
+    "stats": {
+      "Charges": "3",
+      "Summons": "Bat, frog, or rat",
+      "Recharge": "Dawn"
+    }
+  },
+  {
+    "id": "mystery-key",
+    "name": "Mystery Key",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 15,
+    "icon": "https://api.iconify.design/game-icons/key.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "description": "A question mark is worked into the head of this key. The key has a 5 percent chance of unlocking any lock into which it's inserted. Once it unlocks something, the magic is gone.",
+    "stats": {
+      "Chance": "5% to unlock",
+      "Uses": "Single use (if successful)"
+    }
+  },
+  {
+    "id": "pipe-smoke-monsters",
+    "name": "Pipe of Smoke Monsters",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 35,
+    "icon": "https://api.iconify.design/game-icons/smoking-pipe.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger",
+      "Paladin"
+    ],
+    "description": "While smoking this pipe, you can use an action to exhale a puff of smoke that takes the form of a single creature, such as a dragon, a flumph, or a froghemoth. The form must be small enough to fit in a 1-foot cube and loses its shape after a few seconds, becoming an ordinary puff of smoke.",
+    "stats": {
+      "Effect": "Cosmetic smoke shapes"
+    }
+  },
+  {
+    "id": "staff-birdcalls",
+    "name": "Staff of Birdcalls",
+    "type": "Staff",
+    "category": "weapons",
+    "rarity": "Common",
+    "price": 30,
+    "icon": "https://api.iconify.design/game-icons/wizard-staff.svg?color=%23ffffff",
+    "properties": "Staff",
+    "attunement": "No",
+    "damage": "1d6 bludgeoning",
+    "suitableFor": [
+      "Ranger"
+    ],
+    "description": "This wooden staff is decorated with bird carvings. It has 10 charges. While holding it, you can use an action to expend 1 charge from the staff and cause it to create one of the following sounds: a finch's chirp, a raven's caw, a duck's quack, a chicken's cluck, a goose's honk, a loon's call, a turkey's gobble, a seagull's cry, an owl's hoot, or an eagle's shriek.\n\nThe staff regains 1d6 + 4 expended charges daily at dawn. If you expend the last charge, roll a d20. On a 1, the staff explodes in a harmless cloud of bird feathers and is lost forever.",
+    "stats": {
+      "Charges": "10",
+      "Effect": "Bird sounds",
+      "Recharge": "1d6+4 at dawn"
+    }
+  },
+  {
+    "id": "veterans-cane",
+    "name": "Veteran's Cane",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 40,
+    "icon": "https://api.iconify.design/game-icons/wizard-staff.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Paladin"
+    ],
+    "description": "When you grasp this walking cane and use a bonus action to speak the command word, it transforms into an ordinary longsword and ceases to be magical.",
+    "stats": {
+      "Transform": "Longsword (one-time)",
+      "Uses": "Single use"
+    }
+  }
 ]

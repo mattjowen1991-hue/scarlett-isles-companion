@@ -80,6 +80,9 @@ const HONOUR_CONFIG = {
 // Honour data from Firebase (synced in real-time)
 let honourData = { clanScores: {} };
 
+// Active quests from Quest Generator (synced in real-time)
+let activeQuests = [];
+
 // Current location - now controlled by DM via Firebase
 let currentLocation = 'neutral';
 
@@ -126,6 +129,56 @@ function getAdjustedPrice(basePrice) {
     }
     const adjusted = Math.round(basePrice * (1 + modInfo.modifier));
     return { price: adjusted, noTrade: false, modInfo };
+}
+
+// ===================================
+// ACTIVE QUEST HELPERS
+// ===================================
+
+// Get all tags from active quests
+function getActiveQuestTags() {
+    const tags = new Set();
+    activeQuests.forEach(quest => {
+        if (quest.tags) {
+            quest.tags.forEach(tag => tags.add(tag));
+        }
+        // Also add quest_type as a tag for matching
+        if (quest.quest_type) {
+            tags.add(quest.quest_type);
+        }
+    });
+    return tags;
+}
+
+// Check if an item is relevant to active quests
+function isQuestRelevant(item) {
+    if (!activeQuests.length || !item.questTags || !item.questTags.length) {
+        return false;
+    }
+    
+    const activeTags = getActiveQuestTags();
+    return item.questTags.some(tag => activeTags.has(tag));
+}
+
+// Update the active quest display in the UI
+function updateActiveQuestDisplay() {
+    const container = document.getElementById('activeQuestDisplay');
+    if (!container) return;
+    
+    if (!activeQuests.length) {
+        container.innerHTML = '<span class="no-quest">No active quest</span>';
+        container.classList.remove('has-quest');
+        return;
+    }
+    
+    // Show the first/primary quest
+    const quest = activeQuests[0];
+    container.innerHTML = `
+        <span class="quest-icon">📜</span>
+        <span class="quest-title">${quest.title}</span>
+        <span class="quest-type">${quest.quest_type}</span>
+    `;
+    container.classList.add('has-quest');
 }
 
 // ===================================
@@ -328,6 +381,28 @@ function setupFirebaseListeners() {
         }
     }, (error) => {
         console.warn('Firebase location listener error:', error);
+    });
+    
+    // Listen for active quests (from Quest Generator)
+    const activeQuestsRef = ref(db, 'activeQuests');
+    
+    onValue(activeQuestsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data && data.quests) {
+            activeQuests = data.quests;
+            console.log('Active quests updated:', activeQuests.length, 'quests');
+            updateActiveQuestDisplay();
+            
+            // Re-render to show quest-relevant items
+            if (allItems.length > 0) {
+                renderItems();
+            }
+        } else {
+            activeQuests = [];
+            updateActiveQuestDisplay();
+        }
+    }, (error) => {
+        console.warn('Firebase active quests listener error:', error);
     });
 }
 
@@ -607,6 +682,7 @@ function renderItems() {
         const iconUrl = getItemIcon(item);
         const reservation = reservedItems[item.id];
         const isLegendary = rarity === 'legendary';
+        const questRelevant = isQuestRelevant(item);
         
         // Get adjusted price based on location/honour
         const priceInfo = getAdjustedPrice(item.price);
@@ -631,6 +707,12 @@ function renderItems() {
             `;
         }
         
+        // Quest relevance badge
+        let questBadge = '';
+        if (questRelevant) {
+            questBadge = `<span class="quest-relevant-badge" title="Useful for current quest">📜 Quest</span>`;
+        }
+        
         // Build price display with modifier
         let priceHTML;
         if (priceInfo.noTrade) {
@@ -646,7 +728,7 @@ function renderItems() {
         }
         
         return `
-            <div class="item-row ${rarity} ${reservation ? 'reserved' : ''} ${priceInfo.noTrade ? 'no-trade-item' : ''}" data-item-id="${item.id}">
+            <div class="item-row ${rarity} ${reservation ? 'reserved' : ''} ${priceInfo.noTrade ? 'no-trade-item' : ''} ${questRelevant ? 'quest-relevant' : ''}" data-item-id="${item.id}">
                 <span class="item-star ${isFavorite ? 'favorited' : ''}" data-item-id="${item.id}">
                     ${isFavorite ? '★' : '☆'}
                 </span>
@@ -654,7 +736,7 @@ function renderItems() {
                     <img src="${iconUrl}" alt="${item.name}">
                 </div>
                 <div class="item-details">
-                    <h3 class="item-name">${item.name}</h3>
+                    <h3 class="item-name">${item.name} ${questBadge}</h3>
                     <p class="item-type">${item.type}</p>
                     <div class="item-tags">
                         ${item.suitableFor.map(tag => `<span class="item-tag">${tag}</span>`).join('')}
