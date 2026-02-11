@@ -15,9 +15,9 @@ const firebaseConfig = {
     authDomain: "scarlett-isles-companion.firebaseapp.com",
     projectId: "scarlett-isles-companion",
     storageBucket: "scarlett-isles-companion.firebasestorage.app",
-    messagingSenderId: "1004879472877",
-    appId: "1:1004879472877:web:a498908c2ccf362e8e7e63",
-    databaseURL: "https://scarlett-isles-companion-default-rtdb.europe-west1.firebasedatabase.app"
+    messagingSenderId: "269614761446",
+    appId: "1:269614761446:web:d420e1198e62b68a474227",
+    databaseURL: "https://scarlett-isles-companion-default-rtdb.firebaseio.com"
 };
 
 let app, db;
