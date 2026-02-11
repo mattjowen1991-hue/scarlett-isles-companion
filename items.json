@@ -26,7 +26,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "Forged for war against man and beast alike."
   },
   {
     "id": "holy-avenger",
@@ -56,7 +57,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Blessed against unholy abominations."
   },
   {
     "id": "staff-power",
@@ -111,7 +113,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Essential for skulduggery and clandestine affairs."
   },
   {
     "id": "oathbow",
@@ -142,7 +145,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells."
   },
   {
     "id": "bow-warning",
@@ -173,7 +177,8 @@
     "provinceTags": [
       "Northern",
       "Western"
-    ]
+    ],
+    "questHint": "Indispensable for uncovering the truth."
   },
   {
     "id": "sunblade",
@@ -203,7 +208,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Blessed against unholy abominations."
   },
   {
     "id": "luck-blade",
@@ -285,7 +291,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "Battle-tested and soldier-approved."
   },
   {
     "id": "belt-giant-strength-fire",
@@ -313,7 +320,8 @@
     "provinceTags": [
       "Northern",
       "Southern"
-    ]
+    ],
+    "questHint": "Forged for war against man and beast alike."
   },
   {
     "id": "cloak-arachnida",
@@ -342,7 +350,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "A shadow-walker's essential."
   },
   {
     "id": "longbow-plus2",
@@ -371,7 +380,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "Favoured by those who hunt men for coin."
   },
   {
     "id": "longbow-plus1",
@@ -399,7 +409,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "A bounty hunter's trusted companion."
   },
   {
     "id": "shortbow-swift",
@@ -429,7 +440,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "A bounty hunter's trusted companion."
   },
   {
     "id": "arrows-slaying-humanoid",
@@ -459,7 +471,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells."
   },
   {
     "id": "quiver-ehlonna",
@@ -488,7 +501,8 @@
     "provinceTags": [
       "Northern",
       "Western"
-    ]
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "bracers-archery",
@@ -515,7 +529,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "A bounty hunter's trusted companion."
   },
   {
     "id": "cloak-elvenkind",
@@ -545,7 +560,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "For those who prefer shadows to sunlight."
   },
   {
     "id": "boots-elvenkind",
@@ -574,7 +590,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "For those who prefer shadows to sunlight."
   },
   {
     "id": "eyes-eagle",
@@ -604,7 +621,8 @@
     },
     "provinceTags": [
       "Coastal"
-    ]
+    ],
+    "questHint": "Blessed for journeys upon the waves."
   },
   {
     "id": "shortsword-venom",
@@ -634,7 +652,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Favoured by those who hunt men for coin."
   },
   {
     "id": "rapier-plus2",
@@ -664,7 +683,8 @@
     },
     "provinceTags": [
       "Midland"
-    ]
+    ],
+    "questHint": "Useful in the courts of power and deception."
   },
   {
     "id": "shortsword-plus1",
@@ -720,7 +740,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Favoured by those who hunt men for coin."
   },
   {
     "id": "gloves-thievery",
@@ -750,7 +771,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Essential for skulduggery and clandestine affairs."
   },
   {
     "id": "hat-disguise",
@@ -779,7 +801,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "For those who prefer shadows to sunlight."
   },
   {
     "id": "thieves-tools-masterwork",
@@ -807,7 +830,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Essential for skulduggery and clandestine affairs."
   },
   {
     "id": "cloak-displacement",
@@ -836,7 +860,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "A bounty hunter's trusted companion."
   },
   {
     "id": "longsword-plus2",
@@ -865,7 +890,8 @@
     "provinceTags": [
       "Northern",
       "Western"
-    ]
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "longsword-plus1",
@@ -918,7 +944,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "Forged for war against man and beast alike."
   },
   {
     "id": "battleaxe-plus2",
@@ -946,7 +973,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "Forged for war against man and beast alike."
   },
   {
     "id": "flame-tongue",
@@ -976,7 +1004,8 @@
     "provinceTags": [
       "Northern",
       "Southern"
-    ]
+    ],
+    "questHint": "Forged for war against man and beast alike."
   },
   {
     "id": "frost-brand",
@@ -1006,7 +1035,8 @@
     "provinceTags": [
       "Northern",
       "Southern"
-    ]
+    ],
+    "questHint": "Forged for war against man and beast alike."
   },
   {
     "id": "shield-plus2",
@@ -1033,7 +1063,8 @@
     "provinceTags": [
       "Northern",
       "Western"
-    ]
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "shield-plus1",
@@ -1058,7 +1089,8 @@
     },
     "provinceTags": [
       "Western"
-    ]
+    ],
+    "questHint": "For those sworn to protect others."
   },
   {
     "id": "sentinel-shield",
@@ -1088,7 +1120,8 @@
     "provinceTags": [
       "Northern",
       "Western"
-    ]
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "plate-plus1",
@@ -1115,7 +1148,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "Battle-tested and soldier-approved."
   },
   {
     "id": "half-plate-plus1",
@@ -1142,7 +1176,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "Battle-tested and soldier-approved."
   },
   {
     "id": "chain-mail-plus1",
@@ -1171,7 +1206,8 @@
     "provinceTags": [
       "Northern",
       "Western"
-    ]
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "gauntlets-ogre",
@@ -1198,7 +1234,8 @@
     "provinceTags": [
       "Northern",
       "Western"
-    ]
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "boots-speed",
@@ -1230,7 +1267,8 @@
     },
     "provinceTags": [
       "Western"
-    ]
+    ],
+    "questHint": "Favoured by those who hunt men for coin."
   },
   {
     "id": "studded-leather-plus1",
@@ -1258,7 +1296,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "A bounty hunter's trusted companion."
   },
   {
     "id": "bracers-defense",
@@ -1362,7 +1401,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "Forged for war against man and beast alike."
   },
   {
     "id": "potion-healing-superior",
@@ -1391,7 +1431,8 @@
     },
     "provinceTags": [
       "Northern"
-    ]
+    ],
+    "questHint": "Forged for war against man and beast alike."
   },
   {
     "id": "potion-invisibility",
@@ -1421,7 +1462,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "For those who prefer shadows to sunlight."
   },
   {
     "id": "potion-water-breathing",
@@ -1452,7 +1494,8 @@
     },
     "provinceTags": [
       "Coastal"
-    ]
+    ],
+    "questHint": "Essential for nautical ventures and pirate hunting."
   },
   {
     "id": "potion-climbing",
@@ -1481,7 +1524,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Essential for venturing into the unknown."
   },
   {
     "id": "bag-holding",
@@ -1512,7 +1556,8 @@
     "provinceTags": [
       "Midland",
       "Western"
-    ]
+    ],
+    "questHint": "For those sworn to protect others."
   },
   {
     "id": "sending-stones",
@@ -1546,7 +1591,8 @@
       "Northern",
       "Midland",
       "Western"
-    ]
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "lantern-revealing",
@@ -1577,7 +1623,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Aids in finding that which is lost or hidden."
   },
   {
     "id": "rope-climbing",
@@ -1608,7 +1655,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "A shadow-walker's essential."
   },
   {
     "id": "medallion-thoughts",
@@ -1638,7 +1686,8 @@
     },
     "provinceTags": [
       "Midland"
-    ]
+    ],
+    "questHint": "Useful in the courts of power and deception."
   },
   {
     "id": "ring-mind-shielding",
@@ -1668,7 +1717,8 @@
     },
     "provinceTags": [
       "Midland"
-    ]
+    ],
+    "questHint": "Useful in the courts of power and deception."
   },
   {
     "id": "dimensional-shackles",
@@ -1699,7 +1749,8 @@
     },
     "provinceTags": [
       "Western"
-    ]
+    ],
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells."
   },
   {
     "id": "net-snaring",
@@ -1730,7 +1781,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells."
   },
   {
     "id": "manacles-mithral",
@@ -1762,7 +1814,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells."
   },
   {
     "id": "torch-everburning",
@@ -1792,7 +1845,8 @@
     },
     "provinceTags": [
       "Southern"
-    ]
+    ],
+    "questHint": "Aids in finding that which is lost or hidden."
   },
   {
     "id": "compass-wayfinder",
@@ -1822,7 +1876,8 @@
     "provinceTags": [
       "Coastal",
       "Western"
-    ]
+    ],
+    "questHint": "For the well-prepared traveller."
   },
   {
     "id": "spyglass-enhanced",
@@ -1852,7 +1907,8 @@
     },
     "provinceTags": [
       "Coastal"
-    ]
+    ],
+    "questHint": "Blessed for journeys upon the waves."
   },
   {
     "id": "whistle-warning",
@@ -1883,7 +1939,8 @@
     "provinceTags": [
       "Northern",
       "Western"
-    ]
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "sailors-charm",
@@ -1914,7 +1971,8 @@
     },
     "provinceTags": [
       "Coastal"
-    ]
+    ],
+    "questHint": "Essential for nautical ventures and pirate hunting."
   },
   {
     "id": "investigators-lens",
@@ -1944,7 +2002,8 @@
     },
     "provinceTags": [
       "Southern"
-    ]
+    ],
+    "questHint": "Aids in finding that which is lost or hidden."
   },
   {
     "id": "diplomats-pouch",
@@ -1977,7 +2036,8 @@
       "Coastal",
       "Southern",
       "Midland"
-    ]
+    ],
+    "questHint": "Honoured in negotiations between the great clans."
   },
   {
     "id": "bounty-hunters-brand",
@@ -2008,7 +2068,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells."
   },
   {
     "id": "grappling-hook",
@@ -2038,7 +2099,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "A shadow-walker's essential."
   },
   {
     "id": "caltrops-persistent",
@@ -2069,7 +2131,8 @@
     "provinceTags": [
       "Northern",
       "Western"
-    ]
+    ],
+    "questHint": "Favoured by those who hunt men for coin."
   },
   {
     "id": "smoke-pellets",
@@ -2099,7 +2162,8 @@
     },
     "provinceTags": [
       "General"
-    ]
+    ],
+    "questHint": "Essential for skulduggery and clandestine affairs."
   },
   {
     "id": "trident-waves",
@@ -2130,7 +2194,8 @@
       "Damage": "1d8+2 piercing",
       "Bonus": "+2 to hit/damage",
       "Special": "Breathe underwater"
-    }
+    },
+    "questHint": "Essential for nautical ventures and pirate hunting."
   },
   {
     "id": "cloak-manta",
@@ -2159,7 +2224,8 @@
     "stats": {
       "Swim Speed": "60 ft",
       "Special": "Breathe underwater"
-    }
+    },
+    "questHint": "Blessed for journeys upon the waves."
   },
   {
     "id": "harpoon-returning",
@@ -2190,7 +2256,8 @@
       "Damage": "1d6+1 piercing",
       "Bonus": "+1 to hit/damage",
       "Grapple DC": "14"
-    }
+    },
+    "questHint": "Essential for nautical ventures and pirate hunting."
   },
   {
     "id": "gauntlets-forgefire",
@@ -2216,7 +2283,8 @@
     "stats": {
       "Resistance": "Fire",
       "Unarmed": "+1d6 fire"
-    }
+    },
+    "questHint": "Proven effective against creatures most foul."
   },
   {
     "id": "shield-emberward",
@@ -2242,7 +2310,8 @@
     "stats": {
       "AC": "+2",
       "Fire Reduction": "1d6"
-    }
+    },
+    "questHint": "Proven effective against creatures most foul."
   },
   {
     "id": "arrows-fire",
@@ -2269,7 +2338,8 @@
       "Extra Damage": "1d6 fire",
       "Save DC": "12 Dex",
       "Quantity": "10"
-    }
+    },
+    "questHint": "Proven effective against creatures most foul."
   },
   {
     "id": "ring-eloquence",
@@ -2298,7 +2368,8 @@
     "stats": {
       "Languages": "+4",
       "Persuasion": "+2"
-    }
+    },
+    "questHint": "Useful in the courts of power and deception."
   },
   {
     "id": "quill-contracts",
@@ -2326,7 +2397,8 @@
     "stats": {
       "Duration": "1 week",
       "Effect": "Disadvantage on truth saves"
-    }
+    },
+    "questHint": "Useful in the courts of power and deception."
   },
   {
     "id": "medallion-safe-passage",
@@ -2356,7 +2428,8 @@
     "stats": {
       "Charisma": "Advantage (merchants)",
       "Initiative": "+2 (ambush)"
-    }
+    },
+    "questHint": "A merchant-diplomat's finest tool."
   },
   {
     "id": "boots-longstrider",
@@ -2386,7 +2459,8 @@
     "stats": {
       "Speed": "+10 ft",
       "Special": "Ignore road difficult terrain"
-    }
+    },
+    "questHint": "A guardian's gear for long journeys."
   },
   {
     "id": "wagon-charm",
@@ -2415,7 +2489,8 @@
     "description": "Attach to a vehicle. Vehicle cannot have its wheels broken or axle damaged except by magical means.",
     "stats": {
       "Protection": "Wheel/axle immunity (non-magical)"
-    }
+    },
+    "questHint": "A guardian's gear for long journeys."
   },
   {
     "id": "horn-rally",
@@ -2445,7 +2520,8 @@
       "Range": "300 ft",
       "Duration": "1 minute",
       "Uses": "1/day"
-    }
+    },
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "cloak-furs",
@@ -2473,7 +2549,8 @@
     "stats": {
       "Cold": "Immune to extreme cold",
       "Survival": "Advantage (cold)"
-    }
+    },
+    "questHint": "Essential for venturing into the unknown."
   },
   {
     "id": "axe-icebreaker",
@@ -2502,7 +2579,8 @@
       "Damage": "1d8+1 + 1d6 cold",
       "Bonus": "+1 to hit/damage",
       "Crit": "-10 ft speed"
-    }
+    },
+    "questHint": "Forged for war against man and beast alike."
   },
   {
     "id": "warpaint-blackstone",
@@ -2531,7 +2609,8 @@
       "Duration": "1 hour",
       "Intimidation": "+1",
       "Defense": "Disadvantage on opportunity attacks"
-    }
+    },
+    "questHint": "A bounty hunter's trusted companion."
   },
   {
     "id": "banner-parley",
@@ -2560,7 +2639,8 @@
     "stats": {
       "Effect": "Prevents first-strike",
       "Persuasion": "Advantage (clan negotiations)"
-    }
+    },
+    "questHint": "Honoured in negotiations between the great clans."
   },
   {
     "id": "seal-witness",
@@ -2591,7 +2671,8 @@
     "stats": {
       "Insight": "+2 (negotiations)",
       "Effect": "Binding seal"
-    }
+    },
+    "questHint": "Honoured in negotiations between the great clans."
   },
   {
     "id": "torc-standing",
@@ -2621,7 +2702,8 @@
     "stats": {
       "Honour": "+1 effective",
       "Restriction": "Requires neutral+ honour"
-    }
+    },
+    "questHint": "Honoured in negotiations between the great clans."
   },
   {
     "id": "incense-truth",
@@ -2652,7 +2734,8 @@
       "Radius": "10 ft",
       "Duration": "10 minutes",
       "Effect": "Disadvantage on Deception"
-    }
+    },
+    "questHint": "Indispensable for uncovering the truth."
   },
   {
     "id": "holy-water-vial",
@@ -2681,7 +2764,8 @@
     "stats": {
       "Damage": "2d6 radiant (fiends/undead)",
       "Quantity": "3 vials"
-    }
+    },
+    "questHint": "Blessed against unholy abominations."
   },
   {
     "id": "slippers-spider",
@@ -2711,7 +2795,8 @@
     "stats": {
       "Climb": "Any surface",
       "Restriction": "Not encumbered"
-    }
+    },
+    "questHint": "Essential for skulduggery and clandestine affairs."
   },
   {
     "id": "cloak-many-fashions",
@@ -2741,7 +2826,8 @@
     "description": "As a bonus action, change the style, color, and apparent quality of the cloak. Useful for blending in at any social level.",
     "stats": {
       "Effect": "Change appearance at will"
-    }
+    },
+    "questHint": "For delicate work in civilised places."
   },
   {
     "id": "dust-disappearance",
@@ -2772,7 +2858,8 @@
       "Duration": "2d4 minutes",
       "Radius": "10 ft",
       "Ends": "On attack/spell"
-    }
+    },
+    "questHint": "Essential for skulduggery and clandestine affairs."
   },
   {
     "id": "potion-heroism",
@@ -2803,7 +2890,8 @@
       "Duration": "1 hour",
       "Temp HP": "10",
       "Effect": "Bless (no concentration)"
-    }
+    },
+    "questHint": "Standard issue for soldiers and caravan guards."
   },
   {
     "id": "rope-entanglement",
@@ -2833,7 +2921,8 @@
       "Range": "20 ft",
       "Save DC": "15 Dex",
       "Escape DC": "15"
-    }
+    },
+    "questHint": "Favoured by those who hunt men for coin."
   },
   {
     "id": "wanted-poster-magic",
@@ -2864,7 +2953,8 @@
     "stats": {
       "Range": "1 mile",
       "Update": "Hourly"
-    }
+    },
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells."
   },
   {
     "id": "bolas-tangling",
@@ -2896,6 +2986,7 @@
       "Save DC": "13 Str",
       "Escape DC": "13",
       "Special": "Returns to hand"
-    }
+    },
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells."
   }
 ]

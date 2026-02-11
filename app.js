@@ -879,10 +879,14 @@ function renderItems() {
             `;
         }
         
-        // Quest relevance badge
+        // Quest relevance badge and hint
         let questBadge = '';
+        let questHint = '';
         if (questRelevant) {
             questBadge = `<span class="quest-relevant-badge" title="Useful for current quest">📜 Quest</span>`;
+            if (item.questHint) {
+                questHint = `<p class="quest-hint">"${item.questHint}"</p>`;
+            }
         }
         
         // Build price display with modifier
@@ -910,6 +914,7 @@ function renderItems() {
                 <div class="item-details">
                     <h3 class="item-name">${item.name} ${questBadge}</h3>
                     <p class="item-type">${item.type}</p>
+                    ${questHint}
                     <div class="item-tags">
                         ${item.suitableFor.map(tag => `<span class="item-tag">${tag}</span>`).join('')}
                     </div>

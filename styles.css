@@ -1444,3 +1444,15 @@ header {
     border-radius: 3px;
     color: var(--text-secondary);
 }
+
+/* Quest hint - medieval flavour text */
+.quest-hint {
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #c9a857;
+    margin: 0.35rem 0;
+    padding-left: 0.5rem;
+    border-left: 2px solid rgba(201, 168, 87, 0.4);
+    font-family: 'Crimson Text', Georgia, serif;
+    letter-spacing: 0.02em;
+}
