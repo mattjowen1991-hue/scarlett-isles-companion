@@ -2532,5 +2532,370 @@
       "Intimidation": "+1",
       "Defense": "Disadvantage on opportunity attacks"
     }
+  },
+  {
+    "id": "banner-parley",
+    "name": "Banner of Parley",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/flag.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Clan",
+      "Diplomacy",
+      "Dispute"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "A white banner recognized across all clan territories as a sign of peaceful intent.",
+    "description": "While carrying this banner visibly, clan warriors will not attack first without provocation. Grants advantage on Persuasion checks when negotiating between clans.",
+    "stats": {
+      "Effect": "Prevents first-strike",
+      "Persuasion": "Advantage (clan negotiations)"
+    }
+  },
+  {
+    "id": "seal-witness",
+    "name": "Seal of the Witness",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/wax-seal.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Clan",
+      "Diplomacy",
+      "Law",
+      "Dispute"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "An official seal that marks the bearer as a neutral witness to agreements.",
+    "description": "Documents sealed with this become magically binding - any who break the agreement glow faintly for 24 hours. Grants +2 to Insight checks to detect lies during negotiations.",
+    "stats": {
+      "Insight": "+2 (negotiations)",
+      "Effect": "Binding seal"
+    }
+  },
+  {
+    "id": "torc-standing",
+    "name": "Torc of Standing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 1200,
+    "icon": "https://api.iconify.design/game-icons/torc.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Clan",
+      "Honour",
+      "Diplomacy"
+    ],
+    "provinceTags": [
+      "Northern",
+      "General"
+    ],
+    "flavour": "A twisted metal torc worn by those with honour among the clans.",
+    "description": "While worn, you are treated as having +1 higher honour with all clans for the purposes of access and pricing. Cannot be worn by those with -3 or lower honour with any clan.",
+    "stats": {
+      "Honour": "+1 effective",
+      "Restriction": "Requires neutral+ honour"
+    }
+  },
+  {
+    "id": "incense-truth",
+    "name": "Incense of Truth",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 200,
+    "icon": "https://api.iconify.design/game-icons/incense.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Temple",
+      "Investigation",
+      "Law"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "Temple-blessed incense that encourages honesty.",
+    "description": "When burned, creatures within 10 feet have disadvantage on Deception checks for 10 minutes. Commonly used in temple arbitrations.",
+    "stats": {
+      "Radius": "10 ft",
+      "Duration": "10 minutes",
+      "Effect": "Disadvantage on Deception"
+    }
+  },
+  {
+    "id": "holy-water-vial",
+    "name": "Blessed Holy Water (3 vials)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 75,
+    "icon": "https://api.iconify.design/game-icons/holy-water.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Temple",
+      "Monster"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "Water blessed by temple priests, potent against the unholy.",
+    "description": "As an action, splash on a creature within 5 feet or throw up to 20 feet. Fiends and undead take 2d6 radiant damage.",
+    "stats": {
+      "Damage": "2d6 radiant (fiends/undead)",
+      "Quantity": "3 vials"
+    }
+  },
+  {
+    "id": "slippers-spider",
+    "name": "Slippers of Spider Climbing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 550,
+    "icon": "https://api.iconify.design/game-icons/footprint.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "City",
+      "Stealth",
+      "Quiet",
+      "Intrigue"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "Soft-soled slippers that grip any surface.",
+    "description": "Climb difficult surfaces including ceilings without needing to make ability checks. Cannot use if encumbered.",
+    "stats": {
+      "Climb": "Any surface",
+      "Restriction": "Not encumbered"
+    }
+  },
+  {
+    "id": "cloak-many-fashions",
+    "name": "Cloak of Many Fashions",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 50,
+    "icon": "https://api.iconify.design/game-icons/cloak.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "questTags": [
+      "City",
+      "Intrigue",
+      "Quiet"
+    ],
+    "provinceTags": [
+      "Midland",
+      "General"
+    ],
+    "flavour": "This cloak shifts its appearance to match any occasion.",
+    "description": "As a bonus action, change the style, color, and apparent quality of the cloak. Useful for blending in at any social level.",
+    "stats": {
+      "Effect": "Change appearance at will"
+    }
+  },
+  {
+    "id": "dust-disappearance",
+    "name": "Dust of Disappearance",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/powder.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Stealth",
+      "Quiet",
+      "Intrigue",
+      "City"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "Fine grey powder that bends light around whatever it coats.",
+    "description": "Throw in the air to coat creatures within 10 feet. They become invisible for 2d4 minutes. Attacking or casting ends it for that creature.",
+    "stats": {
+      "Duration": "2d4 minutes",
+      "Radius": "10 ft",
+      "Ends": "On attack/spell"
+    }
+  },
+  {
+    "id": "potion-heroism",
+    "name": "Potion of Heroism",
+    "type": "Potion",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Rescue",
+      "Military",
+      "Escort"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "A golden liquid that fills you with courage and vitality.",
+    "description": "For 1 hour, gain 10 temporary hit points and are under the effect of the bless spell (no concentration required).",
+    "stats": {
+      "Duration": "1 hour",
+      "Temp HP": "10",
+      "Effect": "Bless (no concentration)"
+    }
+  },
+  {
+    "id": "rope-entanglement",
+    "name": "Rope of Entanglement",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 2000,
+    "icon": "https://api.iconify.design/game-icons/rope-coil.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Rescue",
+      "Bounty",
+      "Manhunt"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "This rope writhes like a living snake, eager to bind.",
+    "description": "As an action, command it to entangle a creature within 20 feet. Target must succeed DC 15 Dex save or be restrained. Escape DC 15 Str/Acrobatics.",
+    "stats": {
+      "Range": "20 ft",
+      "Save DC": "15 Dex",
+      "Escape DC": "15"
+    }
+  },
+  {
+    "id": "wanted-poster-magic",
+    "name": "Seeker's Wanted Poster",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 250,
+    "icon": "https://api.iconify.design/game-icons/scroll-unfurled.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger",
+      "Rogue"
+    ],
+    "questTags": [
+      "Bounty",
+      "Wanted",
+      "Manhunt",
+      "Outlaw"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "A magical poster that updates with the target's last known location.",
+    "description": "When you have a bounty target's name, the poster shows their face and a compass pointing toward them when within 1 mile. Updates every hour.",
+    "stats": {
+      "Range": "1 mile",
+      "Update": "Hourly"
+    }
+  },
+  {
+    "id": "bolas-tangling",
+    "name": "Tangling Bolas",
+    "type": "Weapon",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/bolas.svg?color=%23ffffff",
+    "properties": "Thrown (20/60)",
+    "attunement": "No",
+    "damage": "1d4 bludgeoning",
+    "suitableFor": [
+      "Fighter",
+      "Ranger",
+      "Rogue"
+    ],
+    "questTags": [
+      "Bounty",
+      "Wanted",
+      "Manhunt"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "flavour": "Weighted cords that magically tighten around their target.",
+    "description": "On hit, target must succeed DC 13 Str save or be restrained until freed (DC 13 Str check). Returns to your hand at start of your next turn.",
+    "stats": {
+      "Save DC": "13 Str",
+      "Escape DC": "13",
+      "Special": "Returns to hand"
+    }
   }
 ]
