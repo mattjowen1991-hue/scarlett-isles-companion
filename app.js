@@ -505,6 +505,7 @@ async function cancelReservation(itemId) {
 // WEEKLY INVENTORY GENERATION
 // ===================================
 
+// Normal mode: Weapons & Armor focused (no quest active)
 function generateWeeklyInventory(items, week, purchased) {
     const seed = week * 1000;
     
@@ -517,53 +518,94 @@ function generateWeeklyInventory(items, week, purchased) {
         return true;
     });
     
-    // Separate by rarity
-    const common = availableItems.filter(i => i.rarity.toLowerCase() === 'common');
-    const uncommon = availableItems.filter(i => i.rarity.toLowerCase() === 'uncommon');
-    const rare = availableItems.filter(i => i.rarity.toLowerCase() === 'rare');
-    const legendary = availableItems.filter(i => i.rarity.toLowerCase() === 'legendary');
+    // Separate by category first, then rarity
+    const weapons = availableItems.filter(i => i.category === 'weapons');
+    const armor = availableItems.filter(i => i.category === 'armor');
+    const gear = availableItems.filter(i => i.category === 'gear');
     
     const selected = [];
     
-    // 1. Select LEGENDARY items (1 per class) - unchanged
+    // 1. LEGENDARY - 1 weapon OR armor per class (prioritize weapons)
     CONFIG.classes.forEach((cls, idx) => {
-        const classLegendary = legendary.filter(i => i.suitableFor.includes(cls));
-        if (classLegendary.length > 0) {
-            const shuffled = shuffleWithSeed(classLegendary, seed + idx + 1000);
+        const classWeapons = weapons.filter(i => i.rarity === 'Legendary' && i.suitableFor.includes(cls));
+        const classArmor = armor.filter(i => i.rarity === 'Legendary' && i.suitableFor.includes(cls));
+        const combined = [...classWeapons, ...classArmor];
+        
+        if (combined.length > 0) {
+            const shuffled = shuffleWithSeed(combined, seed + idx + 1000);
             const toAdd = shuffled.find(i => !selected.includes(i));
             if (toAdd) selected.push(toAdd);
         }
     });
     
-    // 2. Select RARE items (5 total, at least 1 per class)
+    // 2. RARE - Prioritize weapons and armor (6 weapons/armor, 2 gear)
+    const rareWeapons = weapons.filter(i => i.rarity === 'Rare');
+    const rareArmor = armor.filter(i => i.rarity === 'Rare');
+    const rareGear = gear.filter(i => i.rarity === 'Rare');
+    
+    // Ensure 1 rare weapon per class
     const selectedRare = [];
     CONFIG.classes.forEach((cls, idx) => {
-        const classRare = rare.filter(i => i.suitableFor.includes(cls) && !selectedRare.includes(i));
-        if (classRare.length > 0) {
-            const shuffled = shuffleWithSeed(classRare, seed + idx + 2000);
+        const classRareWeapons = rareWeapons.filter(i => i.suitableFor.includes(cls) && !selectedRare.includes(i));
+        if (classRareWeapons.length > 0) {
+            const shuffled = shuffleWithSeed(classRareWeapons, seed + idx + 2000);
             selectedRare.push(shuffled[0]);
         }
     });
     
-    // Fill remaining rare slots
-    const remainingRare = rare.filter(i => !selectedRare.includes(i));
-    const shuffledRemainingRare = shuffleWithSeed(remainingRare, seed + 2500);
-    const rareNeeded = CONFIG.rareCount - selectedRare.length;
-    selectedRare.push(...shuffledRemainingRare.slice(0, rareNeeded));
-    selected.push(...selectedRare);
+    // Add rare armor (2-3 pieces)
+    const shuffledRareArmor = shuffleWithSeed(rareArmor, seed + 2100);
+    selectedRare.push(...shuffledRareArmor.slice(0, 3));
     
-    // 3. Select UNCOMMON items (8 total)
-    const shuffledUncommon = shuffleWithSeed(uncommon, seed + 3000);
-    selected.push(...shuffledUncommon.slice(0, CONFIG.uncommonCount));
+    // Add 1-2 rare gear (essentials like potions, boots of speed)
+    const shuffledRareGear = shuffleWithSeed(rareGear, seed + 2200);
+    selectedRare.push(...shuffledRareGear.slice(0, 2));
     
-    // 4. Select COMMON items (10 total)
-    const shuffledCommon = shuffleWithSeed(common, seed + 4000);
-    selected.push(...shuffledCommon.slice(0, CONFIG.commonCount));
+    selected.push(...selectedRare.slice(0, CONFIG.rareCount));
+    
+    // 3. UNCOMMON - Heavy on weapons/armor (6 weapons/armor, 4 gear)
+    const uncommonWeapons = weapons.filter(i => i.rarity === 'Uncommon');
+    const uncommonArmor = armor.filter(i => i.rarity === 'Uncommon');
+    const uncommonGear = gear.filter(i => i.rarity === 'Uncommon');
+    
+    const shuffledUncommonWeapons = shuffleWithSeed(uncommonWeapons, seed + 3000);
+    const shuffledUncommonArmor = shuffleWithSeed(uncommonArmor, seed + 3100);
+    const shuffledUncommonGear = shuffleWithSeed(uncommonGear, seed + 3200);
+    
+    const selectedUncommon = [
+        ...shuffledUncommonWeapons.slice(0, 4),
+        ...shuffledUncommonArmor.slice(0, 3),
+        ...shuffledUncommonGear.slice(0, 3)
+    ];
+    selected.push(...selectedUncommon.slice(0, CONFIG.uncommonCount));
+    
+    // 4. COMMON - Balanced (weapons/armor + essentials)
+    const commonWeapons = weapons.filter(i => i.rarity === 'Common');
+    const commonArmor = armor.filter(i => i.rarity === 'Common');
+    const commonGear = gear.filter(i => i.rarity === 'Common');
+    
+    const shuffledCommonWeapons = shuffleWithSeed(commonWeapons, seed + 4000);
+    const shuffledCommonArmor = shuffleWithSeed(commonArmor, seed + 4100);
+    const shuffledCommonGear = shuffleWithSeed(commonGear, seed + 4200);
+    
+    const selectedCommon = [
+        ...shuffledCommonWeapons.slice(0, 2),
+        ...shuffledCommonArmor.slice(0, 2),
+        ...shuffledCommonGear.slice(0, 2)
+    ];
+    selected.push(...selectedCommon.slice(0, CONFIG.commonCount));
+    
+    console.log('Generated NORMAL inventory (weapons/armor focus):', {
+        totalItems: selected.length,
+        weapons: selected.filter(i => i.category === 'weapons').length,
+        armor: selected.filter(i => i.category === 'armor').length,
+        gear: selected.filter(i => i.category === 'gear').length
+    });
     
     return selected;
 }
 
-// Generate quest-aware inventory when there's an active quest
+// Generate quest-aware inventory when there's an active quest (quest mode)
 function generateQuestInventory(items, week, purchased, primaryQuest, locationId) {
     const seed = week * 1000;
     
@@ -689,12 +731,15 @@ function generateQuestInventory(items, week, purchased, primaryQuest, locationId
     ];
     selected.push(...selectedCommon.slice(0, CONFIG.commonCount));
     
-    console.log('Generated quest inventory:', {
+    console.log('Generated QUEST inventory (quest-gear focus):', {
         quest: primaryQuest.title,
         tags: Array.from(questTags),
         province: provinceTheme,
         totalItems: selected.length,
-        questRelevant: selected.filter(i => getItemRelevance(i) >= 5).length
+        questRelevant: selected.filter(i => getItemRelevance(i) >= 5).length,
+        weapons: selected.filter(i => i.category === 'weapons').length,
+        armor: selected.filter(i => i.category === 'armor').length,
+        gear: selected.filter(i => i.category === 'gear').length
     });
     
     return selected;
