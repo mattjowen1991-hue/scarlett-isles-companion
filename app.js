@@ -388,18 +388,30 @@ function setupFirebaseListeners() {
     
     onValue(activeQuestsRef, (snapshot) => {
         const data = snapshot.val();
-        if (data && data.quests) {
-            activeQuests = data.quests;
-            console.log('Active quests updated:', activeQuests.length, 'quests');
+        const previousQuest = activeQuests.length > 0 ? activeQuests[0] : null;
+        
+        if (data && data.primaryQuest) {
+            activeQuests = [data.primaryQuest];
+            console.log('Primary quest updated:', data.primaryQuest.title);
             updateActiveQuestDisplay();
             
-            // Re-render to show quest-relevant items
+            // Regenerate inventory with quest-aware selection
             if (allItems.length > 0) {
+                weeklyItems = generateQuestInventory(allItems, currentWeek, purchasedItems, data.primaryQuest, currentLocation);
                 renderItems();
             }
         } else {
-            activeQuests = [];
-            updateActiveQuestDisplay();
+            // No active quest - revert to normal weekly rotation
+            if (activeQuests.length > 0) {
+                console.log('Quest cleared, reverting to normal inventory');
+                activeQuests = [];
+                updateActiveQuestDisplay();
+                
+                if (allItems.length > 0) {
+                    weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
+                    renderItems();
+                }
+            }
         }
     }, (error) => {
         console.warn('Firebase active quests listener error:', error);
@@ -513,12 +525,11 @@ function generateWeeklyInventory(items, week, purchased) {
     
     const selected = [];
     
-    // 1. Select LEGENDARY items (1 per class)
+    // 1. Select LEGENDARY items (1 per class) - unchanged
     CONFIG.classes.forEach((cls, idx) => {
         const classLegendary = legendary.filter(i => i.suitableFor.includes(cls));
         if (classLegendary.length > 0) {
             const shuffled = shuffleWithSeed(classLegendary, seed + idx + 1000);
-            // Only add if not already selected
             const toAdd = shuffled.find(i => !selected.includes(i));
             if (toAdd) selected.push(toAdd);
         }
@@ -548,6 +559,143 @@ function generateWeeklyInventory(items, week, purchased) {
     // 4. Select COMMON items (10 total)
     const shuffledCommon = shuffleWithSeed(common, seed + 4000);
     selected.push(...shuffledCommon.slice(0, CONFIG.commonCount));
+    
+    return selected;
+}
+
+// Generate quest-aware inventory when there's an active quest
+function generateQuestInventory(items, week, purchased, primaryQuest, locationId) {
+    const seed = week * 1000;
+    
+    // Filter out purchased rare/legendary items
+    const availableItems = items.filter(item => {
+        const rarity = item.rarity.toLowerCase();
+        if (rarity === 'rare' || rarity === 'legendary') {
+            return !purchased[item.id];
+        }
+        return true;
+    });
+    
+    // Get quest tags and province info
+    const questTags = new Set(primaryQuest.tags || []);
+    questTags.add(primaryQuest.quest_type); // Include quest type
+    
+    // Map location to province theme
+    const locationProvinceMap = {
+        'neutral': 'General',
+        'blackstone': 'Northern',
+        'bacca': 'Midland', 
+        'farmer': 'Western',
+        'slade': 'General', // Eastern - general for now
+        'molten': 'Southern',
+        'karr': 'Coastal',
+        'rowthorn': 'Coastal'
+    };
+    const provinceTheme = locationProvinceMap[locationId] || 'General';
+    
+    // Score items by relevance
+    function getItemRelevance(item) {
+        let score = 0;
+        
+        // Quest tag matching (high priority)
+        const itemQuestTags = item.questTags || [];
+        itemQuestTags.forEach(tag => {
+            if (questTags.has(tag)) score += 10;
+        });
+        
+        // Province matching (medium priority)
+        const itemProvinceTags = item.provinceTags || ['General'];
+        if (itemProvinceTags.includes(provinceTheme)) score += 5;
+        if (itemProvinceTags.includes('General')) score += 1;
+        
+        return score;
+    }
+    
+    // Separate by rarity and score
+    const common = availableItems.filter(i => i.rarity.toLowerCase() === 'common');
+    const uncommon = availableItems.filter(i => i.rarity.toLowerCase() === 'uncommon');
+    const rare = availableItems.filter(i => i.rarity.toLowerCase() === 'rare');
+    const legendary = availableItems.filter(i => i.rarity.toLowerCase() === 'legendary');
+    
+    const selected = [];
+    
+    // 1. LEGENDARY - same as before (1 per class)
+    CONFIG.classes.forEach((cls, idx) => {
+        const classLegendary = legendary.filter(i => i.suitableFor.includes(cls));
+        if (classLegendary.length > 0) {
+            // Prefer quest-relevant legendaries
+            const sorted = classLegendary.sort((a, b) => getItemRelevance(b) - getItemRelevance(a));
+            const shuffled = shuffleWithSeed(sorted.slice(0, 3), seed + idx + 1000); // Pick from top 3
+            const toAdd = shuffled.find(i => !selected.includes(i)) || sorted[0];
+            if (toAdd && !selected.includes(toAdd)) selected.push(toAdd);
+        }
+    });
+    
+    // 2. RARE items - prioritize quest-relevant (at least 50% should be relevant)
+    const selectedRare = [];
+    const relevantRare = rare.filter(i => getItemRelevance(i) >= 5);
+    const nonRelevantRare = rare.filter(i => getItemRelevance(i) < 5);
+    
+    // Ensure 1 rare per class first
+    CONFIG.classes.forEach((cls, idx) => {
+        const classRare = rare.filter(i => i.suitableFor.includes(cls) && !selectedRare.includes(i));
+        if (classRare.length > 0) {
+            // Prefer relevant ones
+            const sorted = classRare.sort((a, b) => getItemRelevance(b) - getItemRelevance(a));
+            selectedRare.push(sorted[0]);
+        }
+    });
+    
+    // Fill remaining rare slots with quest-relevant items
+    const remainingRelevantRare = relevantRare.filter(i => !selectedRare.includes(i));
+    const shuffledRelevantRare = shuffleWithSeed(remainingRelevantRare, seed + 2500);
+    const rareNeeded = CONFIG.rareCount - selectedRare.length;
+    selectedRare.push(...shuffledRelevantRare.slice(0, rareNeeded));
+    
+    // If still need more, add non-relevant
+    if (selectedRare.length < CONFIG.rareCount) {
+        const stillNeeded = CONFIG.rareCount - selectedRare.length;
+        const remainingNonRelevant = nonRelevantRare.filter(i => !selectedRare.includes(i));
+        const shuffled = shuffleWithSeed(remainingNonRelevant, seed + 2600);
+        selectedRare.push(...shuffled.slice(0, stillNeeded));
+    }
+    selected.push(...selectedRare);
+    
+    // 3. UNCOMMON - at least 50% quest-relevant
+    const relevantUncommon = uncommon.filter(i => getItemRelevance(i) >= 5);
+    const nonRelevantUncommon = uncommon.filter(i => getItemRelevance(i) < 5);
+    
+    const relevantUncommonCount = Math.ceil(CONFIG.uncommonCount * 0.5);
+    const shuffledRelevantUncommon = shuffleWithSeed(relevantUncommon, seed + 3000);
+    const shuffledNonRelevantUncommon = shuffleWithSeed(nonRelevantUncommon, seed + 3100);
+    
+    const selectedUncommon = [
+        ...shuffledRelevantUncommon.slice(0, relevantUncommonCount),
+        ...shuffledNonRelevantUncommon.slice(0, CONFIG.uncommonCount - relevantUncommonCount)
+    ];
+    selected.push(...selectedUncommon.slice(0, CONFIG.uncommonCount));
+    
+    // 4. COMMON - at least 50% quest-relevant
+    const relevantCommon = common.filter(i => getItemRelevance(i) >= 5);
+    const nonRelevantCommon = common.filter(i => getItemRelevance(i) < 5);
+    
+    const relevantCommonCount = Math.ceil(CONFIG.commonCount * 0.5);
+    const shuffledRelevantCommon = shuffleWithSeed(relevantCommon, seed + 4000);
+    const shuffledNonRelevantCommon = shuffleWithSeed(nonRelevantCommon, seed + 4100);
+    
+    const selectedCommon = [
+        ...shuffledRelevantCommon.slice(0, relevantCommonCount),
+        ...shuffledNonRelevantCommon.slice(0, CONFIG.commonCount - relevantCommonCount)
+    ];
+    selected.push(...selectedCommon.slice(0, CONFIG.commonCount));
+    
+    console.log('Generated quest inventory:', {
+        quest: primaryQuest.title,
+        tags: Array.from(questTags),
+        province: provinceTheme,
+        totalItems: selected.length,
+        questRelevant: selected.filter(i => getItemRelevance(i) >= 5).length
+    });
     
     return selected;
 }
@@ -603,18 +751,42 @@ async function init() {
                 // Clean up any orphaned favourites
                 cleanupOrphanedFavorites(purchasedItems);
                 
+                // Load active quest for inventory generation
+                const activeQuestSnapshot = await get(ref(db, 'activeQuests'));
+                let primaryQuest = null;
+                if (activeQuestSnapshot.exists()) {
+                    const questData = activeQuestSnapshot.val();
+                    if (questData && questData.primaryQuest) {
+                        primaryQuest = questData.primaryQuest;
+                        activeQuests = [primaryQuest];
+                        console.log('Loaded primary quest from Firebase:', primaryQuest.title);
+                    }
+                }
+                
                 // Setup real-time listeners
                 setupFirebaseListeners();
+                
+                // Generate inventory based on whether there's an active quest
+                if (primaryQuest) {
+                    weeklyItems = generateQuestInventory(allItems, currentWeek, purchasedItems, primaryQuest, currentLocation);
+                } else {
+                    weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
+                }
             } catch (fbError) {
                 console.warn('Firebase read failed, using empty purchased list:', fbError);
                 purchasedItems = {};
                 reservedItems = {};
+                weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
             }
+        } else {
+            // No Firebase - use normal inventory
+            weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
         }
         
-        // Generate this week's selection
-        weeklyItems = generateWeeklyInventory(allItems, currentWeek, purchasedItems);
         console.log('Generated', weeklyItems.length, 'items for week', currentWeek);
+        
+        // Update quest display
+        updateActiveQuestDisplay();
         
         renderItems();
         setupEventListeners();
