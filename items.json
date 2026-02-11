@@ -2125,5 +2125,910 @@
       "Effect": "Advantage vs poison",
       "Quantity": "3"
     }
+  },
+  {
+    "id": "hat-disguise",
+    "name": "Hat of Disguise",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 500,
+    "icon": "https://api.iconify.design/game-icons/top-hat.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue"
+    ],
+    "questTags": [
+      "Intrigue",
+      "Stealth",
+      "Investigation",
+      "City"
+    ],
+    "provinceTags": [
+      "Midland"
+    ],
+    "questHint": "For navigating webs of lies and secrets.",
+    "flavour": "A fashionable hat that shifts to suit any disguise.",
+    "description": "Cast disguise self at will while wearing.",
+    "stats": {
+      "Spell": "Disguise Self (at will)"
+    }
+  },
+  {
+    "id": "thieves-tools-mw",
+    "name": "Masterwork Thieves' Tools",
+    "type": "Tools",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/lockpicks.svg?color=%23ffffff",
+    "properties": "Tools",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue"
+    ],
+    "questTags": [
+      "Theft",
+      "Retrieval",
+      "Stealth",
+      "Intrigue"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "For acquiring items by... creative means.",
+    "flavour": "Picks, files, and probes of the finest quality.",
+    "description": "+2 bonus to lockpicking and trap disarming.",
+    "stats": {
+      "Bonus": "+2 to locks/traps"
+    }
+  },
+  {
+    "id": "medallion-thoughts",
+    "name": "Medallion of Thoughts",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 600,
+    "icon": "https://api.iconify.design/game-icons/meditation.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Intrigue",
+      "Investigation",
+      "Diplomacy"
+    ],
+    "provinceTags": [
+      "Midland"
+    ],
+    "questHint": "For navigating webs of lies and secrets.",
+    "flavour": "A silver medallion inscribed with a stylized eye.",
+    "description": "3 charges. Cast detect thoughts (DC 13). Regains 1d3 at dawn.",
+    "stats": {
+      "Charges": "3",
+      "Spell": "Detect Thoughts (DC 13)"
+    }
+  },
+  {
+    "id": "ring-mind-shield",
+    "name": "Ring of Mind Shielding",
+    "type": "Ring",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 700,
+    "icon": "https://api.iconify.design/game-icons/ring.svg?color=%23ffffff",
+    "properties": "Ring",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger",
+      "Fighter"
+    ],
+    "questTags": [
+      "Intrigue",
+      "Diplomacy"
+    ],
+    "provinceTags": [
+      "Midland"
+    ],
+    "questHint": "For navigating webs of lies and secrets.",
+    "flavour": "A plain silver band that warms when mental intrusion is attempted.",
+    "description": "Immune to magic that reads thoughts, detects lies, or knows alignment.",
+    "stats": {
+      "Protection": "Immune to mind reading"
+    }
+  },
+  {
+    "id": "dust-disappearance",
+    "name": "Dust of Disappearance",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/powder.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Stealth",
+      "Quiet",
+      "Intrigue",
+      "City"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Essential for skulduggery and clandestine affairs.",
+    "flavour": "Fine grey powder that bends light.",
+    "description": "Throw in air to coat creatures within 10ft. Invisible for 2d4 minutes.",
+    "stats": {
+      "Duration": "2d4 minutes",
+      "Radius": "10 ft"
+    }
+  },
+  {
+    "id": "slippers-spider",
+    "name": "Slippers of Spider Climbing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 600,
+    "icon": "https://api.iconify.design/game-icons/footprint.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "City",
+      "Stealth",
+      "Quiet",
+      "Intrigue"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "For delicate work in civilised places.",
+    "flavour": "Soft-soled slippers that grip any surface.",
+    "description": "Climb difficult surfaces including ceilings without ability checks.",
+    "stats": {
+      "Climb": "Any surface"
+    }
+  },
+  {
+    "id": "smoke-pellets",
+    "name": "Smoke Pellets (5)",
+    "type": "Adventuring Gear",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 30,
+    "icon": "https://api.iconify.design/game-icons/smoke-bomb.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Stealth",
+      "Intrigue"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "A shadow-walker's essential.",
+    "flavour": "Small pellets that burst into smoke.",
+    "description": "Throw as action. 10ft radius heavily obscured for 1 minute.",
+    "stats": {
+      "Radius": "10 ft",
+      "Duration": "1 minute",
+      "Quantity": "5"
+    }
+  },
+  {
+    "id": "bounty-brand",
+    "name": "Bounty Hunter's Brand",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "https://api.iconify.design/game-icons/branding-iron.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Bounty",
+      "Manhunt",
+      "Wanted",
+      "Outlaw"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Favoured by those who hunt men for coin.",
+    "flavour": "An iron brand that marks your quarry.",
+    "description": "Action to mark creature for 24 hours. Know direction and distance. 1/long rest.",
+    "stats": {
+      "Duration": "24 hours",
+      "Uses": "1/long rest"
+    }
+  },
+  {
+    "id": "net-snaring",
+    "name": "Net of Snaring",
+    "type": "Weapon (Net)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/fishing-net.svg?color=%23ffffff",
+    "properties": "Thrown (5/15)",
+    "attunement": "No",
+    "damage": "None",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Bounty",
+      "Manhunt",
+      "Wanted"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells.",
+    "flavour": "Enchanted fibers that tighten when struggling.",
+    "description": "+2 to attack. Restrained creature has disadvantage on escape (DC 15).",
+    "stats": {
+      "Attack": "+2",
+      "Escape DC": "15"
+    }
+  },
+  {
+    "id": "mithral-manacles",
+    "name": "Mithral Manacles",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 250,
+    "icon": "https://api.iconify.design/game-icons/handcuffs.svg?color=%23ffffff",
+    "properties": "Adventuring gear",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Bounty",
+      "Manhunt",
+      "Wanted",
+      "Outlaw"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "For the grim business of bringing outlaws to justice.",
+    "flavour": "Lightweight but incredibly strong manacles.",
+    "description": "DC 25 to break, DC 20 to escape. Weighs only 1 lb.",
+    "stats": {
+      "Break DC": "25",
+      "Escape DC": "20"
+    }
+  },
+  {
+    "id": "tangling-bolas",
+    "name": "Tangling Bolas",
+    "type": "Weapon",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/bolas.svg?color=%23ffffff",
+    "properties": "Thrown (20/60)",
+    "attunement": "No",
+    "damage": "1d4 bludgeoning",
+    "suitableFor": [
+      "Fighter",
+      "Ranger",
+      "Rogue"
+    ],
+    "questTags": [
+      "Bounty",
+      "Wanted",
+      "Manhunt"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Suitable for hunting miscreants and ne'er-do-wells.",
+    "flavour": "Weighted cords that magically tighten.",
+    "description": "On hit, DC 13 Str save or restrained. Returns to hand next turn.",
+    "stats": {
+      "Save DC": "13",
+      "Special": "Returns to hand"
+    }
+  },
+  {
+    "id": "wanted-poster",
+    "name": "Seeker's Wanted Poster",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/scroll-unfurled.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger",
+      "Rogue"
+    ],
+    "questTags": [
+      "Bounty",
+      "Wanted",
+      "Manhunt",
+      "Outlaw"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Favoured by those who hunt men for coin.",
+    "flavour": "A magical poster that updates with the target's location.",
+    "description": "Shows target's face and compass pointing toward them within 1 mile.",
+    "stats": {
+      "Range": "1 mile",
+      "Update": "Hourly"
+    }
+  },
+  {
+    "id": "rope-entanglement",
+    "name": "Rope of Entanglement",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 2500,
+    "icon": "https://api.iconify.design/game-icons/rope-coil.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Rescue",
+      "Bounty",
+      "Manhunt"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "When lives hang in the balance.",
+    "flavour": "This rope writhes like a living snake.",
+    "description": "Command to entangle creature within 20ft. DC 15 Dex or restrained.",
+    "stats": {
+      "Range": "20 ft",
+      "Save DC": "15 Dex"
+    }
+  },
+  {
+    "id": "investigators-lens",
+    "name": "Investigator's Lens",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 300,
+    "icon": "https://api.iconify.design/game-icons/magnifying-glass.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Investigation",
+      "Intrigue"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Indispensable for uncovering the truth.",
+    "flavour": "Magnifying glass that reveals hidden details.",
+    "description": "Advantage on Investigation to find hidden details or forgeries. Reads invisible ink.",
+    "stats": {
+      "Investigation": "Advantage",
+      "Special": "Reveals invisible ink"
+    }
+  },
+  {
+    "id": "whistle-warning",
+    "name": "Whistle of Warning",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 40,
+    "icon": "https://api.iconify.design/game-icons/whistle.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Escort",
+      "Military",
+      "Investigation"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards.",
+    "flavour": "Silver whistle with selective sound.",
+    "description": "Sound only heard by up to 6 designated creatures within 1 mile.",
+    "stats": {
+      "Range": "1 mile",
+      "Targets": "6 creatures"
+    }
+  },
+  {
+    "id": "diplomats-pouch",
+    "name": "Diplomat's Pouch",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/scroll-unfurled.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Diplomacy",
+      "Clan",
+      "Temple"
+    ],
+    "provinceTags": [
+      "Midland"
+    ],
+    "questHint": "For those who wield words as weapons.",
+    "flavour": "Leather case that protects contents from all harm.",
+    "description": "Documents inside protected from water, fire, damage. Hidden compartment (DC 20).",
+    "stats": {
+      "Protection": "Fire/water/damage proof",
+      "Hidden": "DC 20"
+    }
+  },
+  {
+    "id": "banner-parley",
+    "name": "Banner of Parley",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 350,
+    "icon": "https://api.iconify.design/game-icons/flag.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Clan",
+      "Diplomacy"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Bears weight in clan dealings.",
+    "flavour": "A white banner recognized across all clan territories.",
+    "description": "Clan warriors won't attack first. Advantage on Persuasion in clan negotiations.",
+    "stats": {
+      "Effect": "Prevents first-strike",
+      "Persuasion": "Advantage"
+    }
+  },
+  {
+    "id": "seal-witness",
+    "name": "Seal of the Witness",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 450,
+    "icon": "https://api.iconify.design/game-icons/wax-seal.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Clan",
+      "Diplomacy",
+      "Law"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Upholds the letter of the law.",
+    "flavour": "An official seal marking the bearer as a neutral witness.",
+    "description": "Sealed documents become binding - breakers glow for 24 hours. +2 Insight in negotiations.",
+    "stats": {
+      "Insight": "+2",
+      "Effect": "Binding seal"
+    }
+  },
+  {
+    "id": "torc-standing",
+    "name": "Torc of Standing",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 1500,
+    "icon": "https://api.iconify.design/game-icons/torc.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Clan",
+      "Diplomacy"
+    ],
+    "provinceTags": [
+      "Northern"
+    ],
+    "questHint": "Honoured in negotiations between the great clans.",
+    "flavour": "A twisted metal torc worn by those with honour among the clans.",
+    "description": "Treated as having +1 higher honour with all clans. Can't wear at -3 or lower.",
+    "stats": {
+      "Honour": "+1 effective"
+    }
+  },
+  {
+    "id": "incense-truth",
+    "name": "Incense of Truth",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 200,
+    "icon": "https://api.iconify.design/game-icons/incense.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Temple",
+      "Investigation",
+      "Law"
+    ],
+    "provinceTags": [
+      "General"
+    ],
+    "questHint": "Sanctified by temple priests.",
+    "flavour": "Temple-blessed incense that encourages honesty.",
+    "description": "When burned, creatures within 10ft have disadvantage on Deception for 10 min.",
+    "stats": {
+      "Radius": "10 ft",
+      "Duration": "10 minutes"
+    }
+  },
+  {
+    "id": "cloak-manta",
+    "name": "Cloak of the Manta Ray",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 550,
+    "icon": "https://api.iconify.design/game-icons/manta-ray.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Sea",
+      "Coast"
+    ],
+    "provinceTags": [
+      "Coastal"
+    ],
+    "questHint": "Blessed for journeys upon the waves.",
+    "flavour": "The dark fabric flows like water and sprouts fins when submerged.",
+    "description": "Breathe underwater and swim speed of 60 feet while hood up in water.",
+    "stats": {
+      "Swim Speed": "60 ft",
+      "Special": "Breathe underwater"
+    }
+  },
+  {
+    "id": "trident-waves",
+    "name": "Trident of the Waves",
+    "type": "Weapon (Trident)",
+    "category": "weapons",
+    "rarity": "Rare",
+    "price": 4000,
+    "icon": "https://api.iconify.design/game-icons/trident.svg?color=%23ffffff",
+    "properties": "Thrown (20/60), versatile (1d10)",
+    "attunement": "Yes",
+    "damage": "1d8+2 piercing",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Sea",
+      "Coast",
+      "Pirates"
+    ],
+    "provinceTags": [
+      "Coastal"
+    ],
+    "questHint": "Essential for nautical ventures and pirate hunting.",
+    "flavour": "Barnacles cling to the shaft, tines gleam with oceanic sheen.",
+    "description": "+2 to attack and damage. Breathe underwater while holding. No thrown penalty underwater.",
+    "stats": {
+      "Damage": "1d8+2",
+      "Bonus": "+2",
+      "Special": "Breathe underwater"
+    }
+  },
+  {
+    "id": "harpoon-returning",
+    "name": "Returning Harpoon",
+    "type": "Weapon (Javelin)",
+    "category": "weapons",
+    "rarity": "Uncommon",
+    "price": 900,
+    "icon": "https://api.iconify.design/game-icons/harpoon-trident.svg?color=%23ffffff",
+    "properties": "Thrown (30/120)",
+    "attunement": "Yes",
+    "damage": "1d6+1 piercing",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Sea",
+      "Coast",
+      "Pirates"
+    ],
+    "provinceTags": [
+      "Coastal"
+    ],
+    "questHint": "For dealing with sea-borne scoundrels.",
+    "flavour": "A rope of solidified seawater connects the harpoon to your grip.",
+    "description": "+1 to attack and damage. Returns after thrown. Can grapple Large or smaller on hit (DC 14).",
+    "stats": {
+      "Damage": "1d6+1",
+      "Bonus": "+1",
+      "Grapple DC": "14"
+    }
+  },
+  {
+    "id": "potion-water-breathing",
+    "name": "Potion of Water Breathing",
+    "type": "Potion",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 200,
+    "icon": "https://api.iconify.design/game-icons/potion-ball.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Sea",
+      "Coast"
+    ],
+    "provinceTags": [
+      "Coastal"
+    ],
+    "questHint": "Blessed for journeys upon the waves.",
+    "flavour": "Cloudy green fluid that smells of the sea.",
+    "description": "Breathe underwater for 1 hour.",
+    "stats": {
+      "Duration": "1 hour"
+    }
+  },
+  {
+    "id": "sailors-charm",
+    "name": "Sailor's Charm",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 50,
+    "icon": "https://api.iconify.design/game-icons/anchor.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Sea",
+      "Coast",
+      "Pirates"
+    ],
+    "provinceTags": [
+      "Coastal"
+    ],
+    "questHint": "Blessed for journeys upon the waves.",
+    "flavour": "Anchor pendant carved from driftwood.",
+    "description": "Hold breath 2x longer. Advantage on swimming checks.",
+    "stats": {
+      "Breath": "2x duration",
+      "Swimming": "Advantage"
+    }
+  },
+  {
+    "id": "gauntlets-forgefire",
+    "name": "Gauntlets of Forgefire",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Rare",
+    "price": 2500,
+    "icon": "https://api.iconify.design/game-icons/gauntlet.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "Yes",
+    "suitableFor": [
+      "Fighter"
+    ],
+    "questTags": [
+      "Monster"
+    ],
+    "provinceTags": [
+      "Southern"
+    ],
+    "questHint": "Proven effective against creatures most foul.",
+    "flavour": "Veins of molten metal run through these gauntlets.",
+    "description": "Resistance to fire. Unarmed strikes deal +1d6 fire. Can heat metal by touch.",
+    "stats": {
+      "Resistance": "Fire",
+      "Unarmed": "+1d6 fire"
+    }
+  },
+  {
+    "id": "cloak-northern-furs",
+    "name": "Cloak of Northern Furs",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Common",
+    "price": 100,
+    "icon": "https://api.iconify.design/game-icons/fur-shirt.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Exploration"
+    ],
+    "provinceTags": [
+      "Northern"
+    ],
+    "questHint": "Essential for venturing into the unknown.",
+    "flavour": "Thick furs from the northern beasts.",
+    "description": "Auto-succeed saves vs extreme cold. Advantage on Survival in cold climates.",
+    "stats": {
+      "Cold": "Immune to extreme cold",
+      "Survival": "Advantage"
+    }
+  },
+  {
+    "id": "blackstone-warpaint",
+    "name": "Blackstone War Paint",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 175,
+    "icon": "https://api.iconify.design/game-icons/war-paint.svg?color=%23ffffff",
+    "properties": "Consumable",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Military",
+      "Bounty"
+    ],
+    "provinceTags": [
+      "Northern"
+    ],
+    "questHint": "Battle-tested and soldier-approved.",
+    "flavour": "Dark paint made from crusite minerals.",
+    "description": "Apply as action. For 1 hour: +1 Intimidation, enemies have disadvantage on opportunity attacks vs you.",
+    "stats": {
+      "Duration": "1 hour",
+      "Intimidation": "+1"
+    }
+  },
+  {
+    "id": "horn-rally",
+    "name": "Horn of Rally",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 400,
+    "icon": "https://api.iconify.design/game-icons/hunting-horn.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Ranger"
+    ],
+    "questTags": [
+      "Escort",
+      "Military"
+    ],
+    "provinceTags": [
+      "Western",
+      "Northern"
+    ],
+    "questHint": "Standard issue for soldiers and caravan guards.",
+    "flavour": "A brass horn used by caravan guards.",
+    "description": "When blown, allies within 300ft know your location and can't be frightened for 1 min. 1/day.",
+    "stats": {
+      "Range": "300 ft",
+      "Duration": "1 minute"
+    }
+  },
+  {
+    "id": "boots-longstrider",
+    "name": "Boots of the Longstrider",
+    "type": "Wondrous Item",
+    "category": "gear",
+    "rarity": "Uncommon",
+    "price": 550,
+    "icon": "https://api.iconify.design/game-icons/leather-boot.svg?color=%23ffffff",
+    "properties": "Wondrous item",
+    "attunement": "No",
+    "suitableFor": [
+      "Fighter",
+      "Rogue",
+      "Ranger"
+    ],
+    "questTags": [
+      "Escort",
+      "Exploration"
+    ],
+    "provinceTags": [
+      "Western"
+    ],
+    "questHint": "A guardian's gear for long journeys.",
+    "flavour": "Well-worn boots that never tire the wearer.",
+    "description": "Walking speed +10ft. Ignore difficult terrain from undergrowth or rough roads.",
+    "stats": {
+      "Speed": "+10 ft",
+      "Special": "Ignore road terrain"
+    }
   }
 ]
