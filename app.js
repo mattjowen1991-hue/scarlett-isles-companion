@@ -39,12 +39,12 @@ try {
 
 const CONFIG = {
     campaignStart: new Date('2026-02-03'),
-    // Shop rotation rules
-    commonCount: 10,
-    uncommonCount: 8,
-    rareCount: 5,        // At least 1 per class
-    legendaryPerClass: 1, // 1 per class (Fighter, Rogue, Ranger, Paladin)
-    classes: ['Fighter', 'Rogue', 'Ranger', 'Paladin'],
+    // Shop rotation rules - balanced for weapons/armor/gear
+    commonCount: 6,      // 4 weapons/armor + 2 gear
+    uncommonCount: 10,   // 5 weapons + 4 armor + 1 gear
+    rareCount: 8,        // 4 weapons + 3 armor + 1 gear
+    legendaryPerClass: 1, // 1 weapon OR armor per class
+    classes: ['Fighter', 'Rogue', 'Ranger'],  // Your party composition
     // Reservation settings
     reservationDuration: 14 * 24 * 60 * 60 * 1000 // 2 weeks in milliseconds
 };
